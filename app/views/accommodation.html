@@ -1,0 +1,64 @@
+{% extends "layout.html" %}
+
+{% block pageTitle %}
+  Can you offer accommodation?
+{% endblock %}
+
+{% block beforeContent %}
+{% include "./partials/_phase-banner.html" %}
+{{ govukBackLink({
+  text: "Back",
+  href: actions.back
+}) if actions.back | length }}
+{% endblock %}
+
+{% block content %}
+
+{% include "./partials/_error-summary.html" %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    <form action="{{ actions.save }}" method="post" accept-charset="utf-8" novalidate>
+
+      {{ govukRadios({
+        idPrefix: "accommodation",
+        name: "answers[accommodation]",
+        fieldset: {
+          legend: {
+            text: "Can you offer accommodation?",
+            isPageHeading: true,
+            classes: "govuk-fieldset__legend--xl"
+          }
+        },
+        hint: {
+          text: ""
+        },
+        errorMessage: errors | getErrorMessage('accommodation'),
+        items: [
+          {
+            value: "yes_people",
+            text: "Yes – for people to stay in"
+          },
+          {
+            value: "yes_any_use",
+            text: "Yes – for any use"
+          },
+          {
+            value: "no",
+            text: "No"
+          }
+        ]
+      }) }}
+
+      {{ govukButton({
+        text: "Continue",
+        classes: "govuk-!-margin-top-5"
+      }) }}
+
+    </form>
+
+  </div>
+</div>
+
+{% endblock %}

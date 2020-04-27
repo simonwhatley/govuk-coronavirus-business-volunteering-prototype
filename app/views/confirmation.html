@@ -1,0 +1,36 @@
+{% extends "layout.html" %}
+
+{% block pageTitle %}
+  Thank you
+{% endblock %}
+
+{% block beforeContent %}
+{% include "./partials/_phase-banner.html" %}
+{{ govukBackLink({
+  text: "Back",
+  href: actions.back
+}) if actions.back | length }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <h1 class="govuk-heading-xl">
+      Thank you
+    </h1>
+
+    <form action="{{ actions.save }}" method="post" accept-charset="utf-8" novalidate>
+
+
+      {{ govukButton({
+        text: "Continue",
+        classes: "govuk-!-margin-top-5"
+      }) }}
+
+    </form>
+
+  </div>
+</div>
+
+{% endblock %}

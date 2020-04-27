@@ -1,0 +1,140 @@
+{% extends "layout.html" %}
+
+{% block pageTitle %}
+  Your business details
+{% endblock %}
+
+{% block beforeContent %}
+{% include "./partials/_phase-banner.html" %}
+{{ govukBackLink({
+  text: "Back",
+  href: actions.back
+}) if actions.back | length }}
+{% endblock %}
+
+{% block content %}
+
+{% include "./partials/_error-summary.html" %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <h1 class="govuk-heading-xl">
+      Your business details
+    </h1>
+
+    <form action="{{ actions.save }}" method="post" accept-charset="utf-8" novalidate>
+
+      {{ govukInput({
+        id: "company-name",
+        name: "answers[company-name]",
+        label: {
+          text: "Company name"
+        },
+        hint: {
+          text: ""
+        },
+        errorMessage: errors | getErrorMessage('company-name'),
+        value: data['answers']['company-name']
+      }) }}
+
+      {{ govukInput({
+        id: "company-number",
+        name: "answers[company-number]",
+        label: {
+          text: "Company number (optional)"
+        },
+        hint: {
+          text: ""
+        },
+        errorMessage: errors | getErrorMessage('company-number'),
+        value: data['answers']['company-number']
+      }) }}
+
+      {{ govukRadios({
+        idPrefix: "company-size",
+        name: "answers[company-size]",
+        fieldset: {
+          legend: {
+            text: "Company size"
+          }
+        },
+        hint: {
+          text: ""
+        },
+        errorMessage: errors | getErrorMessage('company-size'),
+        items: [
+          {
+            value: "under_50",
+            text: "Under 50 people",
+            checked: true if data['answers']['company-size'] == "under_50"
+          },
+          {
+            value: "50_to_250",
+            text: "50 to 250 people",
+            checked: true if data['answers']['company-size'] == "50_to_250"
+          },
+          {
+            value: "over_250",
+            text: "More than 250 people",
+            checked: true if data['answers']['company-size'] == "over_250"
+          }
+        ]
+      }) }}
+
+      {{ govukRadios({
+        idPrefix: "company-location",
+        name: "answers[company-location]",
+        fieldset: {
+          legend: {
+            text: "Company location"
+          }
+        },
+        hint: {
+          text: ""
+        },
+        errorMessage: errors | getErrorMessage('company-location'),
+        items: [
+          {
+            value: "uk",
+            text: "United Kingdon",
+            conditional: {
+              html: govukInput({
+                      id: "company-postcode",
+                      name: "answers[company-postcode]",
+                      label: {
+                        text: "Postcode"
+                      },
+                      hint: {
+                        text: ""
+                      },
+                      errorMessage: errors | getErrorMessage('company-postcode'),
+                      value: data['answers']['company-postcode']
+                    })
+            },
+            checked: true if data['answers']['company-location'] == "uk"
+          },
+          {
+            value: "eu",
+            text: "European Union",
+            checked: true if data['answers']['company-location'] == "eu"
+          },
+          {
+            value: "row",
+            text: "Rest of World",
+            checked: true if data['answers']['company-location'] == "row"
+          }
+        ]
+      }) }}
+
+
+      {{ govukButton({
+        text: "Continue",
+        classes: "govuk-!-margin-top-5"
+      }) }}
+
+    </form>
+
+  </div>
+</div>
+
+{% endblock %}

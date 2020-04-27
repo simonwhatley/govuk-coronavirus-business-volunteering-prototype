@@ -1,0 +1,101 @@
+{% extends "layout.html" %}
+
+{% block pageTitle %}
+  What kind of expertise can you offer?
+{% endblock %}
+
+{% block beforeContent %}
+{% include "./partials/_phase-banner.html" %}
+{{ govukBackLink({
+  text: "Back",
+  href: actions.back
+}) if actions.back | length }}
+{% endblock %}
+
+{% block content %}
+
+{% include "./partials/_error-summary.html" %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    <form action="{{ actions.save }}" method="post" accept-charset="utf-8" novalidate>
+
+      {{ govukCheckboxes({
+        idPrefix: "expertise",
+        name: "answers[expertise]",
+        fieldset: {
+          legend: {
+            text: "What kind of expertise can you offer?",
+            isPageHeading: true,
+            classes: "govuk-fieldset__legend--xl"
+          }
+        },
+        hint: {
+          text: "Select all that apply"
+        },
+        errorMessage: errors | getErrorMessage('expertise'),
+        items: [
+          {
+            value: "medical",
+            text: "Medical",
+            checked: checked("answers['expertise']", "medical")
+          },
+          {
+            value: "engineering",
+            text: "Engineering",
+            checked: checked("answers['expertise']", "engineering")
+          },
+          {
+            value: "construction",
+            text: "Construction",
+            checked: checked("answers['expertise']", "construction")
+          },
+          {
+            value: "project_procurement",
+            text: "Project management or procurement",
+            checked: checked("answers['expertise']", "project_procurement")
+          },
+          {
+            value: "it_services",
+            text: "IT services",
+            checked: checked("answers['expertise']", "it_services")
+          },
+          {
+            value: "manufacturing",
+            text: "Manufacturing",
+            checked: checked("answers['expertise']", "manufacturing")
+          },
+          {
+            value: "other",
+            text: "Other",
+            conditional: {
+              html: govukTextarea({
+                id: "expertise-other",
+                name: "answers[expertise-other]",
+                label: {
+                  text: "Give a description"
+                },
+                hint: {
+                  text: ""
+                },
+                errorMessage: errors | getErrorMessage('expertise-other'),
+                value: data['answers']['expertise-other']
+              })
+            },
+            checked: checked("answers['expertise']", "other")
+          }
+        ]
+      }) }}
+
+      {{ govukButton({
+        text: "Continue",
+        classes: "govuk-!-margin-top-5"
+      }) }}
+
+    </form>
+
+  </div>
+</div>
+
+{% endblock %}
