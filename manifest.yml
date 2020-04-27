@@ -1,0 +1,6 @@
+applications:
+  - name: govuk-coronavirus-business-volunteering
+    buildpacks:
+      - nodejs_buildpack
+    env:
+      USERNAME: betademo
