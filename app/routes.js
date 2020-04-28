@@ -20,13 +20,18 @@ router.get('/', (req, res) => {
 // --------------------------------------------------
 router.get('/medical-equipment', (req, res) => {
 
+  let next = req.baseUrl + '/medical-equipment';
+  if (req.headers.referer.includes('check-your-answers')) {
+    next = next + '?referer=check-your-answers';
+  }
+
   if (req.session.data.answers === undefined) {
     req.session.data.answers = {};
   }
 
   res.render('medical-equipment', {
     actions: {
-      save: req.baseUrl + '/medical-equipment',
+      save: next,
       back: req.baseUrl + '/',
       start: req.baseUrl + '/'
     }
@@ -34,6 +39,11 @@ router.get('/medical-equipment', (req, res) => {
 });
 
 router.post('/medical-equipment', (req, res) => {
+
+  let next = req.baseUrl + '/medical-equipment';
+  if (req.query.referer == 'check-your-answers') {
+    next = next + '?referer=check-your-answers';
+  }
 
   let errors = [];
 
@@ -50,7 +60,7 @@ router.post('/medical-equipment', (req, res) => {
     res.render('medical-equipment', {
       errors: errors,
       actions: {
-        save: req.baseUrl + '/medical-equipment',
+        save: next,
         back: req.baseUrl + '/',
         start: req.baseUrl + '/'
       }
@@ -73,9 +83,14 @@ router.post('/medical-equipment', (req, res) => {
 // --------------------------------------------------
 router.get('/accommodation', (req, res) => {
 
+  let next = req.baseUrl + '/accommodation';
+  if (req.headers.referer.includes('check-your-answers')) {
+    next = next + '?referer=check-your-answers';
+  }
+
   res.render('accommodation', {
     actions: {
-      save: req.baseUrl + '/accommodation',
+      save: next,
       back: req.baseUrl + '/medical-equipment',
       start: req.baseUrl + '/'
     }
@@ -83,6 +98,11 @@ router.get('/accommodation', (req, res) => {
 });
 
 router.post('/accommodation', (req, res) => {
+
+  let next = req.baseUrl + '/accommodation';
+  if (req.query.referer == 'check-your-answers') {
+    next = next + '?referer=check-your-answers';
+  }
 
   let errors = [];
 
@@ -99,7 +119,7 @@ router.post('/accommodation', (req, res) => {
     res.render('accommodation', {
       errors: errors,
       actions: {
-        save: req.baseUrl + '/accommodation',
+        save: next,
         back: req.baseUrl + '/medical-equipment',
         start: req.baseUrl + '/'
       }
@@ -122,9 +142,14 @@ router.post('/accommodation', (req, res) => {
 // --------------------------------------------------
 router.get('/accommodation-quantity', (req, res) => {
 
+  let next = req.baseUrl + '/accommodation-quantity';
+  if (req.headers.referer.includes('check-your-answers')) {
+    next = next + '?referer=check-your-answers';
+  }
+
   res.render('accommodation-quantity', {
     actions: {
-      save: req.baseUrl + '/accommodation-quantity',
+      save: next,
       back: req.baseUrl + '/accommodation',
       start: req.baseUrl + '/'
     }
@@ -132,6 +157,11 @@ router.get('/accommodation-quantity', (req, res) => {
 });
 
 router.post('/accommodation-quantity', (req, res) => {
+
+  let next = req.baseUrl + '/accommodation-quantity';
+  if (req.query.referer == 'check-your-answers') {
+    next = next + '?referer=check-your-answers';
+  }
 
   let errors = [];
 
@@ -148,7 +178,7 @@ router.post('/accommodation-quantity', (req, res) => {
     res.render('accommodation-quantity', {
       errors: errors,
       actions: {
-        save: req.baseUrl + '/accommodation-quantity',
+        save: next,
         back: req.baseUrl + '/accommodation',
         start: req.baseUrl + '/'
       }
@@ -167,16 +197,36 @@ router.post('/accommodation-quantity', (req, res) => {
 // --------------------------------------------------
 router.get('/transport-logistics', (req, res) => {
 
+  let next = req.baseUrl + '/transport-logistics';
+  if (req.headers.referer.includes('check-your-answers')) {
+    next = next + '?referer=check-your-answers';
+  }
+
+  let previous = req.baseUrl + '/accommodation';
+  if (req.session.data.answers['accommodation'].includes('yes')) {
+    previous = req.baseUrl + '/accommodation-quantity';
+  }
+
   res.render('transport-logistics', {
     actions: {
-      save: req.baseUrl + '/transport-logistics',
-      back: req.baseUrl + '/accommodation',
+      save: next,
+      back: previous,
       start: req.baseUrl + '/'
     }
   });
 });
 
 router.post('/transport-logistics', (req, res) => {
+
+  let next = req.baseUrl + '/transport-logistics';
+  if (req.query.referer == 'check-your-answers') {
+    next = next + '?referer=check-your-answers';
+  }
+
+  let previous = req.baseUrl + '/accommodation';
+  if (req.session.data.answers['accommodation'].includes('yes')) {
+    previous = req.baseUrl + '/accommodation-type';
+  }
 
   let errors = [];
 
@@ -193,8 +243,8 @@ router.post('/transport-logistics', (req, res) => {
     res.render('transport-logistics', {
       errors: errors,
       actions: {
-        save: req.baseUrl + '/transport-logistics',
-        back: req.baseUrl + '/accommodation',
+        save: next,
+        back: previous,
         start: req.baseUrl + '/'
       }
     });
@@ -216,9 +266,14 @@ router.post('/transport-logistics', (req, res) => {
 // --------------------------------------------------
 router.get('/transport-logistics-type', (req, res) => {
 
+  let next = req.baseUrl + '/transport-logistics-type';
+  if (req.headers.referer.includes('check-your-answers')) {
+    next = next + '?referer=check-your-answers';
+  }
+
   res.render('transport-logistics-type', {
     actions: {
-      save: req.baseUrl + '/transport-logistics-type',
+      save: next,
       back: req.baseUrl + '/transport-logistics',
       start: req.baseUrl + '/'
     }
@@ -226,6 +281,11 @@ router.get('/transport-logistics-type', (req, res) => {
 });
 
 router.post('/transport-logistics-type', (req, res) => {
+
+  let next = req.baseUrl + '/transport-logistics-type';
+  if (req.query.referer == 'check-your-answers') {
+    next = next + '?referer=check-your-answers';
+  }
 
   let errors = [];
 
@@ -250,7 +310,7 @@ router.post('/transport-logistics-type', (req, res) => {
     res.render('transport-logistics-type', {
       errors: errors,
       actions: {
-        save: req.baseUrl + '/transport-logistics-type',
+        save: next,
         back: req.baseUrl + '/transport-logistics',
         start: req.baseUrl + '/'
       }
@@ -269,16 +329,36 @@ router.post('/transport-logistics-type', (req, res) => {
 // --------------------------------------------------
 router.get('/space', (req, res) => {
 
+  let next = req.baseUrl + '/space';
+  if (req.headers.referer.includes('check-your-answers')) {
+    next = next + '?referer=check-your-answers';
+  }
+
+  let previous = req.baseUrl + '/transport-logistics';
+  if (req.session.data.answers['transport-logistics'] == 'yes') {
+    previous = req.baseUrl + '/transport-logistics-type';
+  }
+
   res.render('space', {
     actions: {
-      save: req.baseUrl + '/space',
-      back: req.baseUrl + '/transport-logistics',
+      save: next,
+      back: previous,
       start: req.baseUrl + '/'
     }
   });
 });
 
 router.post('/space', (req, res) => {
+
+  let next = req.baseUrl + '/space';
+  if (req.query.referer == 'check-your-answers') {
+    next = next + '?referer=check-your-answers';
+  }
+
+  let previous = req.baseUrl + '/transport-logistics';
+  if (req.session.data.answers['transport-logistics'] == 'yes') {
+    previous = req.baseUrl + '/transport-logistics-type';
+  }
 
   let errors = [];
 
@@ -295,8 +375,8 @@ router.post('/space', (req, res) => {
     res.render('space', {
       errors: errors,
       actions: {
-        save: req.baseUrl + '/space',
-        back: req.baseUrl + '/transport-logistics',
+        save: next,
+        back: previous,
         start: req.baseUrl + '/'
       }
     });
@@ -318,9 +398,14 @@ router.post('/space', (req, res) => {
 // --------------------------------------------------
 router.get('/space-type', (req, res) => {
 
+  let next = req.baseUrl + '/space-type';
+  if (req.headers.referer.includes('check-your-answers')) {
+    next = next + '?referer=check-your-answers';
+  }
+
   res.render('space-type', {
     actions: {
-      save: req.baseUrl + '/space-type',
+      save: next,
       back: req.baseUrl + '/space',
       start: req.baseUrl + '/'
     }
@@ -328,6 +413,11 @@ router.get('/space-type', (req, res) => {
 });
 
 router.post('/space-type', (req, res) => {
+
+  let next = req.baseUrl + '/space-type';
+  if (req.query.referer == 'check-your-answers') {
+    next = next + '?referer=check-your-answers';
+  }
 
   let errors = [];
 
@@ -378,7 +468,7 @@ router.post('/space-type', (req, res) => {
     res.render('space-type', {
       errors: errors,
       actions: {
-        save: req.baseUrl + '/space-type',
+        save: next,
         back: req.baseUrl + '/space',
         start: req.baseUrl + '/'
       }
@@ -397,16 +487,36 @@ router.post('/space-type', (req, res) => {
 // --------------------------------------------------
 router.get('/care', (req, res) => {
 
+  let next = req.baseUrl + '/care';
+  if (req.headers.referer.includes('check-your-answers')) {
+    next = next + '?referer=check-your-answers';
+  }
+
+  let previous = req.baseUrl + '/space';
+  if (req.session.data.answers['space'] == 'yes') {
+    previous = req.baseUrl + '/space-type';
+  }
+
   res.render('care', {
     actions: {
-      save: req.baseUrl + '/care',
-      back: req.baseUrl + '/space',
+      save: next,
+      back: previous,
       start: req.baseUrl + '/'
     }
   });
 });
 
 router.post('/care', (req, res) => {
+
+  let next = req.baseUrl + '/care';
+  if (req.query.referer == 'check-your-answers') {
+    next = next + '?referer=check-your-answers';
+  }
+
+  let previous = req.baseUrl + '/space';
+  if (req.session.data.answers['space'] == 'yes') {
+    previous = req.baseUrl + '/space-type';
+  }
 
   let errors = [];
 
@@ -423,8 +533,8 @@ router.post('/care', (req, res) => {
     res.render('care', {
       errors: errors,
       actions: {
-        save: req.baseUrl + '/care',
-        back: req.baseUrl + '/space',
+        save: next,
+        back: previous,
         start: req.baseUrl + '/'
       }
     });
@@ -446,9 +556,14 @@ router.post('/care', (req, res) => {
 // --------------------------------------------------
 router.get('/care-type', (req, res) => {
 
+  let next = req.baseUrl + '/care-type';
+  if (req.headers.referer.includes('check-your-answers')) {
+    next = next + '?referer=check-your-answers';
+  }
+
   res.render('care-type', {
     actions: {
-      save: req.baseUrl + '/care-type',
+      save: next,
       back: req.baseUrl + '/care',
       start: req.baseUrl + '/'
     }
@@ -456,6 +571,11 @@ router.get('/care-type', (req, res) => {
 });
 
 router.post('/care-type', (req, res) => {
+
+  let next = req.baseUrl + '/care-type';
+  if (req.query.referer == 'check-your-answers') {
+    next = next + '?referer=check-your-answers';
+  }
 
   let errors = [];
 
@@ -507,16 +627,36 @@ router.post('/care-type', (req, res) => {
 // --------------------------------------------------
 router.get('/expertise', (req, res) => {
 
+  let next = req.baseUrl + '/expertise';
+  if (req.headers.referer.includes('check-your-answers')) {
+    next = next + '?referer=check-your-answers';
+  }
+
+  let previous = req.baseUrl + '/care';
+  if (req.session.data.answers['care'] == 'yes') {
+    previous = req.baseUrl + '/care-type';
+  }
+
   res.render('expertise', {
     actions: {
-      save: req.baseUrl + '/expertise',
-      back: req.baseUrl + '/care',
+      save: next,
+      back: previous,
       start: req.baseUrl + '/'
     }
   });
 });
 
 router.post('/expertise', (req, res) => {
+
+  let next = req.baseUrl + '/expertise';
+  if (req.query.referer == 'check-your-answers') {
+    next = next + '?referer=check-your-answers';
+  }
+
+  let previous = req.baseUrl + '/care';
+  if (req.session.data.answers['care'] == 'yes') {
+    previous = req.baseUrl + '/care-type';
+  }
 
   let errors = [];
 
@@ -541,8 +681,8 @@ router.post('/expertise', (req, res) => {
     res.render('expertise', {
       errors: errors,
       actions: {
-        save: req.baseUrl + '/expertise',
-        back: req.baseUrl + '/care',
+        save: next,
+        back: previous,
         start: req.baseUrl + '/'
       }
     });
@@ -564,9 +704,14 @@ router.post('/expertise', (req, res) => {
 // --------------------------------------------------
 router.get('/other-support', (req, res) => {
 
+  let next = req.baseUrl + '/other-support';
+  if (req.headers.referer.includes('check-your-answers')) {
+    next = next + '?referer=check-your-answers';
+  }
+
   res.render('other-support', {
     actions: {
-      save: req.baseUrl + '/other-support',
+      save: next,
       back: req.baseUrl + '/expertise',
       start: req.baseUrl + '/'
     }
@@ -574,6 +719,11 @@ router.get('/other-support', (req, res) => {
 });
 
 router.post('/other-support', (req, res) => {
+
+  let next = req.baseUrl + '/other-support';
+  if (req.query.referer == 'check-your-answers') {
+    next = next + '?referer=check-your-answers';
+  }
 
   let errors = [];
 
@@ -590,7 +740,7 @@ router.post('/other-support', (req, res) => {
     res.render('other-support', {
       errors: errors,
       actions: {
-        save: req.baseUrl + '/other-support',
+        save: next,
         back: req.baseUrl + '/expertise',
         start: req.baseUrl + '/'
       }
@@ -609,9 +759,14 @@ router.post('/other-support', (req, res) => {
 // --------------------------------------------------
 router.get('/location', (req, res) => {
 
+  let next = req.baseUrl + '/location';
+  if (req.headers.referer.includes('check-your-answers')) {
+    next = next + '?referer=check-your-answers';
+  }
+
   res.render('location', {
     actions: {
-      save: req.baseUrl + '/location',
+      save: next,
       back: req.baseUrl + '/other-support',
       start: req.baseUrl + '/'
     }
@@ -619,6 +774,11 @@ router.get('/location', (req, res) => {
 });
 
 router.post('/location', (req, res) => {
+
+  let next = req.baseUrl + '/location';
+  if (req.query.referer == 'check-your-answers') {
+    next = next + '?referer=check-your-answers';
+  }
 
   let errors = [];
 
@@ -635,7 +795,7 @@ router.post('/location', (req, res) => {
     res.render('location', {
       errors: errors,
       actions: {
-        save: req.baseUrl + '/location',
+        save: next,
         back: req.baseUrl + '/other-support',
         start: req.baseUrl + '/'
       }
@@ -654,9 +814,14 @@ router.post('/location', (req, res) => {
 // --------------------------------------------------
 router.get('/business-details', (req, res) => {
 
+  let next = req.baseUrl + '/business-details';
+  if (req.headers.referer.includes('check-your-answers')) {
+    next = next + '?referer=check-your-answers';
+  }
+
   res.render('business-details', {
     actions: {
-      save: req.baseUrl + '/business-details',
+      save: next,
       back: req.baseUrl + '/location',
       start: req.baseUrl + '/'
     }
@@ -664,6 +829,11 @@ router.get('/business-details', (req, res) => {
 });
 
 router.post('/business-details', (req, res) => {
+
+  let next = req.baseUrl + '/business-details';
+  if (req.query.referer == 'check-your-answers') {
+    next = next + '?referer=check-your-answers';
+  }
 
   let errors = [];
 
@@ -712,7 +882,7 @@ router.post('/business-details', (req, res) => {
     res.render('business-details', {
       errors: errors,
       actions: {
-        save: req.baseUrl + '/business-details',
+        save: next,
         back: req.baseUrl + '/location',
         start: req.baseUrl + '/'
       }
@@ -731,16 +901,31 @@ router.post('/business-details', (req, res) => {
 // --------------------------------------------------
 router.get('/contact-details', (req, res) => {
 
+  let next = req.baseUrl + '/contact-details';
+  if (req.headers.referer.includes('check-your-answers')) {
+    next = next + '?referer=check-your-answers';
+  }
+
+  let previous = req.baseUrl + '/business-details';
+  // if (req.headers.referer.includes('check-your-answers')) {
+  //   previous = req.baseUrl + '/check-your-answers';
+  // }
+
   res.render('contact-details', {
     actions: {
-      save: req.baseUrl + '/contact-details',
-      back: req.baseUrl + '/business-details',
+      save: next,
+      back: previous,
       start: req.baseUrl + '/'
     }
   });
 });
 
 router.post('/contact-details', (req, res) => {
+
+  let next = req.baseUrl + '/contact-details';
+  if (req.query.referer == 'check-your-answers') {
+    next = next + '?referer=check-your-answers';
+  }
 
   let errors = [];
 
@@ -781,7 +966,7 @@ router.post('/contact-details', (req, res) => {
     res.render('contact-details', {
       errors: errors,
       actions: {
-        save: req.baseUrl + '/contact-details',
+        save: next,
         back: req.baseUrl + '/business-details',
         start: req.baseUrl + '/'
       }
