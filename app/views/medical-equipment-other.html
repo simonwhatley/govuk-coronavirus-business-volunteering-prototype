@@ -1,0 +1,199 @@
+{% extends "layout.html" %}
+
+{% block pageTitle %}
+  Tell us about the product you're offering
+{% endblock %}
+
+{% block beforeContent %}
+{% include "./partials/_phase-banner.html" %}
+{{ govukBackLink({
+  text: "Back",
+  href: actions.back
+}) if actions.back | length }}
+{% endblock %}
+
+{% block content %}
+
+{% include "./partials/_error-summary.html" %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <h1 class="govuk-heading-xl">
+      Tell us about the product you're offering
+    </h1>
+
+    <form action="{{ actions.save }}" method="post" accept-charset="utf-8" novalidate>
+
+      {{ govukInput({
+        id: "product-name",
+        name: "answers[product][name]",
+        label: {
+          text: "Name of product",
+          classes: "govuk-label--s"
+        },
+        hint: {
+          text: ""
+        },
+        errorMessage: errors | getErrorMessage('product-name'),
+        value: data['answers']['product']['name'],
+        attributes: {
+          "autocomplete": "off",
+          "autocapitalize": "off"
+        }
+      }) }}
+
+      {{ govukInput({
+        id: "product-quantity",
+        name: "answers[product][quantity]",
+        label: {
+          text: "Quantity of this product",
+          classes: "govuk-label--s"
+        },
+        hint: {
+          text: "Approximate amount. For example, 10, 500, 10000"
+        },
+        errorMessage: errors | getErrorMessage('product-quantity'),
+        value: data['answers']['product']['quantity'],
+        attributes: {
+          "autocomplete": "off",
+          "autocapitalize": "off"
+        },
+        classes: "govuk-input--width-10"
+      }) }}
+
+      {{ govukInput({
+        id: "product-cost",
+        name: "answers[product][cost]",
+        label: {
+          text: "Cost per item, in pounds",
+          classes: "govuk-label--s"
+        },
+        hint: {
+          text: "For example, 23.99. Enter 0 if you will donate it"
+        },
+        errorMessage: errors | getErrorMessage('product-cost'),
+        value: data['answers']['product']['cost'],
+        attributes: {
+          "autocomplete": "off",
+          "autocapitalize": "off"
+        },
+        classes: "govuk-input--width-10"
+      }) }}
+
+      {{ govukInput({
+        id: "product-certification",
+        name: "answers[product][certification]",
+        label: {
+          text: "Certification details",
+          classes: "govuk-label--s"
+        },
+        hint: {
+          text: "For example, CE marking or EN standards"
+        },
+        errorMessage: errors | getErrorMessage('product-certification'),
+        value: data['answers']['product']['certification'],
+        attributes: {
+          "autocomplete": "off",
+          "autocapitalize": "off"
+        }
+      }) }}
+
+      {{ govukRadios({
+        idPrefix: "product-location",
+        name: "answers[product][location]",
+        fieldset: {
+          legend: {
+            text: "Where is the product made, or stored if it's already made?",
+            classes: "govuk-label--s"
+          }
+        },
+        hint: {
+          text: ""
+        },
+        errorMessage: errors | getErrorMessage('product-location'),
+        items: [
+          {
+            value: "uk",
+            text: "United Kingdon",
+            conditional: {
+              html: govukInput({
+                      id: "product-postcode",
+                      name: "answers[product][postcode]",
+                      label: {
+                        text: "Postcode"
+                      },
+                      hint: {
+                        text: ""
+                      },
+                      errorMessage: errors | getErrorMessage('product-postcode'),
+                      value: data['answers']['product']['postcode'],
+                      attributes: {
+                        "autocomplete": "off",
+                        "autocapitalize": "off"
+                      },
+                    classes: "govuk-input--width-10"
+                    })
+            },
+            checked: true if data['answers']['product']['location'] == "uk"
+          },
+          {
+            value: "eu",
+            text: "European Union",
+            checked: true if data['answers']['product']['location'] == "eu"
+          },
+          {
+            value: "row",
+            text: "Rest of World",
+            checked: true if data['answers']['product']['location'] == "row"
+          }
+        ]
+      }) }}
+
+      {{ govukInput({
+        id: "product-url",
+        name: "answers[product][url]",
+        label: {
+          text: "URL of the product specification document (optional)",
+          classes: "govuk-label--s"
+        },
+        hint: {
+          text: ""
+        },
+        errorMessage: errors | getErrorMessage('product-url'),
+        value: data['answers']['product']['url'],
+        attributes: {
+          "autocomplete": "off",
+          "autocapitalize": "off"
+        }
+      }) }}
+
+      {{ govukInput({
+        id: "product-lead-time",
+        name: "answers[product][lead-time]",
+        label: {
+          text: "Lead time, in days",
+          classes: "govuk-label--s"
+        },
+        hint: {
+          text: ""
+        },
+        errorMessage: errors | getErrorMessage('product-lead-time'),
+        value: data['answers']['product']['lead-time'],
+        attributes: {
+          "autocomplete": "off",
+          "autocapitalize": "off"
+        },
+        classes: "govuk-input--width-10"
+      }) }}
+
+      {{ govukButton({
+        text: "Continue",
+        classes: "govuk-!-margin-top-5"
+      }) }}
+
+    </form>
+
+  </div>
+</div>
+
+{% endblock %}

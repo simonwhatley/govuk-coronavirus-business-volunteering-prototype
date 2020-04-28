@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 
+const uuid = require('uuid/v1');
+
 // --------------------------------------------------
 // Start
 // --------------------------------------------------
@@ -77,6 +79,10 @@ router.post('/medical-equipment', (req, res) => {
   }
 
 });
+
+// ----------------------------------------------------------------------------------------------------
+// ----------------------------------------------------------------------------------------------------
+// ----------------------------------------------------------------------------------------------------
 
 // --------------------------------------------------
 // Q: Can you offer accommodation?
@@ -980,6 +986,474 @@ router.post('/contact-details', (req, res) => {
 
 });
 
+// ----------------------------------------------------------------------------------------------------
+// ----------------------------------------------------------------------------------------------------
+// ----------------------------------------------------------------------------------------------------
+
+// --------------------------------------------------
+// Q: What kind of business are you?
+// --------------------------------------------------
+router.get('/business-type', (req, res) => {
+
+  let next = req.baseUrl + '/business-type';
+  if (req.headers.referer.includes('check-your-answers')) {
+    next = next + '?referer=check-your-answers';
+  }
+
+  let previous = req.baseUrl + '/medical-equipment';
+
+  res.render('business-type', {
+    actions: {
+      save: next,
+      back: previous,
+      start: req.baseUrl + '/'
+    }
+  });
+});
+
+router.post('/business-type', (req, res) => {
+
+  let next = req.baseUrl + '/business-type';
+  if (req.query.referer == 'check-your-answers') {
+    next = next + '?referer=check-your-answers';
+  }
+
+  let errors = [];
+
+  if (req.session.data.answers['business-type'] === undefined) {
+    let error = {};
+    error.fieldName = 'business-type';
+    error.href = '#business-type';
+    error.text = 'Choose what kind of business you are';
+    errors.push(error);
+  }
+
+  if (errors.length) {
+
+    res.render('business-type', {
+      errors: errors,
+      actions: {
+        save: next,
+        back: req.baseUrl + '/medical-equipment',
+        start: req.baseUrl + '/'
+      }
+    });
+
+  } else {
+
+    res.redirect(req.baseUrl + '/medical-equipment-type');
+
+  }
+
+});
+
+// --------------------------------------------------
+// Q: What kind of medical equipment can you offer?
+// --------------------------------------------------
+router.get('/medical-equipment-type', (req, res) => {
+
+  let next = req.baseUrl + '/medical-equipment-type';
+  if (req.headers.referer.includes('check-your-answers')) {
+    next = next + '?referer=check-your-answers';
+  }
+
+  let previous = req.baseUrl + '/business-type';
+
+  res.render('medical-equipment-type', {
+    actions: {
+      save: next,
+      back: previous,
+      start: req.baseUrl + '/'
+    }
+  });
+});
+
+router.post('/medical-equipment-type', (req, res) => {
+
+  let next = req.baseUrl + '/medical-equipment-type';
+  if (req.query.referer == 'check-your-answers') {
+    next = next + '?referer=check-your-answers';
+  }
+
+  let errors = [];
+
+  if (req.session.data.answers['medical-equipment-type'] === undefined) {
+    let error = {};
+    error.fieldName = 'medical-equipment-type';
+    error.href = '#medical-equipment-type';
+    error.text = 'Choose what type of medical equipment you can offer';
+    errors.push(error);
+  }
+
+  if (errors.length) {
+
+    res.render('medical-equipment-type', {
+      errors: errors,
+      actions: {
+        save: next,
+        back: req.baseUrl + '/business-type',
+        start: req.baseUrl + '/'
+      }
+    });
+
+  } else {
+
+    // clear out the product details from the session
+    // req.session.data.answers['product'] = {};
+    // req.session.data.answers['product']['id'] = uuid();
+
+    if (req.session.data.answers['medical-equipment-type'] == 'ppe') {
+      res.redirect(req.baseUrl + '/medical-equipment-ppe');
+    } else if (req.session.data.answers['medical-equipment-type'] == 'testing') {
+      res.redirect(req.baseUrl + '/medical-equipment-testing');
+    } else {
+      res.redirect(req.baseUrl + '/medical-equipment-other');
+    }
+
+  }
+
+});
+
+// --------------------------------------------------
+// Q: Tell us about the product you're offering – PPE
+// --------------------------------------------------
+router.get('/medical-equipment-ppe', (req, res) => {
+
+  let next = req.baseUrl + '/medical-equipment-ppe';
+  if (req.headers.referer.includes('check-your-answers')) {
+    next = next + '?referer=check-your-answers';
+  }
+
+  let previous = req.baseUrl + '/medical-equipment-type';
+
+  res.render('medical-equipment-ppe', {
+    actions: {
+      save: next,
+      back: previous,
+      start: req.baseUrl + '/'
+    }
+  });
+});
+
+router.post('/medical-equipment-ppe', (req, res) => {
+
+  let next = req.baseUrl + '/medical-equipment-ppe';
+  if (req.query.referer == 'check-your-answers') {
+    next = next + '?referer=check-your-answers';
+  }
+
+  let errors = [];
+
+  if (!req.session.data.answers['product']['name'].length) {
+    let error = {};
+    error.fieldName = 'product-name';
+    error.href = '#product-name';
+    error.text = 'Enter the name of the product';
+    errors.push(error);
+  }
+
+  if (req.session.data.answers['product']['type'] === undefined) {
+    let error = {};
+    error.fieldName = 'product-type';
+    error.href = '#product-type';
+    error.text = 'Choose the type of equipment';
+    errors.push(error);
+  }
+
+  if (!req.session.data.answers['product']['quantity'].length) {
+    let error = {};
+    error.fieldName = 'product-quantity';
+    error.href = '#product-quantity';
+    error.text = 'Enter the quantity of this product';
+    errors.push(error);
+  }
+
+  if (!req.session.data.answers['product']['cost'].length) {
+    let error = {};
+    error.fieldName = 'product-cost';
+    error.href = '#product-cost';
+    error.text = 'Enter the cost of this product';
+    errors.push(error);
+  }
+
+  if (!req.session.data.answers['product']['certification'].length) {
+    let error = {};
+    error.fieldName = 'product-certification';
+    error.href = '#product-certification';
+    error.text = 'Enter the product’s certification details';
+    errors.push(error);
+  }
+
+  if (req.session.data.answers['product']['location'] === undefined) {
+    let error = {};
+    error.fieldName = 'product-location';
+    error.href = '#product-location';
+    error.text = 'Choose where the product is made or stored';
+    errors.push(error);
+  } else {
+    if (req.session.data.answers['product']['location'] == 'uk' && !req.session.data.answers['product']['postcode'].length) {
+      let error = {};
+      error.fieldName = 'product-postcode';
+      error.href = '#product-postcode';
+      error.text = 'Enter a postcode';
+      errors.push(error);
+    }
+  }
+
+  // if (!req.session.data.answers['product']['url'].length) {
+  //   let error = {};
+  //   error.fieldName = 'product-url';
+  //   error.href = '#product-url';
+  //   error.text = 'Enter a URL of the product specification document';
+  //   errors.push(error);
+  // }
+
+  if (!req.session.data.answers['product']['lead-time'].length) {
+    let error = {};
+    error.fieldName = 'product-lead-time';
+    error.href = '#product-lead-time';
+    error.text = 'Enter a lead time in days';
+    errors.push(error);
+  }
+
+  if (errors.length) {
+
+    res.render('medical-equipment-ppe', {
+      errors: errors,
+      actions: {
+        save: next,
+        back: req.baseUrl + '/medical-equipment-type',
+        start: req.baseUrl + '/'
+      }
+    });
+
+  } else {
+
+    res.redirect(req.baseUrl + '/another-product');
+
+  }
+
+});
+
+// --------------------------------------------------
+// Q: Tell us about the product you're offering – Testing
+// --------------------------------------------------
+router.get('/medical-equipment-testing', (req, res) => {
+
+  let next = req.baseUrl + '/another-product';
+  if (req.headers.referer.includes('check-your-answers')) {
+    next = next + '?referer=check-your-answers';
+  }
+
+  let previous = req.baseUrl + '/medical-equipment-type';
+
+  res.render('medical-equipment-testing', {
+    actions: {
+      save: next,
+      back: previous,
+      start: req.baseUrl + '/'
+    }
+  });
+});
+
+// --------------------------------------------------
+// Q: Tell us about the product you're offering – Other
+// --------------------------------------------------
+router.get('/medical-equipment-other', (req, res) => {
+
+  let next = req.baseUrl + '/medical-equipment-other';
+  if (req.headers.referer.includes('check-your-answers')) {
+    next = next + '?referer=check-your-answers';
+  }
+
+  let previous = req.baseUrl + '/medical-equipment-type';
+
+  res.render('medical-equipment-other', {
+    actions: {
+      save: next,
+      back: previous,
+      start: req.baseUrl + '/'
+    }
+  });
+});
+
+router.post('/medical-equipment-other', (req, res) => {
+
+  let next = req.baseUrl + '/medical-equipment-other';
+  if (req.query.referer == 'check-your-answers') {
+    next = next + '?referer=check-your-answers';
+  }
+
+  let errors = [];
+
+  if (!req.session.data.answers['product']['name'].length) {
+    let error = {};
+    error.fieldName = 'product-name';
+    error.href = '#product-name';
+    error.text = 'Enter the name of the product';
+    errors.push(error);
+  }
+
+  if (!req.session.data.answers['product']['quantity'].length) {
+    let error = {};
+    error.fieldName = 'product-quantity';
+    error.href = '#product-quantity';
+    error.text = 'Enter the quantity of this product';
+    errors.push(error);
+  }
+
+  if (!req.session.data.answers['product']['cost'].length) {
+    let error = {};
+    error.fieldName = 'product-cost';
+    error.href = '#product-cost';
+    error.text = 'Enter the cost of this product';
+    errors.push(error);
+  }
+
+  if (!req.session.data.answers['product']['certification'].length) {
+    let error = {};
+    error.fieldName = 'product-certification';
+    error.href = '#product-certification';
+    error.text = 'Enter the product’s certification details';
+    errors.push(error);
+  }
+
+  if (req.session.data.answers['product']['location'] === undefined) {
+    let error = {};
+    error.fieldName = 'product-location';
+    error.href = '#product-location';
+    error.text = 'Choose where the product is made or stored';
+    errors.push(error);
+  } else {
+    if (req.session.data.answers['product']['location'] == 'uk' && !req.session.data.answers['product']['postcode'].length) {
+      let error = {};
+      error.fieldName = 'product-postcode';
+      error.href = '#product-postcode';
+      error.text = 'Enter a postcode';
+      errors.push(error);
+    }
+  }
+
+  // if (!req.session.data.answers['product']['url'].length) {
+  //   let error = {};
+  //   error.fieldName = 'product-url';
+  //   error.href = '#product-url';
+  //   error.text = 'Enter a URL of the product specification document';
+  //   errors.push(error);
+  // }
+
+  if (!req.session.data.answers['product']['lead-time'].length) {
+    let error = {};
+    error.fieldName = 'product-lead-time';
+    error.href = '#product-lead-time';
+    error.text = 'Enter a lead time in days';
+    errors.push(error);
+  }
+
+  if (errors.length) {
+
+    res.render('medical-equipment-other', {
+      errors: errors,
+      actions: {
+        save: next,
+        back: req.baseUrl + '/medical-equipment-type',
+        start: req.baseUrl + '/'
+      }
+    });
+
+  } else {
+
+    res.redirect(req.baseUrl + '/another-product');
+
+  }
+
+});
+
+// --------------------------------------------------
+// Q: Can you offer another product?
+// --------------------------------------------------
+router.get('/another-product', (req, res) => {
+
+  let next = req.baseUrl + '/another-product';
+  if (req.headers.referer.includes('check-your-answers')) {
+    next = next + '?referer=check-your-answers';
+  }
+
+  let previous = req.baseUrl + '/medical-equipment-other';
+  if (req.session.data.answers['medical-equipment-type'] == 'ppe') {
+    previous = req.baseUrl + '/medical-equipment-ppe';
+  }
+  if (req.session.data.answers['medical-equipment-type'] == 'testing') {
+    previous = req.baseUrl + '/medical-equipment-testing';
+  }
+
+  res.render('another-product', {
+    actions: {
+      save: next,
+      back: previous,
+      start: req.baseUrl + '/'
+    }
+  });
+});
+
+router.post('/another-product', (req, res) => {
+
+  let next = req.baseUrl + '/another-product';
+  if (req.query.referer == 'check-your-answers') {
+    next = next + '?referer=check-your-answers';
+  }
+
+  let previous = req.baseUrl + '/medical-equipment-other';
+  if (req.session.data.answers['medical-equipment-type'] == 'ppe') {
+    previous = req.baseUrl + '/medical-equipment-ppe';
+  }
+  if (req.session.data.answers['medical-equipment-type'] == 'testing') {
+    previous = req.baseUrl + '/medical-equipment-testing';
+  }
+
+  if (req.session.data.answers['products'] === undefined) {
+    req.session.data.answers['products'] = [];
+  }
+
+  let errors = [];
+
+  if (req.session.data.answers['another-product'] === undefined) {
+    let error = {};
+    error.fieldName = 'another-product';
+    error.href = '#another-product';
+    error.text = 'Choose whether you can offer another product';
+    errors.push(error);
+  }
+
+  if (errors.length) {
+
+    res.render('another-product', {
+      errors: errors,
+      actions: {
+        save: next,
+        back: previous,
+        start: req.baseUrl + '/'
+      }
+    });
+
+  } else {
+
+    req.session.data.answers['products'].push(req.session.data.answers['product']);
+
+    if (req.session.data.answers['another-product'] == 'yes') {
+      res.redirect(req.baseUrl + '/medical-equipment-type');
+    } else {
+      res.redirect(req.baseUrl + '/accommodation');
+    }
+
+  }
+
+});
+
+// ----------------------------------------------------------------------------------------------------
+// ----------------------------------------------------------------------------------------------------
+// ----------------------------------------------------------------------------------------------------
+
 // --------------------------------------------------
 // Check your answers
 // --------------------------------------------------
@@ -996,7 +1470,7 @@ router.get('/check-your-answers', (req, res) => {
 });
 
 // --------------------------------------------------
-// Check your answers
+// Confirmation
 // --------------------------------------------------
 router.get('/confirmation', (req, res) => {
 
