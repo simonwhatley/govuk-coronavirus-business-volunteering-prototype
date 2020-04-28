@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 
 {% block pageTitle %}
-  Can you offer social care or childcare?
+  How many rooms can you offer?
 {% endblock %}
 
 {% block beforeContent %}
@@ -21,32 +21,21 @@
 
     <form action="{{ actions.save }}" method="post" accept-charset="utf-8" novalidate>
 
-      {{ govukRadios({
-        idPrefix: "adult-child-care",
-        name: "answers[adult-child-care]",
-        fieldset: {
-          legend: {
-            text: "Can you offer social care or childcare?",
-            isPageHeading: true,
-            classes: "govuk-fieldset__legend--xl"
-          }
+      {{ govukInput({
+        id: "accommodation-quantity",
+        name: "answers[accommodation-quantity]",
+        label: {
+          text: "How many rooms can you offer?",
+          isPageHeading: true,
+          classes: "govuk-label--xl"
         },
         hint: {
-          text: ""
+          text: "Give an approximate amount, for example 10, 500, 10000"
         },
-        errorMessage: errors | getErrorMessage('adult-child-care'),
-        items: [
-          {
-            value: "yes",
-            text: "Yes"
-          },
-          {
-            value: "no",
-            text: "No"
-          }
-        ]
+        errorMessage: errors | getErrorMessage('accommodation-quantity'),
+        value: data['answers']['accommodation-quantity'],
+        classes: "govuk-input--width-10"
       }) }}
-
 
       {{ govukButton({
         text: "Continue",

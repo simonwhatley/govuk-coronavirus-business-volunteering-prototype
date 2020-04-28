@@ -28,52 +28,75 @@
         id: "contact-name",
         name: "answers[contact-name]",
         label: {
-          text: "Name of main contact"
+          text: "Name of main contact",
+          classes: "govuk-label--s"
         },
         hint: {
           text: ""
         },
         errorMessage: errors | getErrorMessage('contact-name'),
-        value: data['answers']['contact-name']
+        value: data['answers']['contact-name'],
+        attributes: {
+          "autocomplete": "off",
+          "autocapitalize": "off"
+        }
       }) }}
 
       {{ govukInput({
         id: "contact-role",
         name: "answers[contact-role]",
         label: {
-          text: "Role of main contact (optional)"
+          text: "Role of main contact (optional)",
+          classes: "govuk-label--s"
         },
         hint: {
           text: ""
         },
         errorMessage: errors | getErrorMessage('contact-role'),
-        value: data['answers']['contact-role']
+        value: data['answers']['contact-role'],
+        attributes: {
+          "autocomplete": "off",
+          "autocapitalize": "off"
+        }
       }) }}
 
       {{ govukInput({
         id: "contact-phone",
         name: "answers[contact-phone]",
         label: {
-          text: "Phone number of main contact"
+          text: "Phone number of main contact",
+          classes: "govuk-label--s"
         },
         hint: {
           text: ""
         },
         errorMessage: errors | getErrorMessage('contact-phone'),
-        value: data['answers']['contact-phone']
+        value: data['answers']['contact-phone'],
+        type: "tel",
+        autocomplete: "tel",
+        classes: "govuk-input--width-20"
       }) }}
 
       {{ govukInput({
         id: "contact-email",
         name: "answers[contact-email]",
         label: {
-          text: "Email address of main contact"
+          text: "Email address of main contact",
+          classes: "govuk-label--s"
         },
         hint: {
           text: ""
         },
         errorMessage: errors | getErrorMessage('contact-email'),
-        value: data['answers']['contact-email']
+        value: data['answers']['contact-email'],
+        type: "email",
+        autocomplete: "email",
+        attributes: {
+          autocomplete: "off",
+          autocapitalize: "off",
+          spellcheck: "false"
+        },
+        classes: "govuk-input--width-20"
       }) }}
 
       {{ govukButton({

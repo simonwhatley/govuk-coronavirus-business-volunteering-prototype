@@ -107,11 +107,56 @@ router.post('/accommodation', (req, res) => {
 
   } else {
 
-    if (req.session.data.answers['accommodation'] == 'yes') {
+    if (req.session.data.answers['accommodation'].includes('yes')) {
       res.redirect(req.baseUrl + '/accommodation-quantity');
     } else {
       res.redirect(req.baseUrl + '/transport-logistics');
     }
+
+  }
+
+});
+
+// --------------------------------------------------
+// Q: How many rooms can you offer?
+// --------------------------------------------------
+router.get('/accommodation-quantity', (req, res) => {
+
+  res.render('accommodation-quantity', {
+    actions: {
+      save: req.baseUrl + '/accommodation-quantity',
+      back: req.baseUrl + '/accommodation',
+      start: req.baseUrl + '/'
+    }
+  });
+});
+
+router.post('/accommodation-quantity', (req, res) => {
+
+  let errors = [];
+
+  if (!req.session.data.answers['accommodation-quantity'].length) {
+    let error = {};
+    error.fieldName = 'accommodation-quantity';
+    error.href = '#accommodation-quantity';
+    error.text = 'Enter how many hotel rooms you can offer';
+    errors.push(error);
+  }
+
+  if (errors.length) {
+
+    res.render('accommodation-quantity', {
+      errors: errors,
+      actions: {
+        save: req.baseUrl + '/accommodation-quantity',
+        back: req.baseUrl + '/accommodation',
+        start: req.baseUrl + '/'
+      }
+    });
+
+  } else {
+
+    res.redirect(req.baseUrl + '/transport-logistics');
 
   }
 
@@ -157,10 +202,63 @@ router.post('/transport-logistics', (req, res) => {
   } else {
 
     if (req.session.data.answers['transport-logistics'] == 'yes') {
-      res.redirect(req.baseUrl + '/kind-of-transport-logistics');
+      res.redirect(req.baseUrl + '/transport-logistics-type');
     } else {
       res.redirect(req.baseUrl + '/space');
     }
+
+  }
+
+});
+
+// --------------------------------------------------
+// Q: What kind of transport or logistics can you offer?
+// --------------------------------------------------
+router.get('/transport-logistics-type', (req, res) => {
+
+  res.render('transport-logistics-type', {
+    actions: {
+      save: req.baseUrl + '/transport-logistics-type',
+      back: req.baseUrl + '/transport-logistics',
+      start: req.baseUrl + '/'
+    }
+  });
+});
+
+router.post('/transport-logistics-type', (req, res) => {
+
+  let errors = [];
+
+  if (req.session.data.answers['transport-logistics-type'] === undefined) {
+    let error = {};
+    error.fieldName = 'transport-logistics-type';
+    error.href = '#transport-logistics-type';
+    error.text = 'Choose what kinds of transport or logisitics services you can offer';
+    errors.push(error);
+  }
+
+  if (!req.session.data.answers['transport-logistics-type-description'].length) {
+    let error = {};
+    error.fieldName = 'transport-logistics-type-description';
+    error.href = '#transport-logistics-type-description';
+    error.text = 'Enter a description of the kind of transport or logistics services you can offer';
+    errors.push(error);
+  }
+
+  if (errors.length) {
+
+    res.render('transport-logistics-type', {
+      errors: errors,
+      actions: {
+        save: req.baseUrl + '/transport-logistics-type',
+        back: req.baseUrl + '/transport-logistics',
+        start: req.baseUrl + '/'
+      }
+    });
+
+  } else {
+
+    res.redirect(req.baseUrl + '/space');
 
   }
 
@@ -206,10 +304,89 @@ router.post('/space', (req, res) => {
   } else {
 
     if (req.session.data.answers['space'] == 'yes') {
-      res.redirect(req.baseUrl + '/kind-of-space');
+      res.redirect(req.baseUrl + '/space-type');
     } else {
-      res.redirect(req.baseUrl + '/adult-child-care');
+      res.redirect(req.baseUrl + '/care');
     }
+
+  }
+
+});
+
+// --------------------------------------------------
+// Q: What kind of space can you offer?
+// --------------------------------------------------
+router.get('/space-type', (req, res) => {
+
+  res.render('space-type', {
+    actions: {
+      save: req.baseUrl + '/space-type',
+      back: req.baseUrl + '/space',
+      start: req.baseUrl + '/'
+    }
+  });
+});
+
+router.post('/space-type', (req, res) => {
+
+  let errors = [];
+
+  if (req.session.data.answers['space-type'] === undefined) {
+    let error = {};
+    error.fieldName = 'space-type';
+    error.href = '#space-type';
+    error.text = 'Choose what kind of space you can offer';
+    errors.push(error);
+  } else {
+
+    if (req.session.data.answers['space-type'].indexOf('warehouse') !== -1 && !req.session.data.answers['space-type-warehouse-quantity'].length) {
+      let error = {};
+      error.fieldName = 'space-type-warehouse-quantity';
+      error.href = '#space-type-warehouse-quantity';
+      error.text = 'Enter the approximate total size of warehouse space';
+      errors.push(error);
+    }
+
+    if (req.session.data.answers['space-type'].indexOf('office') !== -1 && !req.session.data.answers['space-type-office-quantity'].length) {
+      let error = {};
+      error.fieldName = 'space-type-office-quantity';
+      error.href = '#space-type-office-quantity';
+      error.text = 'Enter the approximate total size of office space';
+      errors.push(error);
+    }
+
+    if (req.session.data.answers['space-type'].indexOf('other') !== -1 && !req.session.data.answers['space-type-other-quantity'].length) {
+      let error = {};
+      error.fieldName = 'space-type-other-quantity';
+      error.href = '#space-type-other-quantity';
+      error.text = 'Enter the approximate total size of all other spaces';
+      errors.push(error);
+    }
+
+  }
+
+  if (!req.session.data.answers['space-type-description'].length) {
+    let error = {};
+    error.fieldName = 'space-type-description';
+    error.href = '#space-type-description';
+    error.text = 'Enter a description of the kind of space you can offer';
+    errors.push(error);
+  }
+
+  if (errors.length) {
+
+    res.render('space-type', {
+      errors: errors,
+      actions: {
+        save: req.baseUrl + '/space-type',
+        back: req.baseUrl + '/space',
+        start: req.baseUrl + '/'
+      }
+    });
+
+  } else {
+
+    res.redirect(req.baseUrl + '/care');
 
   }
 
@@ -218,35 +395,35 @@ router.post('/space', (req, res) => {
 // --------------------------------------------------
 // Q: Can you offer social care or childcare?
 // --------------------------------------------------
-router.get('/adult-child-care', (req, res) => {
+router.get('/care', (req, res) => {
 
-  res.render('adult-child-care', {
+  res.render('care', {
     actions: {
-      save: req.baseUrl + '/adult-child-care',
+      save: req.baseUrl + '/care',
       back: req.baseUrl + '/space',
       start: req.baseUrl + '/'
     }
   });
 });
 
-router.post('/adult-child-care', (req, res) => {
+router.post('/care', (req, res) => {
 
   let errors = [];
 
-  if (req.session.data.answers['adult-child-care'] === undefined) {
+  if (req.session.data.answers['care'] === undefined) {
     let error = {};
-    error.fieldName = 'adult-child-care';
-    error.href = '#adult-child-care';
+    error.fieldName = 'care';
+    error.href = '#care';
     error.text = 'Choose whether you can offer social care or childcare';
     errors.push(error);
   }
 
   if (errors.length) {
 
-    res.render('adult-child-care', {
+    res.render('care', {
       errors: errors,
       actions: {
-        save: req.baseUrl + '/adult-child-care',
+        save: req.baseUrl + '/care',
         back: req.baseUrl + '/space',
         start: req.baseUrl + '/'
       }
@@ -254,11 +431,72 @@ router.post('/adult-child-care', (req, res) => {
 
   } else {
 
-    if (req.session.data.answers['adult-child-care'] == 'yes') {
-      res.redirect(req.baseUrl + '/kind-of-adult-child-care');
+    if (req.session.data.answers['care'] == 'yes') {
+      res.redirect(req.baseUrl + '/care-type');
     } else {
       res.redirect(req.baseUrl + '/expertise');
     }
+
+  }
+
+});
+
+// --------------------------------------------------
+// Q: What kind of care can you offer?
+// --------------------------------------------------
+router.get('/care-type', (req, res) => {
+
+  res.render('care-type', {
+    actions: {
+      save: req.baseUrl + '/care-type',
+      back: req.baseUrl + '/care',
+      start: req.baseUrl + '/'
+    }
+  });
+});
+
+router.post('/care-type', (req, res) => {
+
+  let errors = [];
+
+  if (req.session.data.answers['care-type'] === undefined) {
+    let error = {};
+    error.fieldName = 'care-type';
+    error.href = '#care-type';
+    error.text = 'Choose what kind of care you can offer';
+    errors.push(error);
+  }
+
+  if (req.session.data.answers['care-qualifications'] === undefined) {
+    let error = {};
+    error.fieldName = 'care-qualifications';
+    error.href = '#care-qualifications';
+    error.text = 'Choose what qualifications your or people in your business have';
+    errors.push(error);
+  } else {
+    if (req.session.data.answers['care-qualifications'].indexOf('healthcare') !== -1 && !req.session.data.answers['care-qualifications-healthcare-description'].length) {
+      let error = {};
+      error.fieldName = 'care-qualifications-healthcare-description';
+      error.href = '#care-qualifications-healthcare-description';
+      error.text = 'Enter a description of the kind of healthcare qualifications';
+      errors.push(error);
+    }
+  }
+
+  if (errors.length) {
+
+    res.render('care-type', {
+      errors: errors,
+      actions: {
+        save: req.baseUrl + '/care-type',
+        back: req.baseUrl + '/care',
+        start: req.baseUrl + '/'
+      }
+    });
+
+  } else {
+
+    res.redirect(req.baseUrl + '/expertise');
 
   }
 
@@ -272,7 +510,7 @@ router.get('/expertise', (req, res) => {
   res.render('expertise', {
     actions: {
       save: req.baseUrl + '/expertise',
-      back: req.baseUrl + '/adult-child-care',
+      back: req.baseUrl + '/care',
       start: req.baseUrl + '/'
     }
   });
@@ -304,7 +542,7 @@ router.post('/expertise', (req, res) => {
       errors: errors,
       actions: {
         save: req.baseUrl + '/expertise',
-        back: req.baseUrl + '/adult-child-care',
+        back: req.baseUrl + '/care',
         start: req.baseUrl + '/'
       }
     });

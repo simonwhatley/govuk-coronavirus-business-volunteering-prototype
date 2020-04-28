@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 
 {% block pageTitle %}
-  Can you offer accommodation?
+  Can you offer hotel rooms?
 {% endblock %}
 
 {% block beforeContent %}
@@ -26,7 +26,7 @@
         name: "answers[accommodation]",
         fieldset: {
           legend: {
-            text: "Can you offer accommodation?",
+            text: "Can you offer hotel rooms?",
             isPageHeading: true,
             classes: "govuk-fieldset__legend--xl"
           }
@@ -38,15 +38,18 @@
         items: [
           {
             value: "yes_people",
-            text: "Yes – for people to stay in"
+            text: "Yes – for people to stay in",
+            checked: true if data['answers']['accommodation'] == "yes_people"
           },
           {
-            value: "yes_any_use",
-            text: "Yes – for any use"
+            value: "yes_any",
+            text: "Yes – for any use",
+            checked: true if data['answers']['accommodation'] == "yes_any"
           },
           {
             value: "no",
-            text: "No"
+            text: "No",
+            checked: true if data['answers']['accommodation'] == "no"
           }
         ]
       }) }}

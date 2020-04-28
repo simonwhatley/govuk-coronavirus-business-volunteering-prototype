@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 
 {% block pageTitle %}
-  Can you offer transport or logistics?
+  Can you offer social care or childcare?
 {% endblock %}
 
 {% block beforeContent %}
@@ -22,11 +22,11 @@
     <form action="{{ actions.save }}" method="post" accept-charset="utf-8" novalidate>
 
       {{ govukRadios({
-        idPrefix: "transport-logistics",
-        name: "answers[transport-logistics]",
+        idPrefix: "care",
+        name: "answers[care]",
         fieldset: {
           legend: {
-            text: "Can you offer transport or logistics?",
+            text: "Can you offer social care or childcare?",
             isPageHeading: true,
             classes: "govuk-fieldset__legend--xl"
           }
@@ -34,20 +34,21 @@
         hint: {
           text: ""
         },
-        errorMessage: errors | getErrorMessage('transport-logistics'),
+        errorMessage: errors | getErrorMessage('care'),
         items: [
           {
             value: "yes",
             text: "Yes",
-            checked: true if data['answers']['transport-logistics'] == "yes"
+            checked: true if data['answers']['care'] == "yes"
           },
           {
             value: "no",
             text: "No",
-            checked: true if data['answers']['transport-logistics'] == "no"
+            checked: true if data['answers']['care'] == "no"
           }
         ]
       }) }}
+
 
       {{ govukButton({
         text: "Continue",

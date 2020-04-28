@@ -1,0 +1,139 @@
+{% extends "layout.html" %}
+
+{% block pageTitle %}
+  Can you offer space?
+{% endblock %}
+
+{% block beforeContent %}
+{% include "./partials/_phase-banner.html" %}
+{{ govukBackLink({
+  text: "Back",
+  href: actions.back
+}) if actions.back | length }}
+{% endblock %}
+
+{% block content %}
+
+{% include "./partials/_error-summary.html" %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    <form action="{{ actions.save }}" method="post" accept-charset="utf-8" novalidate>
+
+      {{ govukCheckboxes({
+        idPrefix: "space-type",
+        name: "answers[space-type]",
+        fieldset: {
+          legend: {
+            text: "What kind of space can you offer?",
+            isPageHeading: true,
+            classes: "govuk-fieldset__legend--xl"
+          }
+        },
+        hint: {
+          text: ""
+        },
+        errorMessage: errors | getErrorMessage('space-type'),
+        items: [
+          {
+            value: "warehouse",
+            text: "Warehouse space",
+            conditional: {
+              html: govukInput({
+                      id: "space-type-warehouse-quantity",
+                      name: "answers[space-type-warehouse-quantity]",
+                      label: {
+                        text: "Approximate total size of all warehouses, in square feet"
+                      },
+                      hint: {
+                        text: ""
+                      },
+                      errorMessage: errors | getErrorMessage('space-type-warehouse-quantity'),
+                      value: data['answers']['space-type-warehouse-quantity'],
+                      attributes: {
+                        "autocomplete": "off",
+                        "autocapitalize": "off"
+                      },
+                      classes: "govuk-input--width-10"
+                    })
+            },
+            checked: checked("answers['space-type']", "warehouse")
+          },
+          {
+            value: "office",
+            text: "Office space",
+            conditional: {
+              html: govukInput({
+                      id: "space-type-office-quantity",
+                      name: "answers[space-type-office-quantity]",
+                      label: {
+                        text: "Approximate total size of all offices, in square feet"
+                      },
+                      hint: {
+                        text: ""
+                      },
+                      errorMessage: errors | getErrorMessage('space-type-office-quantity'),
+                      value: data['answers']['space-type-office-quantity'],
+                      attributes: {
+                        "autocomplete": "off",
+                        "autocapitalize": "off"
+                      },
+                      classes: "govuk-input--width-10"
+                    })
+            },
+            checked: checked("answers['space-type']", "office")
+          },
+          {
+            value: "other",
+            text: "Other",
+            conditional: {
+              html: govukInput({
+                      id: "space-type-other-quantity",
+                      name: "answers[space-type-other-quantity]",
+                      label: {
+                        text: "Approximate total size of all other spaces, in square feet"
+                      },
+                      hint: {
+                        text: ""
+                      },
+                      errorMessage: errors | getErrorMessage('space-type-other-quantity'),
+                      value: data['answers']['space-type-other-quantity'],
+                      attributes: {
+                        "autocomplete": "off",
+                        "autocapitalize": "off"
+                      },
+                      classes: "govuk-input--width-10"
+                    })
+            },
+            checked: checked("answers['space-type']", "other")
+          }
+        ]
+      }) }}
+
+      {{ govukTextarea({
+        id: "space-type-description",
+        name: "answers[space-type-description]",
+        label: {
+          text: "Give a description",
+          classes: "govuk-label--s"
+        },
+        hint: {
+          text: "For example, whether you have one space or multiple units"
+        },
+        errorMessage: errors | getErrorMessage('space-type-description'),
+        value: data['answers']['space-type-description']
+      }) }}
+
+
+      {{ govukButton({
+        text: "Continue",
+        classes: "govuk-!-margin-top-5"
+      }) }}
+
+    </form>
+
+  </div>
+</div>
+
+{% endblock %}

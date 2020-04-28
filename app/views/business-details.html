@@ -28,26 +28,36 @@
         id: "company-name",
         name: "answers[company-name]",
         label: {
-          text: "Company name"
+          text: "Company name",
+          classes: "govuk-label--s"
         },
         hint: {
           text: ""
         },
         errorMessage: errors | getErrorMessage('company-name'),
-        value: data['answers']['company-name']
+        value: data['answers']['company-name'],
+        attributes: {
+          "autocomplete": "off",
+          "autocapitalize": "off"
+        }
       }) }}
 
       {{ govukInput({
         id: "company-number",
         name: "answers[company-number]",
         label: {
-          text: "Company number (optional)"
+          text: "Company number (optional)",
+          classes: "govuk-label--s"
         },
         hint: {
           text: ""
         },
         errorMessage: errors | getErrorMessage('company-number'),
-        value: data['answers']['company-number']
+        value: data['answers']['company-number'],
+        attributes: {
+          "autocomplete": "off",
+          "autocapitalize": "off"
+        }
       }) }}
 
       {{ govukRadios({
@@ -55,7 +65,8 @@
         name: "answers[company-size]",
         fieldset: {
           legend: {
-            text: "Company size"
+            text: "Company size",
+            classes: "govuk-label--s"
           }
         },
         hint: {
@@ -86,7 +97,8 @@
         name: "answers[company-location]",
         fieldset: {
           legend: {
-            text: "Company location"
+            text: "Company location",
+            classes: "govuk-label--s"
           }
         },
         hint: {
@@ -108,7 +120,12 @@
                         text: ""
                       },
                       errorMessage: errors | getErrorMessage('company-postcode'),
-                      value: data['answers']['company-postcode']
+                      value: data['answers']['company-postcode'],
+                      attributes: {
+                        "autocomplete": "off",
+                        "autocapitalize": "off"
+                      },
+                    classes: "govuk-input--width-10"
                     })
             },
             checked: true if data['answers']['company-location'] == "uk"
