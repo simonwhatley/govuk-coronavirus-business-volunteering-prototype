@@ -26,7 +26,7 @@
 
       {{ govukInput({
         id: "company-name",
-        name: "answers[company-name]",
+        name: "answers[company][name]",
         label: {
           text: "Company name",
           classes: "govuk-label--s"
@@ -35,7 +35,7 @@
           text: ""
         },
         errorMessage: errors | getErrorMessage('company-name'),
-        value: data['answers']['company-name'],
+        value: data['answers']['company']['name'],
         attributes: {
           "autocomplete": "off",
           "autocapitalize": "off"
@@ -44,7 +44,7 @@
 
       {{ govukInput({
         id: "company-number",
-        name: "answers[company-number]",
+        name: "answers[company][number]",
         label: {
           text: "Company number (optional)",
           classes: "govuk-label--s"
@@ -53,7 +53,7 @@
           text: ""
         },
         errorMessage: errors | getErrorMessage('company-number'),
-        value: data['answers']['company-number'],
+        value: data['answers']['company']['number'],
         attributes: {
           "autocomplete": "off",
           "autocapitalize": "off"
@@ -62,7 +62,7 @@
 
       {{ govukRadios({
         idPrefix: "company-size",
-        name: "answers[company-size]",
+        name: "answers[company][size]",
         fieldset: {
           legend: {
             text: "Company size",
@@ -77,24 +77,24 @@
           {
             value: "under_50",
             text: "Under 50 people",
-            checked: true if data['answers']['company-size'] == "under_50"
+            checked: true if data['answers']['company']['size'] == "under_50"
           },
           {
             value: "50_to_250",
             text: "50 to 250 people",
-            checked: true if data['answers']['company-size'] == "50_to_250"
+            checked: true if data['answers']['company']['size'] == "50_to_250"
           },
           {
             value: "over_250",
             text: "More than 250 people",
-            checked: true if data['answers']['company-size'] == "over_250"
+            checked: true if data['answers']['company']['size'] == "over_250"
           }
         ]
       }) }}
 
       {{ govukRadios({
         idPrefix: "company-location",
-        name: "answers[company-location]",
+        name: "answers[company][location]",
         fieldset: {
           legend: {
             text: "Company location",
@@ -112,7 +112,7 @@
             conditional: {
               html: govukInput({
                       id: "company-postcode",
-                      name: "answers[company-postcode]",
+                      name: "answers[company][postcode]",
                       label: {
                         text: "Postcode"
                       },
@@ -120,7 +120,7 @@
                         text: ""
                       },
                       errorMessage: errors | getErrorMessage('company-postcode'),
-                      value: data['answers']['company-postcode'],
+                      value: data['answers']['company']['postcode'],
                       attributes: {
                         "autocomplete": "off",
                         "autocapitalize": "off"
@@ -128,17 +128,17 @@
                     classes: "govuk-input--width-10"
                     })
             },
-            checked: true if data['answers']['company-location'] == "uk"
+            checked: true if data['answers']['company']['location'] == "uk"
           },
           {
             value: "eu",
             text: "European Union",
-            checked: true if data['answers']['company-location'] == "eu"
+            checked: true if data['answers']['company']['location'] == "eu"
           },
           {
             value: "row",
             text: "Rest of World",
-            checked: true if data['answers']['company-location'] == "row"
+            checked: true if data['answers']['company']['location'] == "row"
           }
         ]
       }) }}

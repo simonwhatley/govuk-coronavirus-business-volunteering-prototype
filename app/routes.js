@@ -666,20 +666,22 @@ router.post('/expertise', (req, res) => {
 
   let errors = [];
 
-  if (!req.session.data.answers['expertise'].length) {
-    let error = {};
-    error.fieldName = 'expertise';
-    error.href = '#expertise';
-    error.text = 'Choose what kinds of expertise you can offer';
-    errors.push(error);
-  }
+  if (req.session.data.answers['expertise'] === undefined) {
+    // let error = {};
+    // error.fieldName = 'expertise';
+    // error.href = '#expertise';
+    // error.text = 'Choose what kinds of expertise you can offer';
+    // errors.push(error);
+  } else {
 
-  if (req.session.data.answers['expertise'] == 'other' && !req.session.data.answers['expertise-other'].length) {
-    let error = {};
-    error.fieldName = 'expertise-other';
-    error.href = '#expertise-other';
-    error.text = 'Enter other type of expertise';
-    errors.push(error);
+    if (req.session.data.answers['expertise'] == 'other' && !req.session.data.answers['expertise-other'].length) {
+      let error = {};
+      error.fieldName = 'expertise-other';
+      error.href = '#expertise-other';
+      error.text = 'Enter a description for other types of expertise';
+      errors.push(error);
+    }
+
   }
 
   if (errors.length) {
@@ -695,11 +697,7 @@ router.post('/expertise', (req, res) => {
 
   } else {
 
-    if (req.session.data.answers['expertise'] == 'yes') {
-      res.redirect(req.baseUrl + '/kind-of-expertise');
-    } else {
-      res.redirect(req.baseUrl + '/other-support');
-    }
+    res.redirect(req.baseUrl + '/other-support');
 
   }
 
@@ -843,7 +841,7 @@ router.post('/business-details', (req, res) => {
 
   let errors = [];
 
-  if (!req.session.data.answers['company-name'].length) {
+  if (!req.session.data.answers['company']['name'].length) {
     let error = {};
     error.fieldName = 'company-name';
     error.href = '#company-name';
@@ -851,7 +849,7 @@ router.post('/business-details', (req, res) => {
     errors.push(error);
   }
 
-  if (!req.session.data.answers['company-number'].length) {
+  if (!req.session.data.answers['company']['number'].length) {
     let error = {};
     error.fieldName = 'company-number';
     error.href = '#company-number';
@@ -859,7 +857,7 @@ router.post('/business-details', (req, res) => {
     errors.push(error);
   }
 
-  if (req.session.data.answers['company-size'] === undefined) {
+  if (req.session.data.answers['company']['size'] === undefined) {
     let error = {};
     error.fieldName = 'company-size';
     error.href = '#company-size';
@@ -867,14 +865,14 @@ router.post('/business-details', (req, res) => {
     errors.push(error);
   }
 
-  if (req.session.data.answers['company-location'] === undefined) {
+  if (req.session.data.answers['company']['location'] === undefined) {
     let error = {};
     error.fieldName = 'company-location';
     error.href = '#company-location';
     error.text = 'Choose the location of the company’s main office';
     errors.push(error);
   } else {
-    if (req.session.data.answers['company-location'] == 'uk' && !req.session.data.answers['company-postcode'].length) {
+    if (req.session.data.answers['company']['location'] == 'uk' && !req.session.data.answers['company']['postcode'].length) {
       let error = {};
       error.fieldName = 'company-postcode';
       error.href = '#company-postcode';
@@ -935,7 +933,7 @@ router.post('/contact-details', (req, res) => {
 
   let errors = [];
 
-  if (!req.session.data.answers['contact-name'].length) {
+  if (!req.session.data.answers['contact']['name'].length) {
     let error = {};
     error.fieldName = 'contact-name';
     error.href = '#contact-name';
@@ -943,7 +941,7 @@ router.post('/contact-details', (req, res) => {
     errors.push(error);
   }
 
-  // if (!req.session.data.answers['contact-role'].length) {
+  // if (!req.session.data.answers['contact']['role'].length) {
   //   let error = {};
   //   error.fieldName = 'contact-role';
   //   error.href = '#contact-role';
@@ -951,7 +949,7 @@ router.post('/contact-details', (req, res) => {
   //   errors.push(error);
   // }
 
-  if (!req.session.data.answers['contact-phone'].length) {
+  if (!req.session.data.answers['contact']['phone'].length) {
     let error = {};
     error.fieldName = 'contact-phone';
     error.href = '#contact-phone';
@@ -959,7 +957,7 @@ router.post('/contact-details', (req, res) => {
     errors.push(error);
   }
 
-  if (!req.session.data.answers['contact-email'].length) {
+  if (!req.session.data.answers['contact']['email'].length) {
     let error = {};
     error.fieldName = 'contact-email';
     error.href = '#contact-email';
