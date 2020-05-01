@@ -132,8 +132,25 @@
             checked: true if data['answers']['product']['type'] == "clinical_waste_bags"
           },
           {
+            divider: "or"
+          },
+          {
             value: "other",
             text: "Something else",
+            conditional: {
+              html: govukTextarea({
+                      id: "product-type-other",
+                      name: "answers[product][type-other]",
+                      label: {
+                        text: "Give a summary of the type of equipment"
+                      },
+                      hint: {
+                        text: ""
+                      },
+                      errorMessage: errors | getErrorMessage('product-type-other'),
+                      value: data['answers']['product']['type-other']
+                    })
+            },
             checked: true if data['answers']['product']['type'] == "other"
           }
         ]
@@ -223,7 +240,7 @@
                         text: ""
                       },
                       errorMessage: errors | getErrorMessage('product-postcode'),
-                      value: data['answers']['product']['postcode'],
+                      value: data['answers']['product']['postcode'] | upper,
                       attributes: {
                         "autocomplete": "off",
                         "autocapitalize": "off"

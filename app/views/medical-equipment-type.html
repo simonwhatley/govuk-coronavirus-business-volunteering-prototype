@@ -52,7 +52,12 @@
           {
             value: "other",
             text: "Other",
-            conditional: {
+            checked: true if data['answers']['medical-equipment-type'] == "other"
+          }
+        ]
+      }) }}
+
+      {# conditional: {
               html: govukTextarea({
                       id: "medical-equipment-type-other-description",
                       name: "answers[medical-equipment-type-other-description]",
@@ -65,11 +70,7 @@
                       errorMessage: errors | getErrorMessage('medical-equipment-type-other-description'),
                       value: data['answers']['medical-equipment-type-other-description']
                     })
-            },
-            checked: true if data['answers']['medical-equipment-type'] == "other"
-          }
-        ]
-      }) }}
+            }, #}
 
       {{ govukButton({
         text: "Continue",
