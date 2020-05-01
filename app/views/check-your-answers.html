@@ -20,15 +20,20 @@
       Are you ready to send the form?
     </h1>
 
-    <form action="{{ actions.save }}" method="post" accept-charset="utf-8" novalidate>
+    {% include "./partials/_equipment-details-summary.html" %}
 
+    {% include "./partials/_business-details-summary.html" %}
 
-      {{ govukButton({
-        text: "Continue",
-        classes: "govuk-!-margin-top-5"
-      }) }}
+    {% include "./partials/_contact-details-summary.html" %}
 
-    </form>
+    {{ govukInsetText({
+      text: "By submitting this for you‘re confirming that, to the best of your knowledge, the details you‘re providing are correct."
+    }) }}
+
+    {{ govukButton({
+      text: "Accept and send",
+      href: "#"
+    }) }}
 
   </div>
 </div>

@@ -1,0 +1,61 @@
+[
+  {
+    "value": "ffp3_respirators",
+    "text": "FFP3 respirators"
+  },
+  {
+    "value": "ffp2_respirators",
+    "text": "FFP2 respirators"
+  },
+  {
+    "value": "aprons",
+    "text": "Aprons"
+  },
+  {
+    "value": "gloves",
+    "text": "Gloves"
+  },
+  {
+    "value": "iir_face_masks",
+    "text": "Type IIR face masks"
+  },
+  {
+    "value": "safety_glasses_visors",
+    "text": "Safety glasses or visors"
+  },
+  {
+    "value": "alcohol_hand_gel",
+    "text": "Alcohol hand gel"
+  },
+  {
+    "value": "gowns",
+    "text": "Gowns"
+  },
+  {
+    "value": "face_fit_test_kit",
+    "text": "Face fit test kit"
+  },
+  {
+    "value": "face_fit_test_solution",
+    "text": "Face fit test solution"
+  },
+  {
+    "value": "swabs",
+    "text": "Swabs"
+  },
+  {
+    "value": "general_purpose_detergent"
+  },
+  {
+    "value": "body_bags",
+    "text": "Body bags"
+  },
+  {
+    "value": "cleaning_equipment",
+    "text": "Cleaning equipment"
+  },
+  {
+    "value": "clinical_waste_bags",
+    "text": "Clinical waste bags"
+  }
+]

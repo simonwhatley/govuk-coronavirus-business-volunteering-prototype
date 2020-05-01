@@ -1,0 +1,77 @@
+<h2 class="govuk-heading-l">Business details</h2>
+
+{{ govukSummaryList({
+  classes: "govuk-!-margin-bottom-9",
+  rows: [
+    {
+      key: {
+        text: "Company name"
+      },
+      value: {
+        text: data['answers']['company']['name']
+      },
+      actions: {
+        items: [
+          {
+            href: "#",
+            text: "Change",
+            visuallyHiddenText: "company name"
+          }
+        ]
+      }
+    },
+    {
+      key: {
+        text: "Company number"
+      },
+      value: {
+        text: data['answers']['company']['number']
+      },
+      actions: {
+        items: [
+          {
+            href: "#",
+            text: "Change",
+            visuallyHiddenText: "company number"
+          }
+        ]
+      }
+    },
+    {
+      key: {
+        text: "Company size"
+      },
+      value: {
+        text: data['answers']['company']['size'] | getCompanySizeAsString
+      },
+      actions: {
+        items: [
+          {
+            href: "#",
+            text: "Change",
+            visuallyHiddenText: "company size"
+          }
+        ]
+      }
+    },
+    {
+      key: {
+        text: "Company location"
+      },
+      value: {
+        text: data['answers']['company']['location'] | getLocationAsString + (" (" + data['answers']['company']['postcode'] | upper + ")") if data['answers']['company']['postcode'] | length
+      },
+      actions: {
+        items: [
+          {
+            href: "#",
+            text: "Change",
+            visuallyHiddenText: "company location"
+          }
+        ]
+      }
+    }
+  ]
+}) }}
+
+{# <hr class="govuk-section-break govuk-section-break--l"> #}

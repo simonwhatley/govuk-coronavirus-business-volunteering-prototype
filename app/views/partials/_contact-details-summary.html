@@ -1,0 +1,76 @@
+<h2 class="govuk-heading-l">Contact details</h2>
+
+{{ govukSummaryList({
+  rows: [
+    {
+      key: {
+        text: "Name of main contact"
+      },
+      value: {
+        text: data['answers']['contact']['name']
+      },
+      actions: {
+        items: [
+          {
+            href: "#",
+            text: "Change",
+            visuallyHiddenText: "name"
+          }
+        ]
+      }
+    },
+    {
+      key: {
+        text: "Role of main contact"
+      },
+      value: {
+        text: data['answers']['contact']['role']
+      },
+      actions: {
+        items: [
+          {
+            href: "#",
+            text: "Change",
+            visuallyHiddenText: "role"
+          }
+        ]
+      }
+    },
+    {
+      key: {
+        text: "Phone number of main contact"
+      },
+      value: {
+        text: data['answers']['contact']['phone']
+      },
+      actions: {
+        items: [
+          {
+            href: "#",
+            text: "Change",
+            visuallyHiddenText: "phone number"
+          }
+        ]
+      }
+    },
+    {
+      key: {
+        text: "Email address of main contact"
+      },
+      value: {
+        text: data['answers']['contact']['email']
+      },
+      actions: {
+        items: [
+          {
+            href: "#",
+            text: "Change",
+            visuallyHiddenText: "email address"
+          }
+        ]
+      }
+    }
+  ]
+}) }}
+
+<hr class="govuk-section-break govuk-section-break--l">

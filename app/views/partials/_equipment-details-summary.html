@@ -1,0 +1,155 @@
+<h2 class="govuk-heading-l">Medical equipment details</h2>
+
+{%- for product in data['answers']['products'] %}
+
+<h3 class="govuk-heading-m">Product {{ loop.index }}</h3>
+
+{{ govukSummaryList({
+  classes: "govuk-!-margin-bottom-5" if loop.last else "govuk-!-margin-bottom-7",
+  rows: [
+    {
+      key: {
+        text: "Name of product"
+      },
+      value: {
+        text: product['name']
+      },
+      actions: {
+        items: [
+          {
+            href: "#",
+            text: "Change",
+            visuallyHiddenText: "product name"
+          }
+        ]
+      }
+    },
+    {
+      key: {
+        text: "What type of equipment is it?"
+      },
+      value: {
+        text: product['type'] | getEquipmentTypeAsString
+      },
+      actions: {
+        items: [
+          {
+            href: "#",
+            text: "Change",
+            visuallyHiddenText: "product type"
+          }
+        ]
+      }
+    } if product['type'] | length,
+    {
+      key: {
+        text: "Quantity of this product"
+      },
+      value: {
+        text: product['quantity'] | numeral('0,00')
+      },
+      actions: {
+        items: [
+          {
+            href: "#",
+            text: "Change",
+            visuallyHiddenText: "product quantity"
+          }
+        ]
+      }
+    },
+    {
+      key: {
+        text: "Cost per item, in pounds"
+      },
+      value: {
+        text: product['cost'] | numeral('0,00.00')
+      },
+      actions: {
+        items: [
+          {
+            href: "#",
+            text: "Change",
+            visuallyHiddenText: "product cost"
+          }
+        ]
+      }
+    },
+    {
+      key: {
+        text: "Certification details"
+      },
+      value: {
+        text: product['certification']
+      },
+      actions: {
+        items: [
+          {
+            href: "#",
+            text: "Change",
+            visuallyHiddenText: "product certification details"
+          }
+        ]
+      }
+    },
+    {
+      key: {
+        text: "Where is the product made, or stored if it's already made?"
+      },
+      value: {
+        text: product['location'] | getLocationAsString + (" (" + product['postcode'] | upper + ")") if product['postcode'] | length
+      },
+      actions: {
+        items: [
+          {
+            href: "#",
+            text: "Change",
+            visuallyHiddenText: "where this product is made or stored"
+          }
+        ]
+      }
+    },
+    {
+      key: {
+        text: "URL of the product specification document"
+      },
+      value: {
+        text: product['url']
+      },
+      actions: {
+        items: [
+          {
+            href: "#",
+            text: "Change",
+            visuallyHiddenText: "the URL of the product specification document"
+          }
+        ]
+      }
+    },
+    {
+      key: {
+        text: "Lead time, in days"
+      },
+      value: {
+        text: product['lead-time']
+      },
+      actions: {
+        items: [
+          {
+            href: "#",
+            text: "Change",
+            visuallyHiddenText: "the product lead time"
+          }
+        ]
+      }
+    }
+  ]
+}) }}
+
+{% endfor -%}
+
+<p class="govuk-body">
+  <a href="./medical-equipment-type" class="govuk-link">Add another product</a>
+<p>
+
+{# <hr class="govuk-section-break govuk-section-break--l"> #}

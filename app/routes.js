@@ -3,6 +3,14 @@ const router = express.Router();
 
 const uuid = require('uuid/v1');
 
+function checkHasAnswers(req, res, next) {
+  if (req.session.data.answers === undefined) {
+    res.redirect(req.baseUrl + '/');
+  } else {
+    next();
+  }
+}
+
 // --------------------------------------------------
 // Start
 // --------------------------------------------------
@@ -20,7 +28,7 @@ router.get('/', (req, res) => {
 // --------------------------------------------------
 // Q: Can you offer medical equipment?
 // --------------------------------------------------
-router.get('/medical-equipment', (req, res) => {
+router.get('/medical-equipment', checkHasAnswers, (req, res) => {
 
   let next = req.baseUrl + '/medical-equipment';
   if (req.headers.referer.includes('check-your-answers')) {
@@ -40,7 +48,7 @@ router.get('/medical-equipment', (req, res) => {
   });
 });
 
-router.post('/medical-equipment', (req, res) => {
+router.post('/medical-equipment', checkHasAnswers, (req, res) => {
 
   let next = req.baseUrl + '/medical-equipment';
   if (req.query.referer == 'check-your-answers') {
@@ -849,13 +857,13 @@ router.post('/business-details', (req, res) => {
     errors.push(error);
   }
 
-  if (!req.session.data.answers['company']['number'].length) {
-    let error = {};
-    error.fieldName = 'company-number';
-    error.href = '#company-number';
-    error.text = 'Enter a company number';
-    errors.push(error);
-  }
+  // if (!req.session.data.answers['company']['number'].length) {
+  //   let error = {};
+  //   error.fieldName = 'company-number';
+  //   error.href = '#company-number';
+  //   error.text = 'Enter a company number';
+  //   errors.push(error);
+  // }
 
   if (req.session.data.answers['company']['size'] === undefined) {
     let error = {};
@@ -1096,16 +1104,28 @@ router.post('/medical-equipment-type', (req, res) => {
 
   } else {
 
-    // clear out the product details from the session
-    // req.session.data.answers['product'] = {};
-    // req.session.data.answers['product']['id'] = uuid();
-
     if (req.session.data.answers['medical-equipment-type'] == 'ppe') {
+
       res.redirect(req.baseUrl + '/medical-equipment-ppe');
+
     } else if (req.session.data.answers['medical-equipment-type'] == 'testing') {
+
+      // delete the product as we don't need it
+      // if (req.session.data.answers['product'] !== undefined) {
+      //   delete req.session.data.answers['product'];
+      // }
+
       res.redirect(req.baseUrl + '/medical-equipment-testing');
+
     } else {
+
+      // delete the product type as we don't need it
+      // if (req.session.data.answers['product']['type'] !== undefined) {
+      //   delete req.session.data.answers['product']['type'];
+      // }
+
       res.redirect(req.baseUrl + '/medical-equipment-other');
+
     }
 
   }
@@ -1156,6 +1176,14 @@ router.post('/medical-equipment-ppe', (req, res) => {
     error.href = '#product-type';
     error.text = 'Choose the type of equipment';
     errors.push(error);
+  } else {
+    if (req.session.data.answers['product']['type'] == 'other' && !req.session.data.answers['product']['type-other'].length) {
+      let error = {};
+      error.fieldName = 'product-type-other';
+      error.href = '#product-type-other';
+      error.text = 'Enter a summary of the type of equipment';
+      errors.push(error);
+    }
   }
 
   if (!req.session.data.answers['product']['quantity'].length) {
@@ -1436,12 +1464,29 @@ router.post('/another-product', (req, res) => {
 
   } else {
 
+    // give the product an ID for easy retrieval later
+    req.session.data.answers['product']['id'] = uuid();
+
+    // push the product into the products array
     req.session.data.answers['products'].push(req.session.data.answers['product']);
 
+    // delete the product object as we no longer need it
+    delete req.session.data.answers['product'];
+
+    // reset the medical equipment type question answer, forcing a new answer
+    req.session.data.answers['medical-equipment-type'] = "";
+
     if (req.session.data.answers['another-product'] == 'yes') {
+
+      // reset the another product question answer, forcing a new answer
+      req.session.data.answers['another-product'] = "";
+
       res.redirect(req.baseUrl + '/medical-equipment-type');
+
     } else {
+
       res.redirect(req.baseUrl + '/accommodation');
+
     }
 
   }
