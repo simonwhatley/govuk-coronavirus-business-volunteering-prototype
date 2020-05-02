@@ -28,7 +28,7 @@ router.get('/', (req, res) => {
 // --------------------------------------------------
 // Q: Can you offer medical equipment?
 // --------------------------------------------------
-router.get('/medical-equipment', checkHasAnswers, (req, res) => {
+router.get('/medical-equipment', (req, res) => {
 
   let next = req.baseUrl + '/medical-equipment';
   if (req.headers.referer.includes('check-your-answers')) {
@@ -95,7 +95,7 @@ router.post('/medical-equipment', checkHasAnswers, (req, res) => {
 // --------------------------------------------------
 // Q: Can you offer accommodation?
 // --------------------------------------------------
-router.get('/accommodation', (req, res) => {
+router.get('/accommodation', checkHasAnswers, (req, res) => {
 
   let next = req.baseUrl + '/accommodation';
   if (req.headers.referer.includes('check-your-answers')) {
@@ -111,7 +111,7 @@ router.get('/accommodation', (req, res) => {
   });
 });
 
-router.post('/accommodation', (req, res) => {
+router.post('/accommodation', checkHasAnswers, (req, res) => {
 
   let next = req.baseUrl + '/accommodation';
   if (req.query.referer == 'check-your-answers') {
@@ -154,7 +154,7 @@ router.post('/accommodation', (req, res) => {
 // --------------------------------------------------
 // Q: How many rooms can you offer?
 // --------------------------------------------------
-router.get('/accommodation-quantity', (req, res) => {
+router.get('/accommodation-quantity', checkHasAnswers, (req, res) => {
 
   let next = req.baseUrl + '/accommodation-quantity';
   if (req.headers.referer.includes('check-your-answers')) {
@@ -170,7 +170,7 @@ router.get('/accommodation-quantity', (req, res) => {
   });
 });
 
-router.post('/accommodation-quantity', (req, res) => {
+router.post('/accommodation-quantity', checkHasAnswers, (req, res) => {
 
   let next = req.baseUrl + '/accommodation-quantity';
   if (req.query.referer == 'check-your-answers') {
@@ -209,7 +209,7 @@ router.post('/accommodation-quantity', (req, res) => {
 // --------------------------------------------------
 // Q: Can you offer transport or logistics?
 // --------------------------------------------------
-router.get('/transport-logistics', (req, res) => {
+router.get('/transport-logistics', checkHasAnswers, (req, res) => {
 
   let next = req.baseUrl + '/transport-logistics';
   if (req.headers.referer.includes('check-your-answers')) {
@@ -230,7 +230,7 @@ router.get('/transport-logistics', (req, res) => {
   });
 });
 
-router.post('/transport-logistics', (req, res) => {
+router.post('/transport-logistics', checkHasAnswers, (req, res) => {
 
   let next = req.baseUrl + '/transport-logistics';
   if (req.query.referer == 'check-your-answers') {
@@ -278,7 +278,7 @@ router.post('/transport-logistics', (req, res) => {
 // --------------------------------------------------
 // Q: What kind of transport or logistics can you offer?
 // --------------------------------------------------
-router.get('/transport-logistics-type', (req, res) => {
+router.get('/transport-logistics-type', checkHasAnswers, (req, res) => {
 
   let next = req.baseUrl + '/transport-logistics-type';
   if (req.headers.referer.includes('check-your-answers')) {
@@ -294,7 +294,7 @@ router.get('/transport-logistics-type', (req, res) => {
   });
 });
 
-router.post('/transport-logistics-type', (req, res) => {
+router.post('/transport-logistics-type', checkHasAnswers, (req, res) => {
 
   let next = req.baseUrl + '/transport-logistics-type';
   if (req.query.referer == 'check-your-answers') {
@@ -341,7 +341,7 @@ router.post('/transport-logistics-type', (req, res) => {
 // --------------------------------------------------
 // Q: Can you offer space?
 // --------------------------------------------------
-router.get('/space', (req, res) => {
+router.get('/space', checkHasAnswers, (req, res) => {
 
   let next = req.baseUrl + '/space';
   if (req.headers.referer.includes('check-your-answers')) {
@@ -362,7 +362,7 @@ router.get('/space', (req, res) => {
   });
 });
 
-router.post('/space', (req, res) => {
+router.post('/space', checkHasAnswers, (req, res) => {
 
   let next = req.baseUrl + '/space';
   if (req.query.referer == 'check-your-answers') {
@@ -410,7 +410,7 @@ router.post('/space', (req, res) => {
 // --------------------------------------------------
 // Q: What kind of space can you offer?
 // --------------------------------------------------
-router.get('/space-type', (req, res) => {
+router.get('/space-type', checkHasAnswers, (req, res) => {
 
   let next = req.baseUrl + '/space-type';
   if (req.headers.referer.includes('check-your-answers')) {
@@ -426,7 +426,7 @@ router.get('/space-type', (req, res) => {
   });
 });
 
-router.post('/space-type', (req, res) => {
+router.post('/space-type', checkHasAnswers, (req, res) => {
 
   let next = req.baseUrl + '/space-type';
   if (req.query.referer == 'check-your-answers') {
@@ -499,7 +499,7 @@ router.post('/space-type', (req, res) => {
 // --------------------------------------------------
 // Q: Can you offer social care or childcare?
 // --------------------------------------------------
-router.get('/care', (req, res) => {
+router.get('/care', checkHasAnswers, (req, res) => {
 
   let next = req.baseUrl + '/care';
   if (req.headers.referer.includes('check-your-answers')) {
@@ -520,7 +520,7 @@ router.get('/care', (req, res) => {
   });
 });
 
-router.post('/care', (req, res) => {
+router.post('/care', checkHasAnswers, (req, res) => {
 
   let next = req.baseUrl + '/care';
   if (req.query.referer == 'check-your-answers') {
@@ -568,7 +568,7 @@ router.post('/care', (req, res) => {
 // --------------------------------------------------
 // Q: What kind of care can you offer?
 // --------------------------------------------------
-router.get('/care-type', (req, res) => {
+router.get('/care-type', checkHasAnswers, (req, res) => {
 
   let next = req.baseUrl + '/care-type';
   if (req.headers.referer.includes('check-your-answers')) {
@@ -584,7 +584,7 @@ router.get('/care-type', (req, res) => {
   });
 });
 
-router.post('/care-type', (req, res) => {
+router.post('/care-type', checkHasAnswers, (req, res) => {
 
   let next = req.baseUrl + '/care-type';
   if (req.query.referer == 'check-your-answers') {
@@ -639,7 +639,7 @@ router.post('/care-type', (req, res) => {
 // --------------------------------------------------
 // Q: What kind of expertise can you offer?
 // --------------------------------------------------
-router.get('/expertise', (req, res) => {
+router.get('/expertise', checkHasAnswers, (req, res) => {
 
   let next = req.baseUrl + '/expertise';
   if (req.headers.referer.includes('check-your-answers')) {
@@ -660,7 +660,7 @@ router.get('/expertise', (req, res) => {
   });
 });
 
-router.post('/expertise', (req, res) => {
+router.post('/expertise', checkHasAnswers, (req, res) => {
 
   let next = req.baseUrl + '/expertise';
   if (req.query.referer == 'check-your-answers') {
@@ -714,7 +714,7 @@ router.post('/expertise', (req, res) => {
 // --------------------------------------------------
 // Q: Can you offer any other kind of support?
 // --------------------------------------------------
-router.get('/other-support', (req, res) => {
+router.get('/other-support', checkHasAnswers, (req, res) => {
 
   let next = req.baseUrl + '/other-support';
   if (req.headers.referer.includes('check-your-answers')) {
@@ -730,7 +730,7 @@ router.get('/other-support', (req, res) => {
   });
 });
 
-router.post('/other-support', (req, res) => {
+router.post('/other-support', checkHasAnswers, (req, res) => {
 
   let next = req.baseUrl + '/other-support';
   if (req.query.referer == 'check-your-answers') {
@@ -769,7 +769,7 @@ router.post('/other-support', (req, res) => {
 // --------------------------------------------------
 // Q: Where can you offer your services?
 // --------------------------------------------------
-router.get('/location', (req, res) => {
+router.get('/location', checkHasAnswers, (req, res) => {
 
   let next = req.baseUrl + '/location';
   if (req.headers.referer.includes('check-your-answers')) {
@@ -785,7 +785,7 @@ router.get('/location', (req, res) => {
   });
 });
 
-router.post('/location', (req, res) => {
+router.post('/location', checkHasAnswers, (req, res) => {
 
   let next = req.baseUrl + '/location';
   if (req.query.referer == 'check-your-answers') {
@@ -824,7 +824,7 @@ router.post('/location', (req, res) => {
 // --------------------------------------------------
 // Your business details
 // --------------------------------------------------
-router.get('/business-details', (req, res) => {
+router.get('/business-details', checkHasAnswers, (req, res) => {
 
   let next = req.baseUrl + '/business-details';
   if (req.headers.referer.includes('check-your-answers')) {
@@ -840,7 +840,7 @@ router.get('/business-details', (req, res) => {
   });
 });
 
-router.post('/business-details', (req, res) => {
+router.post('/business-details', checkHasAnswers, (req, res) => {
 
   let next = req.baseUrl + '/business-details';
   if (req.query.referer == 'check-your-answers') {
@@ -911,7 +911,7 @@ router.post('/business-details', (req, res) => {
 // --------------------------------------------------
 // Your contact details
 // --------------------------------------------------
-router.get('/contact-details', (req, res) => {
+router.get('/contact-details', checkHasAnswers, (req, res) => {
 
   let next = req.baseUrl + '/contact-details';
   if (req.headers.referer.includes('check-your-answers')) {
@@ -932,7 +932,7 @@ router.get('/contact-details', (req, res) => {
   });
 });
 
-router.post('/contact-details', (req, res) => {
+router.post('/contact-details', checkHasAnswers, (req, res) => {
 
   let next = req.baseUrl + '/contact-details';
   if (req.query.referer == 'check-your-answers') {
@@ -999,7 +999,7 @@ router.post('/contact-details', (req, res) => {
 // --------------------------------------------------
 // Q: What kind of business are you?
 // --------------------------------------------------
-router.get('/business-type', (req, res) => {
+router.get('/business-type', checkHasAnswers, (req, res) => {
 
   let next = req.baseUrl + '/business-type';
   if (req.headers.referer.includes('check-your-answers')) {
@@ -1017,7 +1017,7 @@ router.get('/business-type', (req, res) => {
   });
 });
 
-router.post('/business-type', (req, res) => {
+router.post('/business-type', checkHasAnswers, (req, res) => {
 
   let next = req.baseUrl + '/business-type';
   if (req.query.referer == 'check-your-answers') {
@@ -1056,7 +1056,7 @@ router.post('/business-type', (req, res) => {
 // --------------------------------------------------
 // Q: What kind of medical equipment can you offer?
 // --------------------------------------------------
-router.get('/medical-equipment-type', (req, res) => {
+router.get('/medical-equipment-type', checkHasAnswers, (req, res) => {
 
   let next = req.baseUrl + '/medical-equipment-type';
   if (req.headers.referer.includes('check-your-answers')) {
@@ -1074,7 +1074,7 @@ router.get('/medical-equipment-type', (req, res) => {
   });
 });
 
-router.post('/medical-equipment-type', (req, res) => {
+router.post('/medical-equipment-type', checkHasAnswers, (req, res) => {
 
   let next = req.baseUrl + '/medical-equipment-type';
   if (req.query.referer == 'check-your-answers') {
@@ -1135,7 +1135,7 @@ router.post('/medical-equipment-type', (req, res) => {
 // --------------------------------------------------
 // Q: Tell us about the product you're offering – PPE
 // --------------------------------------------------
-router.get('/medical-equipment-ppe', (req, res) => {
+router.get('/medical-equipment-ppe', checkHasAnswers, (req, res) => {
 
   let next = req.baseUrl + '/medical-equipment-ppe';
   if (req.headers.referer.includes('check-your-answers')) {
@@ -1153,7 +1153,7 @@ router.get('/medical-equipment-ppe', (req, res) => {
   });
 });
 
-router.post('/medical-equipment-ppe', (req, res) => {
+router.post('/medical-equipment-ppe', checkHasAnswers, (req, res) => {
 
   let next = req.baseUrl + '/medical-equipment-ppe';
   if (req.query.referer == 'check-your-answers') {
@@ -1264,7 +1264,7 @@ router.post('/medical-equipment-ppe', (req, res) => {
 // --------------------------------------------------
 // Q: Tell us about the product you're offering – Testing
 // --------------------------------------------------
-router.get('/medical-equipment-testing', (req, res) => {
+router.get('/medical-equipment-testing', checkHasAnswers, (req, res) => {
 
   let next = req.baseUrl + '/another-product';
   if (req.headers.referer.includes('check-your-answers')) {
@@ -1285,7 +1285,7 @@ router.get('/medical-equipment-testing', (req, res) => {
 // --------------------------------------------------
 // Q: Tell us about the product you're offering – Other
 // --------------------------------------------------
-router.get('/medical-equipment-other', (req, res) => {
+router.get('/medical-equipment-other', checkHasAnswers, (req, res) => {
 
   let next = req.baseUrl + '/medical-equipment-other';
   if (req.headers.referer.includes('check-your-answers')) {
@@ -1303,7 +1303,7 @@ router.get('/medical-equipment-other', (req, res) => {
   });
 });
 
-router.post('/medical-equipment-other', (req, res) => {
+router.post('/medical-equipment-other', checkHasAnswers, (req, res) => {
 
   let next = req.baseUrl + '/medical-equipment-other';
   if (req.query.referer == 'check-your-answers') {
@@ -1398,7 +1398,7 @@ router.post('/medical-equipment-other', (req, res) => {
 // --------------------------------------------------
 // Q: Can you offer another product?
 // --------------------------------------------------
-router.get('/another-product', (req, res) => {
+router.get('/another-product', checkHasAnswers, (req, res) => {
 
   let next = req.baseUrl + '/another-product';
   if (req.headers.referer.includes('check-your-answers')) {
@@ -1422,7 +1422,7 @@ router.get('/another-product', (req, res) => {
   });
 });
 
-router.post('/another-product', (req, res) => {
+router.post('/another-product', checkHasAnswers, (req, res) => {
 
   let next = req.baseUrl + '/another-product';
   if (req.query.referer == 'check-your-answers') {
@@ -1500,7 +1500,7 @@ router.post('/another-product', (req, res) => {
 // --------------------------------------------------
 // Check your answers
 // --------------------------------------------------
-router.get('/check-your-answers', (req, res) => {
+router.get('/check-your-answers', checkHasAnswers, (req, res) => {
 
   res.render('check-your-answers', {
     actions: {
@@ -1515,7 +1515,7 @@ router.get('/check-your-answers', (req, res) => {
 // --------------------------------------------------
 // Confirmation
 // --------------------------------------------------
-router.get('/confirmation', (req, res) => {
+router.get('/confirmation', checkHasAnswers, (req, res) => {
 
   res.render('confirmation', {
     actions: {
