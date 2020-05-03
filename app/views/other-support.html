@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 
 {% block pageTitle %}
-  Can you offer any other kind of support?
+  {{ 'Error: ' if errors | length -}} Can you offer any other kind of support?
 {% endblock %}
 
 {% block beforeContent %}

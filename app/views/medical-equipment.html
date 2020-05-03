@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 
 {% block pageTitle %}
-  Can you offer medical equipment?
+  {{ 'Error: ' if errors | length -}} Can you offer medical equipment?
 {% endblock %}
 
 {% block beforeContent %}

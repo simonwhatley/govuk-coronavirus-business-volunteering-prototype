@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 
 {% block pageTitle %}
-  Your business details
+  {{ 'Error: ' if errors | length -}} Your business details
 {% endblock %}
 
 {% block beforeContent %}

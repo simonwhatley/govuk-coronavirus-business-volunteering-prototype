@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 
 {% block pageTitle %}
-  What kind of business are you?
+  {{ 'Error: ' if errors | length -}} What kind of business are you?
 {% endblock %}
 
 {% block beforeContent %}

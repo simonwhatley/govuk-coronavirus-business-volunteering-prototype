@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 
 {% block pageTitle %}
-  Testing equipment
+  {{ 'Error: ' if errors | length -}} Testing equipment
 {% endblock %}
 
 {% block beforeContent %}

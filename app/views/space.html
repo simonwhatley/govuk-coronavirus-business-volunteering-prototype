@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 
 {% block pageTitle %}
-  Can you offer space?
+  {{ 'Error: ' if errors | length -}} Can you offer space?
 {% endblock %}
 
 {% block beforeContent %}

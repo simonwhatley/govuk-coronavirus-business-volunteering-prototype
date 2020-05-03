@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 
 {% block pageTitle %}
-  How many rooms can you offer?
+  {{ 'Error: ' if errors | length -}} How many rooms can you offer?
 {% endblock %}
 
 {% block beforeContent %}

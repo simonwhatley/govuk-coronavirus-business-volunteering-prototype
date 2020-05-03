@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 
 {% block pageTitle %}
-  Your contact details
+  {{ 'Error: ' if errors | length -}} Your contact details
 {% endblock %}
 
 {% block beforeContent %}
