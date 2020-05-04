@@ -1,0 +1,7 @@
+deploy:
+  edge: true
+  provider: cloudfoundry
+  username: USERNAME
+  api: https://api.cloud.service.gov.uk
+  organization: gds-design
+  space: prototypes
