@@ -23,7 +23,7 @@
 
       {{ govukRadios({
         idPrefix: "transport-logistics",
-        name: "answers[transport-logistics]",
+        name: "answers[offer-transport-logistics]",
         fieldset: {
           legend: {
             text: "Can you offer transport or logistics?",
@@ -39,12 +39,12 @@
           {
             value: "yes",
             text: "Yes",
-            checked: true if data['answers']['transport-logistics'] == "yes"
+            checked: true if data['answers']['offer-transport-logistics'] == "yes"
           },
           {
             value: "no",
             text: "No",
-            checked: true if data['answers']['transport-logistics'] == "no"
+            checked: true if data['answers']['offer-transport-logistics'] == "no"
           }
         ]
       }) }}

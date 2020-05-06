@@ -23,7 +23,7 @@
 
       {{ govukInput({
         id: "accommodation-quantity",
-        name: "answers[accommodation-quantity]",
+        name: "answers[accommodation][quantity]",
         label: {
           text: "How many rooms can you offer?",
           isPageHeading: true,
@@ -33,7 +33,7 @@
           text: "Give an approximate amount, for example 10, 500, 10000"
         },
         errorMessage: errors | getErrorMessage('accommodation-quantity'),
-        value: data['answers']['accommodation-quantity'],
+        value: data['answers']['accommodation']['quantity'],
         classes: "govuk-input--width-10"
       }) }}
 

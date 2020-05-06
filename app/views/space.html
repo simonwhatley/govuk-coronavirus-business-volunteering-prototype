@@ -23,7 +23,7 @@
 
       {{ govukRadios({
         idPrefix: "space",
-        name: "answers[space]",
+        name: "answers[offer-space]",
         fieldset: {
           legend: {
             text: "Can you offer space?",
@@ -39,16 +39,15 @@
           {
             value: "yes",
             text: "Yes",
-            checked: true if data['answers']['space'] == "yes"
+            checked: true if data['answers']['offer-space'] == "yes"
           },
           {
             value: "no",
             text: "No",
-            checked: true if data['answers']['space'] == "no"
+            checked: true if data['answers']['offer-space'] == "no"
           }
         ]
       }) }}
-
 
       {{ govukButton({
         text: "Continue",

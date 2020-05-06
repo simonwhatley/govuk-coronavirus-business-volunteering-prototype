@@ -23,7 +23,7 @@
 
       {{ govukCheckboxes({
         idPrefix: "care-type",
-        name: "answers[care-type]",
+        name: "answers[care][type]",
         fieldset: {
           legend: {
             text: "What kind of care can you offer?",
@@ -39,19 +39,19 @@
           {
             value: "adults",
             text: "Care for adults",
-            checked: checked("answers['care-type']", "adults")
+            checked: checked("answers['care']['type']", "adults")
           },
           {
             value: "children",
             text: "Care for children",
-            checked: checked("answers['care-type']", "children")
+            checked: checked("answers['care']['type']", "children")
           }
         ]
       }) }}
 
       {{ govukCheckboxes({
         idPrefix: "care-qualifications",
-        name: "answers[care-qualifications]",
+        name: "answers[care][qualifications]",
         fieldset: {
           legend: {
             text: "What qualifications or certificates do you have?",
@@ -66,7 +66,7 @@
           {
             value: "dbs",
             text: "DBS check",
-            checked: checked("answers['care-qualifications']", "dbs")
+            checked: checked("answers['care']['qualifications']", "dbs")
           },
           {
             value: "healthcare",
@@ -74,7 +74,7 @@
             conditional: {
               html: govukTextarea({
                       id: "care-qualifications-healthcare-description",
-                      name: "answers[care-qualifications-healthcare-description]",
+                      name: "answers[care][description][healthcare]",
                       label: {
                         text: "Give a description"
                       },
@@ -82,14 +82,13 @@
                         text: ""
                       },
                       errorMessage: errors | getErrorMessage('care-qualifications-healthcare-description'),
-                      value: data['answers']['care-qualifications-healthcare-description']
+                      value: data['answers']['care']['description']['healthcare']
                     })
             },
-            checked: checked("answers['care-qualifications']", "healthcare")
+            checked: checked("answers['care']['qualifications']", "healthcare")
           }
         ]
       }) }}
-
 
       {{ govukButton({
         text: "Continue",

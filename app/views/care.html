@@ -23,7 +23,7 @@
 
       {{ govukRadios({
         idPrefix: "care",
-        name: "answers[care]",
+        name: "answers[offer-care]",
         fieldset: {
           legend: {
             text: "Can you offer social care or childcare?",
@@ -39,16 +39,15 @@
           {
             value: "yes",
             text: "Yes",
-            checked: true if data['answers']['care'] == "yes"
+            checked: true if data['answers']['offer-care'] == "yes"
           },
           {
             value: "no",
             text: "No",
-            checked: true if data['answers']['care'] == "no"
+            checked: true if data['answers']['offer-care'] == "no"
           }
         ]
       }) }}
-
 
       {{ govukButton({
         text: "Continue",

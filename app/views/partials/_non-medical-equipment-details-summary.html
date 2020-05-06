@@ -1,0 +1,159 @@
+{{ govukSummaryList({
+  rows: [
+    {
+      key: {
+        text: "Can you offer medical equipment?"
+      },
+      value: {
+        text: data['answers']['offer-medical-equipment'] | capitalize
+      },
+      actions: {
+        items: [
+          {
+            href: "/medical-equipment",
+            text: "Change",
+            visuallyHiddenText: "whether you can offer medical equipment"
+          }
+        ]
+      }
+    },
+    {
+      key: {
+        text: "Can you offer accommodation?"
+      },
+      value: {
+        text: data['answers']['offer-accommodation'] | capitalize
+      },
+      actions: {
+        items: [
+          {
+            href: "/accommodation",
+            text: "Change",
+            visuallyHiddenText: "whether you can offer accommodation"
+          }
+        ]
+      }
+    },
+    {
+      key: {
+        text: "How many rooms can you offer?"
+      },
+      value: {
+        text: data['answers']['accommodation-quantity'] | numeral('0,00')
+      },
+      actions: {
+        items: [
+          {
+            href: "/accommodation-details",
+            text: "Change",
+            visuallyHiddenText: "how many rooms you can offer"
+          }
+        ]
+      }
+    } if data['answers']['offer-accommodation'] == "yes",
+    {
+      key: {
+        text: "Can you offer transport or logistics?"
+      },
+      value: {
+        text: data['answers']['offer-transport-logistics'] | capitalize
+      },
+      actions: {
+        items: [
+          {
+            href: "/transport-logistics",
+            text: "Change",
+            visuallyHiddenText: "whether you can offer transport or logistics"
+          }
+        ]
+      }
+    },
+    {
+      key: {
+        text: "Can you offer space?"
+      },
+      value: {
+        text: data['answers']['offer-space'] | capitalize
+      },
+      actions: {
+        items: [
+          {
+            href: "/space",
+            text: "Change",
+            visuallyHiddenText: "whether you can offer space"
+          }
+        ]
+      }
+    },
+    {
+      key: {
+        text: "Can you offer social care or childcare?"
+      },
+      value: {
+        text: data['answers']['offer-care'] | capitalize
+      },
+      actions: {
+        items: [
+          {
+            href: "/care",
+            text: "Change",
+            visuallyHiddenText: "whether you can offer social care or childcare"
+          }
+        ]
+      }
+    },
+    {
+      key: {
+        text: "What kind of expertise can you offer?"
+      },
+      value: {
+        text: data['answers']['expertise'] | arrayToList | replace('_',' ') if data['answers']['expertise'] | length else "I cannot offer expertise"
+      },
+      actions: {
+        items: [
+          {
+            href: "/expertise",
+            text: "Change",
+            visuallyHiddenText: "what type of expertise you can offer"
+          }
+        ]
+      }
+    },
+    {
+      key: {
+        text: "Can you offer any other kind of support?"
+      },
+      value: {
+        text: data['answers']['other-support'] if data['answers']['other-support'] | length else "I cannot offer any other kind of support"
+      },
+      actions: {
+        items: [
+          {
+            href: "/other-support",
+            text: "Change",
+            visuallyHiddenText: "whether you can offer any other kind of support"
+          }
+        ]
+      }
+    },
+    {
+      key: {
+        text: "Where can you offer your services?"
+      },
+      value: {
+        text: data['answers']['location'] | arrayToList | replace('_',' ') | capitalize
+      },
+      actions: {
+        items: [
+          {
+            href: "/location",
+            text: "Change",
+            visuallyHiddenText: "where you can offer your services"
+          }
+        ]
+      }
+    }
+  ]
+}) }}
+
+<hr class="govuk-section-break govuk-section-break--l">

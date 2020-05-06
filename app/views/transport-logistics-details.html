@@ -23,7 +23,7 @@
 
       {{ govukCheckboxes({
         idPrefix: "transport-logistics-type",
-        name: "answers[transport-logistics-type]",
+        name: "answers[transport-logistics][type]",
         fieldset: {
           legend: {
             text: "What kind of transport or logistics services can you offer?",
@@ -39,24 +39,24 @@
           {
             value: "people",
             text: "Moving people",
-            checked: checked("answers['transport-logistics-type']", "people")
+            checked: checked("answers['transport-logistics']['type']", "people")
           },
           {
             value: "goods",
             text: "Moving goods",
-            checked: checked("answers['transport-logistics-type']", "goods")
+            checked: checked("answers['transport-logistics']['type']", "goods")
           },
           {
             value: "other",
             text: "Other",
-            checked: checked("answers['transport-logistics-type']", "other")
+            checked: checked("answers['transport-logistics']['type']", "other")
           }
         ]
       }) }}
 
       {{ govukTextarea({
-        id: "transport-logistics-type-description",
-        name: "answers[transport-logistics-type-description]",
+        id: "transport-logistics-description",
+        name: "answers[transport-logistics][description]",
         label: {
           text: "Give a description",
           classes: "govuk-label--s"
@@ -64,8 +64,8 @@
         hint: {
           text: "For example, how many vehicles you can offer and what type of vehicle they are"
         },
-        errorMessage: errors | getErrorMessage('transport-logistics-type-description'),
-        value: data['answers']['transport-logistics-type-description']
+        errorMessage: errors | getErrorMessage('transport-logistics-description'),
+        value: data['answers']['transport-logistics']['description']
       }) }}
 
       {{ govukButton({

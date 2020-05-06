@@ -23,7 +23,7 @@
 
       {{ govukRadios({
         idPrefix: "medical-equipment",
-        name: "answers[medical-equipment]",
+        name: "answers[offer-medical-equipment]",
         fieldset: {
           legend: {
             text: "Can you offer medical equipment?",
@@ -39,12 +39,12 @@
           {
             value: "yes",
             text: "Yes",
-            checked: true if data['answers']['medical-equipment'] == "yes"
+            checked: true if data['answers']['offer-medical-equipment'] == "yes"
           },
           {
             value: "no",
             text: "No",
-            checked: true if data['answers']['medical-equipment'] == "no"
+            checked: true if data['answers']['offer-medical-equipment'] == "no"
           }
         ]
       }) }}

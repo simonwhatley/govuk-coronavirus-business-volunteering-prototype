@@ -23,7 +23,7 @@
 
       {{ govukCheckboxes({
         idPrefix: "space-type",
-        name: "answers[space-type]",
+        name: "answers[space][type]",
         fieldset: {
           legend: {
             text: "What kind of space can you offer?",
@@ -42,7 +42,7 @@
             conditional: {
               html: govukInput({
                       id: "space-type-warehouse-quantity",
-                      name: "answers[space-type-warehouse-quantity]",
+                      name: "answers[space][quantity][warehouse]",
                       label: {
                         text: "Approximate total size of all warehouses, in square feet"
                       },
@@ -50,7 +50,7 @@
                         text: ""
                       },
                       errorMessage: errors | getErrorMessage('space-type-warehouse-quantity'),
-                      value: data['answers']['space-type-warehouse-quantity'],
+                      value: data['answers']['space']['quantity']['warehouse'],
                       attributes: {
                         "autocomplete": "off",
                         "autocapitalize": "off"
@@ -58,7 +58,7 @@
                       classes: "govuk-input--width-10"
                     })
             },
-            checked: checked("answers['space-type']", "warehouse")
+            checked: checked("answers['space']['type']", "warehouse")
           },
           {
             value: "office",
@@ -66,7 +66,7 @@
             conditional: {
               html: govukInput({
                       id: "space-type-office-quantity",
-                      name: "answers[space-type-office-quantity]",
+                      name: "answers[space][quantity][office]",
                       label: {
                         text: "Approximate total size of all offices, in square feet"
                       },
@@ -74,7 +74,7 @@
                         text: ""
                       },
                       errorMessage: errors | getErrorMessage('space-type-office-quantity'),
-                      value: data['answers']['space-type-office-quantity'],
+                      value: data['answers']['space']['quantity']['office'],
                       attributes: {
                         "autocomplete": "off",
                         "autocapitalize": "off"
@@ -82,7 +82,7 @@
                       classes: "govuk-input--width-10"
                     })
             },
-            checked: checked("answers['space-type']", "office")
+            checked: checked("answers['space']['type']", "office")
           },
           {
             value: "other",
@@ -90,7 +90,7 @@
             conditional: {
               html: govukInput({
                       id: "space-type-other-quantity",
-                      name: "answers[space-type-other-quantity]",
+                      name: "answers[space][quantity][other]",
                       label: {
                         text: "Approximate total size of all other spaces, in square feet"
                       },
@@ -98,7 +98,7 @@
                         text: ""
                       },
                       errorMessage: errors | getErrorMessage('space-type-other-quantity'),
-                      value: data['answers']['space-type-other-quantity'],
+                      value: data['answers']['space']['quantity']['other'],
                       attributes: {
                         "autocomplete": "off",
                         "autocapitalize": "off"
@@ -106,14 +106,14 @@
                       classes: "govuk-input--width-10"
                     })
             },
-            checked: checked("answers['space-type']", "other")
+            checked: checked("answers['space']['type']", "other")
           }
         ]
       }) }}
 
       {{ govukTextarea({
-        id: "space-type-description",
-        name: "answers[space-type-description]",
+        id: "space-description",
+        name: "answers[space][description]",
         label: {
           text: "Give a description",
           classes: "govuk-label--s"
@@ -121,10 +121,9 @@
         hint: {
           text: "For example, whether you have one space or multiple units"
         },
-        errorMessage: errors | getErrorMessage('space-type-description'),
-        value: data['answers']['space-type-description']
+        errorMessage: errors | getErrorMessage('space-description'),
+        value: data['answers']['space']['description']
       }) }}
-
 
       {{ govukButton({
         text: "Continue",

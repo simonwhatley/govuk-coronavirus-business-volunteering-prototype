@@ -57,7 +57,7 @@ router.post('/medical-equipment', checkHasAnswers, (req, res) => {
 
   let errors = [];
 
-  if (req.session.data.answers['medical-equipment'] === undefined) {
+  if (req.session.data.answers['offer-medical-equipment'] === undefined) {
     let error = {};
     error.fieldName = 'medical-equipment';
     error.href = '#medical-equipment';
@@ -78,7 +78,7 @@ router.post('/medical-equipment', checkHasAnswers, (req, res) => {
 
   } else {
 
-    if (req.session.data.answers['medical-equipment'] == 'yes') {
+    if (req.session.data.answers['offer-medical-equipment'] == 'yes') {
       res.redirect(req.baseUrl + '/business-type');
     } else {
       res.redirect(req.baseUrl + '/accommodation');
@@ -120,7 +120,7 @@ router.post('/accommodation', checkHasAnswers, (req, res) => {
 
   let errors = [];
 
-  if (req.session.data.answers['accommodation'] === undefined) {
+  if (req.session.data.answers['offer-accommodation'] === undefined) {
     let error = {};
     error.fieldName = 'accommodation';
     error.href = '#accommodation';
@@ -141,9 +141,10 @@ router.post('/accommodation', checkHasAnswers, (req, res) => {
 
   } else {
 
-    if (req.session.data.answers['accommodation'].includes('yes')) {
-      res.redirect(req.baseUrl + '/accommodation-quantity');
+    if (req.session.data.answers['offer-accommodation'].includes('yes')) {
+      res.redirect(req.baseUrl + '/accommodation-details');
     } else {
+      delete req.session.data.answers['accommodation'];
       res.redirect(req.baseUrl + '/transport-logistics');
     }
 
@@ -154,14 +155,14 @@ router.post('/accommodation', checkHasAnswers, (req, res) => {
 // --------------------------------------------------
 // Q: How many rooms can you offer?
 // --------------------------------------------------
-router.get('/accommodation-quantity', checkHasAnswers, (req, res) => {
+router.get('/accommodation-details', checkHasAnswers, (req, res) => {
 
-  let next = req.baseUrl + '/accommodation-quantity';
+  let next = req.baseUrl + '/accommodation-details';
   if (req.headers.referer.includes('check-your-answers')) {
     next = next + '?referer=check-your-answers';
   }
 
-  res.render('accommodation-quantity', {
+  res.render('accommodation-details', {
     actions: {
       save: next,
       back: req.baseUrl + '/accommodation',
@@ -170,16 +171,16 @@ router.get('/accommodation-quantity', checkHasAnswers, (req, res) => {
   });
 });
 
-router.post('/accommodation-quantity', checkHasAnswers, (req, res) => {
+router.post('/accommodation-details', checkHasAnswers, (req, res) => {
 
-  let next = req.baseUrl + '/accommodation-quantity';
+  let next = req.baseUrl + '/accommodation-details';
   if (req.query.referer == 'check-your-answers') {
     next = next + '?referer=check-your-answers';
   }
 
   let errors = [];
 
-  if (!req.session.data.answers['accommodation-quantity'].length) {
+  if (!req.session.data.answers['accommodation']['quantity'].length) {
     let error = {};
     error.fieldName = 'accommodation-quantity';
     error.href = '#accommodation-quantity';
@@ -189,7 +190,7 @@ router.post('/accommodation-quantity', checkHasAnswers, (req, res) => {
 
   if (errors.length) {
 
-    res.render('accommodation-quantity', {
+    res.render('accommodation-details', {
       errors: errors,
       actions: {
         save: next,
@@ -200,7 +201,11 @@ router.post('/accommodation-quantity', checkHasAnswers, (req, res) => {
 
   } else {
 
-    res.redirect(req.baseUrl + '/transport-logistics');
+    if (req.query.referer == 'check-your-answers') {
+      res.redirect(req.baseUrl + '/check-your-answers');
+    } else {
+      res.redirect(req.baseUrl + '/transport-logistics');
+    }
 
   }
 
@@ -217,8 +222,8 @@ router.get('/transport-logistics', checkHasAnswers, (req, res) => {
   }
 
   let previous = req.baseUrl + '/accommodation';
-  if (req.session.data.answers['accommodation'].includes('yes')) {
-    previous = req.baseUrl + '/accommodation-quantity';
+  if (req.session.data.answers['offer-accommodation'].includes('yes')) {
+    previous = req.baseUrl + '/accommodation-details';
   }
 
   res.render('transport-logistics', {
@@ -238,13 +243,13 @@ router.post('/transport-logistics', checkHasAnswers, (req, res) => {
   }
 
   let previous = req.baseUrl + '/accommodation';
-  if (req.session.data.answers['accommodation'].includes('yes')) {
-    previous = req.baseUrl + '/accommodation-type';
+  if (req.session.data.answers['offer-accommodation'].includes('yes')) {
+    previous = req.baseUrl + '/accommodation-details';
   }
 
   let errors = [];
 
-  if (req.session.data.answers['transport-logistics'] === undefined) {
+  if (req.session.data.answers['offer-transport-logistics'] === undefined) {
     let error = {};
     error.fieldName = 'transport-logistics';
     error.href = '#transport-logistics';
@@ -265,9 +270,10 @@ router.post('/transport-logistics', checkHasAnswers, (req, res) => {
 
   } else {
 
-    if (req.session.data.answers['transport-logistics'] == 'yes') {
-      res.redirect(req.baseUrl + '/transport-logistics-type');
+    if (req.session.data.answers['offer-transport-logistics'] == 'yes') {
+      res.redirect(req.baseUrl + '/transport-logistics-details');
     } else {
+      delete req.session.data.answers['transport-logistics'];
       res.redirect(req.baseUrl + '/space');
     }
 
@@ -278,14 +284,14 @@ router.post('/transport-logistics', checkHasAnswers, (req, res) => {
 // --------------------------------------------------
 // Q: What kind of transport or logistics can you offer?
 // --------------------------------------------------
-router.get('/transport-logistics-type', checkHasAnswers, (req, res) => {
+router.get('/transport-logistics-details', checkHasAnswers, (req, res) => {
 
-  let next = req.baseUrl + '/transport-logistics-type';
+  let next = req.baseUrl + '/transport-logistics-details';
   if (req.headers.referer.includes('check-your-answers')) {
     next = next + '?referer=check-your-answers';
   }
 
-  res.render('transport-logistics-type', {
+  res.render('transport-logistics-details', {
     actions: {
       save: next,
       back: req.baseUrl + '/transport-logistics',
@@ -294,16 +300,16 @@ router.get('/transport-logistics-type', checkHasAnswers, (req, res) => {
   });
 });
 
-router.post('/transport-logistics-type', checkHasAnswers, (req, res) => {
+router.post('/transport-logistics-details', checkHasAnswers, (req, res) => {
 
-  let next = req.baseUrl + '/transport-logistics-type';
+  let next = req.baseUrl + '/transport-logistics-details';
   if (req.query.referer == 'check-your-answers') {
     next = next + '?referer=check-your-answers';
   }
 
   let errors = [];
 
-  if (req.session.data.answers['transport-logistics-type'] === undefined) {
+  if (req.session.data.answers['transport-logistics']['type'] === undefined) {
     let error = {};
     error.fieldName = 'transport-logistics-type';
     error.href = '#transport-logistics-type';
@@ -311,17 +317,17 @@ router.post('/transport-logistics-type', checkHasAnswers, (req, res) => {
     errors.push(error);
   }
 
-  if (!req.session.data.answers['transport-logistics-type-description'].length) {
+  if (!req.session.data.answers['transport-logistics']['description'].length) {
     let error = {};
-    error.fieldName = 'transport-logistics-type-description';
-    error.href = '#transport-logistics-type-description';
+    error.fieldName = 'transport-logistics-description';
+    error.href = '#transport-logistics-description';
     error.text = 'Enter a description of the kind of transport or logistics services you can offer';
     errors.push(error);
   }
 
   if (errors.length) {
 
-    res.render('transport-logistics-type', {
+    res.render('transport-logistics-details', {
       errors: errors,
       actions: {
         save: next,
@@ -332,7 +338,11 @@ router.post('/transport-logistics-type', checkHasAnswers, (req, res) => {
 
   } else {
 
-    res.redirect(req.baseUrl + '/space');
+    if (req.query.referer == 'check-your-answers') {
+      res.redirect(req.baseUrl + '/check-your-answers');
+    } else {
+      res.redirect(req.baseUrl + '/space');
+    }
 
   }
 
@@ -349,8 +359,8 @@ router.get('/space', checkHasAnswers, (req, res) => {
   }
 
   let previous = req.baseUrl + '/transport-logistics';
-  if (req.session.data.answers['transport-logistics'] == 'yes') {
-    previous = req.baseUrl + '/transport-logistics-type';
+  if (req.session.data.answers['offer-transport-logistics'] == 'yes') {
+    previous = req.baseUrl + '/transport-logistics-details';
   }
 
   res.render('space', {
@@ -370,13 +380,13 @@ router.post('/space', checkHasAnswers, (req, res) => {
   }
 
   let previous = req.baseUrl + '/transport-logistics';
-  if (req.session.data.answers['transport-logistics'] == 'yes') {
-    previous = req.baseUrl + '/transport-logistics-type';
+  if (req.session.data.answers['offer-transport-logistics'] == 'yes') {
+    previous = req.baseUrl + '/transport-logistics-details';
   }
 
   let errors = [];
 
-  if (req.session.data.answers['space'] === undefined) {
+  if (req.session.data.answers['offer-space'] === undefined) {
     let error = {};
     error.fieldName = 'space';
     error.href = '#space';
@@ -397,9 +407,10 @@ router.post('/space', checkHasAnswers, (req, res) => {
 
   } else {
 
-    if (req.session.data.answers['space'] == 'yes') {
-      res.redirect(req.baseUrl + '/space-type');
+    if (req.session.data.answers['offer-space'] == 'yes') {
+      res.redirect(req.baseUrl + '/space-details');
     } else {
+      delete req.session.data.answers['space'];
       res.redirect(req.baseUrl + '/care');
     }
 
@@ -410,14 +421,14 @@ router.post('/space', checkHasAnswers, (req, res) => {
 // --------------------------------------------------
 // Q: What kind of space can you offer?
 // --------------------------------------------------
-router.get('/space-type', checkHasAnswers, (req, res) => {
+router.get('/space-details', checkHasAnswers, (req, res) => {
 
-  let next = req.baseUrl + '/space-type';
+  let next = req.baseUrl + '/space-details';
   if (req.headers.referer.includes('check-your-answers')) {
     next = next + '?referer=check-your-answers';
   }
 
-  res.render('space-type', {
+  res.render('space-details', {
     actions: {
       save: next,
       back: req.baseUrl + '/space',
@@ -426,16 +437,16 @@ router.get('/space-type', checkHasAnswers, (req, res) => {
   });
 });
 
-router.post('/space-type', checkHasAnswers, (req, res) => {
+router.post('/space-details', checkHasAnswers, (req, res) => {
 
-  let next = req.baseUrl + '/space-type';
+  let next = req.baseUrl + '/space-details';
   if (req.query.referer == 'check-your-answers') {
     next = next + '?referer=check-your-answers';
   }
 
   let errors = [];
 
-  if (req.session.data.answers['space-type'] === undefined) {
+  if (req.session.data.answers['space']['type'] === undefined) {
     let error = {};
     error.fieldName = 'space-type';
     error.href = '#space-type';
@@ -443,7 +454,7 @@ router.post('/space-type', checkHasAnswers, (req, res) => {
     errors.push(error);
   } else {
 
-    if (req.session.data.answers['space-type'].indexOf('warehouse') !== -1 && !req.session.data.answers['space-type-warehouse-quantity'].length) {
+    if (req.session.data.answers['space']['type'].indexOf('warehouse') !== -1 && !req.session.data.answers['space']['quantity']['warehouse'].length) {
       let error = {};
       error.fieldName = 'space-type-warehouse-quantity';
       error.href = '#space-type-warehouse-quantity';
@@ -451,7 +462,7 @@ router.post('/space-type', checkHasAnswers, (req, res) => {
       errors.push(error);
     }
 
-    if (req.session.data.answers['space-type'].indexOf('office') !== -1 && !req.session.data.answers['space-type-office-quantity'].length) {
+    if (req.session.data.answers['space']['type'].indexOf('office') !== -1 && !req.session.data.answers['space']['quantity']['office'].length) {
       let error = {};
       error.fieldName = 'space-type-office-quantity';
       error.href = '#space-type-office-quantity';
@@ -459,7 +470,7 @@ router.post('/space-type', checkHasAnswers, (req, res) => {
       errors.push(error);
     }
 
-    if (req.session.data.answers['space-type'].indexOf('other') !== -1 && !req.session.data.answers['space-type-other-quantity'].length) {
+    if (req.session.data.answers['space']['type'].indexOf('other') !== -1 && !req.session.data.answers['space']['quantity']['other'].length) {
       let error = {};
       error.fieldName = 'space-type-other-quantity';
       error.href = '#space-type-other-quantity';
@@ -469,17 +480,17 @@ router.post('/space-type', checkHasAnswers, (req, res) => {
 
   }
 
-  if (!req.session.data.answers['space-type-description'].length) {
+  if (!req.session.data.answers['space']['description'].length) {
     let error = {};
-    error.fieldName = 'space-type-description';
-    error.href = '#space-type-description';
+    error.fieldName = 'space-description';
+    error.href = '#space-description';
     error.text = 'Enter a description of the kind of space you can offer';
     errors.push(error);
   }
 
   if (errors.length) {
 
-    res.render('space-type', {
+    res.render('space-details', {
       errors: errors,
       actions: {
         save: next,
@@ -490,7 +501,11 @@ router.post('/space-type', checkHasAnswers, (req, res) => {
 
   } else {
 
-    res.redirect(req.baseUrl + '/care');
+    if (req.query.referer == 'check-your-answers') {
+      res.redirect(req.baseUrl + '/check-your-answers');
+    } else {
+      res.redirect(req.baseUrl + '/care');
+    }
 
   }
 
@@ -507,8 +522,8 @@ router.get('/care', checkHasAnswers, (req, res) => {
   }
 
   let previous = req.baseUrl + '/space';
-  if (req.session.data.answers['space'] == 'yes') {
-    previous = req.baseUrl + '/space-type';
+  if (req.session.data.answers['offer-space'] == 'yes') {
+    previous = req.baseUrl + '/space-details';
   }
 
   res.render('care', {
@@ -528,13 +543,13 @@ router.post('/care', checkHasAnswers, (req, res) => {
   }
 
   let previous = req.baseUrl + '/space';
-  if (req.session.data.answers['space'] == 'yes') {
-    previous = req.baseUrl + '/space-type';
+  if (req.session.data.answers['offer-space'] == 'yes') {
+    previous = req.baseUrl + '/space-details';
   }
 
   let errors = [];
 
-  if (req.session.data.answers['care'] === undefined) {
+  if (req.session.data.answers['offer-care'] === undefined) {
     let error = {};
     error.fieldName = 'care';
     error.href = '#care';
@@ -555,9 +570,10 @@ router.post('/care', checkHasAnswers, (req, res) => {
 
   } else {
 
-    if (req.session.data.answers['care'] == 'yes') {
-      res.redirect(req.baseUrl + '/care-type');
+    if (req.session.data.answers['offer-care'] == 'yes') {
+      res.redirect(req.baseUrl + '/care-details');
     } else {
+      delete req.session.data.answers['care'];
       res.redirect(req.baseUrl + '/expertise');
     }
 
@@ -568,14 +584,14 @@ router.post('/care', checkHasAnswers, (req, res) => {
 // --------------------------------------------------
 // Q: What kind of care can you offer?
 // --------------------------------------------------
-router.get('/care-type', checkHasAnswers, (req, res) => {
+router.get('/care-details', checkHasAnswers, (req, res) => {
 
-  let next = req.baseUrl + '/care-type';
+  let next = req.baseUrl + '/care-details';
   if (req.headers.referer.includes('check-your-answers')) {
     next = next + '?referer=check-your-answers';
   }
 
-  res.render('care-type', {
+  res.render('care-details', {
     actions: {
       save: next,
       back: req.baseUrl + '/care',
@@ -584,16 +600,16 @@ router.get('/care-type', checkHasAnswers, (req, res) => {
   });
 });
 
-router.post('/care-type', checkHasAnswers, (req, res) => {
+router.post('/care-details', checkHasAnswers, (req, res) => {
 
-  let next = req.baseUrl + '/care-type';
+  let next = req.baseUrl + '/care-details';
   if (req.query.referer == 'check-your-answers') {
     next = next + '?referer=check-your-answers';
   }
 
   let errors = [];
 
-  if (req.session.data.answers['care-type'] === undefined) {
+  if (req.session.data.answers['care']['type'] === undefined) {
     let error = {};
     error.fieldName = 'care-type';
     error.href = '#care-type';
@@ -601,14 +617,14 @@ router.post('/care-type', checkHasAnswers, (req, res) => {
     errors.push(error);
   }
 
-  if (req.session.data.answers['care-qualifications'] === undefined) {
+  if (req.session.data.answers['care']['qualifications'] === undefined) {
     let error = {};
     error.fieldName = 'care-qualifications';
     error.href = '#care-qualifications';
     error.text = 'Choose what qualifications your or people in your business have';
     errors.push(error);
   } else {
-    if (req.session.data.answers['care-qualifications'].indexOf('healthcare') !== -1 && !req.session.data.answers['care-qualifications-healthcare-description'].length) {
+    if (req.session.data.answers['care']['qualifications'].indexOf('healthcare') !== -1 && !req.session.data.answers['care']['description']['healthcare'].length) {
       let error = {};
       error.fieldName = 'care-qualifications-healthcare-description';
       error.href = '#care-qualifications-healthcare-description';
@@ -619,10 +635,10 @@ router.post('/care-type', checkHasAnswers, (req, res) => {
 
   if (errors.length) {
 
-    res.render('care-type', {
+    res.render('care-details', {
       errors: errors,
       actions: {
-        save: req.baseUrl + '/care-type',
+        save: req.baseUrl + '/care-details',
         back: req.baseUrl + '/care',
         start: req.baseUrl + '/'
       }
@@ -630,7 +646,11 @@ router.post('/care-type', checkHasAnswers, (req, res) => {
 
   } else {
 
-    res.redirect(req.baseUrl + '/expertise');
+    if (req.query.referer == 'check-your-answers') {
+      res.redirect(req.baseUrl + '/check-your-answers');
+    } else {
+      res.redirect(req.baseUrl + '/expertise');
+    }
 
   }
 
@@ -647,8 +667,8 @@ router.get('/expertise', checkHasAnswers, (req, res) => {
   }
 
   let previous = req.baseUrl + '/care';
-  if (req.session.data.answers['care'] == 'yes') {
-    previous = req.baseUrl + '/care-type';
+  if (req.session.data.answers['offer-care'] == 'yes') {
+    previous = req.baseUrl + '/care-details';
   }
 
   res.render('expertise', {
@@ -668,8 +688,8 @@ router.post('/expertise', checkHasAnswers, (req, res) => {
   }
 
   let previous = req.baseUrl + '/care';
-  if (req.session.data.answers['care'] == 'yes') {
-    previous = req.baseUrl + '/care-type';
+  if (req.session.data.answers['offer-care'] == 'yes') {
+    previous = req.baseUrl + '/care-details';
   }
 
   let errors = [];
@@ -705,7 +725,11 @@ router.post('/expertise', checkHasAnswers, (req, res) => {
 
   } else {
 
-    res.redirect(req.baseUrl + '/other-support');
+    if (req.query.referer == 'check-your-answers') {
+      res.redirect(req.baseUrl + '/check-your-answers');
+    } else {
+      res.redirect(req.baseUrl + '/other-support');
+    }
 
   }
 
@@ -760,7 +784,11 @@ router.post('/other-support', checkHasAnswers, (req, res) => {
 
   } else {
 
-    res.redirect(req.baseUrl + '/location');
+    if (req.query.referer == 'check-your-answers') {
+      res.redirect(req.baseUrl + '/check-your-answers');
+    } else {
+      res.redirect(req.baseUrl + '/location');
+    }
 
   }
 
@@ -815,7 +843,11 @@ router.post('/location', checkHasAnswers, (req, res) => {
 
   } else {
 
-    res.redirect(req.baseUrl + '/business-details');
+    if (req.query.referer == 'check-your-answers') {
+      res.redirect(req.baseUrl + '/check-your-answers');
+    } else {
+      res.redirect(req.baseUrl + '/business-details');
+    }
 
   }
 
@@ -902,7 +934,11 @@ router.post('/business-details', checkHasAnswers, (req, res) => {
 
   } else {
 
-    res.redirect(req.baseUrl + '/contact-details');
+    if (req.query.referer == 'check-your-answers') {
+      res.redirect(req.baseUrl + '/check-your-answers');
+    } else {
+      res.redirect(req.baseUrl + '/contact-details');
+    }
 
   }
 

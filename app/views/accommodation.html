@@ -23,7 +23,7 @@
 
       {{ govukRadios({
         idPrefix: "accommodation",
-        name: "answers[accommodation]",
+        name: "answers[offer-accommodation]",
         fieldset: {
           legend: {
             text: "Can you offer hotel rooms?",
@@ -39,17 +39,17 @@
           {
             value: "yes_people",
             text: "Yes – for people to stay in",
-            checked: true if data['answers']['accommodation'] == "yes_people"
+            checked: true if data['answers']['offer-accommodation'] == "yes_people"
           },
           {
             value: "yes_any",
             text: "Yes – for any use",
-            checked: true if data['answers']['accommodation'] == "yes_any"
+            checked: true if data['answers']['offer-accommodation'] == "yes_any"
           },
           {
             value: "no",
             text: "No",
-            checked: true if data['answers']['accommodation'] == "no"
+            checked: true if data['answers']['offer-accommodation'] == "no"
           }
         ]
       }) }}

@@ -20,7 +20,14 @@
       Are you ready to send the form?
     </h1>
 
-    {% include "./partials/_equipment-details-summary.html" %}
+
+    {% include "./partials/_non-medical-equipment-details-summary.html" %}
+
+    {%- if data['answers']['medical-equipment'] == "yes" %}
+
+      {% include "./partials/_medical-equipment-details-summary.html" %}
+
+    {% endif -%}
 
     {% include "./partials/_business-details-summary.html" %}
 
