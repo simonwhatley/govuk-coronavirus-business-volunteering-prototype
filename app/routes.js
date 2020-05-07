@@ -142,10 +142,23 @@ router.post('/accommodation', checkHasAnswers, (req, res) => {
   } else {
 
     if (req.session.data.answers['offer-accommodation'].includes('yes')) {
-      res.redirect(req.baseUrl + '/accommodation-details');
+
+      if (req.query.referer == 'check-your-answers') {
+        res.redirect(req.baseUrl + '/accommodation-details?referer=check-your-answers');
+      } else {
+        res.redirect(req.baseUrl + '/accommodation-details');
+      }
+
     } else {
+
       delete req.session.data.answers['accommodation'];
-      res.redirect(req.baseUrl + '/transport-logistics');
+
+      if (req.query.referer == 'check-your-answers') {
+        res.redirect(req.baseUrl + '/check-your-answers');
+      } else {
+        res.redirect(req.baseUrl + '/transport-logistics');
+      }
+
     }
 
   }
@@ -158,7 +171,7 @@ router.post('/accommodation', checkHasAnswers, (req, res) => {
 router.get('/accommodation-details', checkHasAnswers, (req, res) => {
 
   let next = req.baseUrl + '/accommodation-details';
-  if (req.headers.referer.includes('check-your-answers')) {
+  if (req.headers.referer.includes('check-your-answers') || req.query.referer == 'check-your-answers') {
     next = next + '?referer=check-your-answers';
   }
 
@@ -271,10 +284,23 @@ router.post('/transport-logistics', checkHasAnswers, (req, res) => {
   } else {
 
     if (req.session.data.answers['offer-transport-logistics'] == 'yes') {
-      res.redirect(req.baseUrl + '/transport-logistics-details');
+
+      if (req.query.referer == 'check-your-answers') {
+        res.redirect(req.baseUrl + '/transport-logistics-details?referer=check-your-answers');
+      } else {
+        res.redirect(req.baseUrl + '/transport-logistics-details');
+      }
+
     } else {
+
       delete req.session.data.answers['transport-logistics'];
-      res.redirect(req.baseUrl + '/space');
+
+      if (req.query.referer == 'check-your-answers') {
+        res.redirect(req.baseUrl + '/check-your-answers');
+      } else {
+        res.redirect(req.baseUrl + '/space');
+      }
+
     }
 
   }
@@ -287,7 +313,7 @@ router.post('/transport-logistics', checkHasAnswers, (req, res) => {
 router.get('/transport-logistics-details', checkHasAnswers, (req, res) => {
 
   let next = req.baseUrl + '/transport-logistics-details';
-  if (req.headers.referer.includes('check-your-answers')) {
+  if (req.headers.referer.includes('check-your-answers') || req.query.referer == 'check-your-answers') {
     next = next + '?referer=check-your-answers';
   }
 
@@ -408,10 +434,23 @@ router.post('/space', checkHasAnswers, (req, res) => {
   } else {
 
     if (req.session.data.answers['offer-space'] == 'yes') {
-      res.redirect(req.baseUrl + '/space-details');
+
+      if (req.query.referer == 'check-your-answers') {
+        res.redirect(req.baseUrl + '/space-details?referer=check-your-answers');
+      } else {
+        res.redirect(req.baseUrl + '/space-details');
+      }
+
     } else {
+
       delete req.session.data.answers['space'];
-      res.redirect(req.baseUrl + '/care');
+
+      if (req.query.referer == 'check-your-answers') {
+        res.redirect(req.baseUrl + '/check-your-answers');
+      } else {
+        res.redirect(req.baseUrl + '/care');
+      }
+
     }
 
   }
@@ -424,7 +463,7 @@ router.post('/space', checkHasAnswers, (req, res) => {
 router.get('/space-details', checkHasAnswers, (req, res) => {
 
   let next = req.baseUrl + '/space-details';
-  if (req.headers.referer.includes('check-your-answers')) {
+  if (req.headers.referer.includes('check-your-answers') || req.query.referer == 'check-your-answers') {
     next = next + '?referer=check-your-answers';
   }
 
@@ -571,10 +610,23 @@ router.post('/care', checkHasAnswers, (req, res) => {
   } else {
 
     if (req.session.data.answers['offer-care'] == 'yes') {
-      res.redirect(req.baseUrl + '/care-details');
+
+      if (req.query.referer == 'check-your-answers') {
+        res.redirect(req.baseUrl + '/care-details?referer=check-your-answers');
+      } else {
+        res.redirect(req.baseUrl + '/care-details');
+      }
+
     } else {
+
       delete req.session.data.answers['care'];
-      res.redirect(req.baseUrl + '/expertise');
+
+      if (req.query.referer == 'check-your-answers') {
+        res.redirect(req.baseUrl + '/check-your-answers');
+      } else {
+        res.redirect(req.baseUrl + '/expertise');
+      }
+
     }
 
   }
@@ -587,7 +639,7 @@ router.post('/care', checkHasAnswers, (req, res) => {
 router.get('/care-details', checkHasAnswers, (req, res) => {
 
   let next = req.baseUrl + '/care-details';
-  if (req.headers.referer.includes('check-your-answers')) {
+  if (req.headers.referer.includes('check-your-answers') || req.query.referer == 'check-your-answers') {
     next = next + '?referer=check-your-answers';
   }
 
@@ -1083,7 +1135,11 @@ router.post('/business-type', checkHasAnswers, (req, res) => {
 
   } else {
 
-    res.redirect(req.baseUrl + '/medical-equipment-type');
+    if (req.query.referer == 'check-your-answers') {
+      res.redirect(req.baseUrl + '/check-your-answers');
+    } else {
+      res.redirect(req.baseUrl + '/medical-equipment-type');
+    }
 
   }
 
@@ -1112,10 +1168,10 @@ router.get('/medical-equipment-type', checkHasAnswers, (req, res) => {
 
 router.post('/medical-equipment-type', checkHasAnswers, (req, res) => {
 
-  let next = req.baseUrl + '/medical-equipment-type';
-  if (req.query.referer == 'check-your-answers') {
-    next = next + '?referer=check-your-answers';
-  }
+  // let next = req.baseUrl + '/medical-equipment-type';
+  // if (req.query.referer == 'check-your-answers') {
+  //   next = next + '?referer=check-your-answers';
+  // }
 
   let errors = [];
 
@@ -1132,7 +1188,7 @@ router.post('/medical-equipment-type', checkHasAnswers, (req, res) => {
     res.render('medical-equipment-type', {
       errors: errors,
       actions: {
-        save: next,
+        save: req.baseUrl + '/medical-equipment-type',
         back: req.baseUrl + '/business-type',
         start: req.baseUrl + '/'
       }

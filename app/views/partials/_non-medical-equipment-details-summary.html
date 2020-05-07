@@ -19,6 +19,23 @@
     },
     {
       key: {
+        text: "What kind of business are you?"
+      },
+      value: {
+        text: data['answers']['business-type'] | arrayToList
+      },
+      actions: {
+        items: [
+          {
+            href: "/business-type",
+            text: "Change",
+            visuallyHiddenText: "whether you can offer medical equipment"
+          }
+        ]
+      }
+    },
+    {
+      key: {
         text: "Can you offer accommodation?"
       },
       value: {
@@ -39,7 +56,7 @@
         text: "How many rooms can you offer?"
       },
       value: {
-        text: data['answers']['accommodation-quantity'] | numeral('0,00')
+        text: data['answers']['accommodation']['quantity'] | numeral('0,00')
       },
       actions: {
         items: [
@@ -50,7 +67,7 @@
           }
         ]
       }
-    } if data['answers']['offer-accommodation'] == "yes",
+    } if data['answers']['offer-accommodation'] in ["yes_people","yes_any"],
     {
       key: {
         text: "Can you offer transport or logistics?"
@@ -70,6 +87,40 @@
     },
     {
       key: {
+        text: "What kind of transport or logistics services can you offer?"
+      },
+      value: {
+        text: data['answers']['transport-logistics']['type'] | arrayToList | capitalize
+      },
+      actions: {
+        items: [
+          {
+            href: "/transport-logistics-details",
+            text: "Change",
+            visuallyHiddenText: "what kind of transport or logistics you can offer"
+          }
+        ]
+      }
+    } if data['answers']['offer-transport-logistics'] == "yes",
+    {
+      key: {
+        text: "Description of your transport or logistics services"
+      },
+      value: {
+        text: data['answers']['transport-logistics']['description']
+      },
+      actions: {
+        items: [
+          {
+            href: "/transport-logistics-details",
+            text: "Change",
+            visuallyHiddenText: "the description of the transport and logistics services you can offer"
+          }
+        ]
+      }
+    } if data['answers']['offer-transport-logistics'] == "yes",
+    {
+      key: {
         text: "Can you offer space?"
       },
       value: {
@@ -87,6 +138,40 @@
     },
     {
       key: {
+        text: "What kind of space can you offer?"
+      },
+      value: {
+        text: data['answers']['space']['type'] | arrayToList | capitalize
+      },
+      actions: {
+        items: [
+          {
+            href: "/space-details",
+            text: "Change",
+            visuallyHiddenText: "what kind of space you can offer"
+          }
+        ]
+      }
+    } if data['answers']['offer-space'] == "yes",
+    {
+      key: {
+        text: "Description of your space"
+      },
+      value: {
+        text: data['answers']['space']['description']
+      },
+      actions: {
+        items: [
+          {
+            href: "/space-details",
+            text: "Change",
+            visuallyHiddenText: "the description of the space you can offer"
+          }
+        ]
+      }
+    } if data['answers']['offer-space'] == "yes",
+    {
+      key: {
         text: "Can you offer social care or childcare?"
       },
       value: {
@@ -102,6 +187,40 @@
         ]
       }
     },
+    {
+      key: {
+        text: "What kind of care can you offer?"
+      },
+      value: {
+        text: data['answers']['care']['type'] | arrayToList | capitalize
+      },
+      actions: {
+        items: [
+          {
+            href: "/care-details",
+            text: "Change",
+            visuallyHiddenText: "what kind of care you can offer"
+          }
+        ]
+      }
+    } if data['answers']['offer-care'] == "yes",
+    {
+      key: {
+        text: "What qualifications or certificates do you have?"
+      },
+      value: {
+        text: data['answers']['care']['qualifications'] | arrayToList | capitalize
+      },
+      actions: {
+        items: [
+          {
+            href: "/care-details",
+            text: "Change",
+            visuallyHiddenText: "what qualifications or certificates you have"
+          }
+        ]
+      }
+    } if data['answers']['offer-care'] == "yes",
     {
       key: {
         text: "What kind of expertise can you offer?"
