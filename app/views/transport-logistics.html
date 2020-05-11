@@ -1,0 +1,62 @@
+{% extends "layout.html" %}
+
+{% block pageTitle %}
+  {{ 'Error: ' if errors | length -}} Can you offer transport or logistics?
+{% endblock %}
+
+{% block beforeContent %}
+{% include "./partials/_phase-banner.html" %}
+{{ govukBackLink({
+  text: "Back",
+  href: actions.back
+}) if actions.back | length }}
+{% endblock %}
+
+{% block content %}
+
+{% include "./partials/_error-summary.html" %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    <form action="{{ actions.save }}" method="post" accept-charset="utf-8" novalidate>
+
+      {{ govukRadios({
+        idPrefix: "transport-logistics",
+        name: "answers[offer-transport-logistics]",
+        fieldset: {
+          legend: {
+            text: "Can you offer transport or logistics?",
+            isPageHeading: true,
+            classes: "govuk-fieldset__legend--xl"
+          }
+        },
+        hint: {
+          text: ""
+        },
+        errorMessage: errors | getErrorMessage('transport-logistics'),
+        items: [
+          {
+            value: "yes",
+            text: "Yes",
+            checked: true if data['answers']['offer-transport-logistics'] == "yes"
+          },
+          {
+            value: "no",
+            text: "No",
+            checked: true if data['answers']['offer-transport-logistics'] == "no"
+          }
+        ]
+      }) }}
+
+      {{ govukButton({
+        text: "Continue",
+        classes: "govuk-!-margin-top-5"
+      }) }}
+
+    </form>
+
+  </div>
+</div>
+
+{% endblock %}

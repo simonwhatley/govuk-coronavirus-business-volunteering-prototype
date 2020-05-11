@@ -1,0 +1,85 @@
+{% extends "layout.html" %}
+
+{% block pageTitle %}
+  {{ 'Error: ' if errors | length -}} Tell us about the medical equipment you can offer
+{% endblock %}
+
+{% block beforeContent %}
+{% include "./partials/_phase-banner.html" %}
+{{ govukBackLink({
+  text: "Back",
+  href: actions.back
+}) if actions.back | length }}
+{% endblock %}
+
+{% block content %}
+
+{% include "./partials/_error-summary.html" %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    <form action="{{ actions.save }}" method="post" accept-charset="utf-8" novalidate>
+
+      {{ govukRadios({
+        idPrefix: "medical-equipment-type",
+        name: "answers[medical-equipment-type]",
+        fieldset: {
+          legend: {
+            text: "Tell us about the medical equipment you can offer",
+            isPageHeading: true,
+            classes: "govuk-fieldset__legend--xl"
+          }
+        },
+        hint: {
+          text: "Give details for one product at a time"
+        },
+        errorMessage: errors | getErrorMessage('medical-equipment-type'),
+        items: [
+          {
+            value: "ppe",
+            text: "Personal protective equipment",
+            hint: {
+              text: "For example, masks, detergent and waste bags"
+            },
+            checked: true if data['answers']['medical-equipment-type'] == "ppe"
+          },
+          {
+            value: "testing",
+            text: "Testing equipment",
+            checked: true if data['answers']['medical-equipment-type'] == "testing"
+          },
+          {
+            value: "other",
+            text: "Other",
+            checked: true if data['answers']['medical-equipment-type'] == "other"
+          }
+        ]
+      }) }}
+
+      {# conditional: {
+              html: govukTextarea({
+                      id: "medical-equipment-type-other-description",
+                      name: "answers[medical-equipment-type-other-description]",
+                      label: {
+                        text: "Give a summary of the type of product. You can give more details later"
+                      },
+                      hint: {
+                        text: ""
+                      },
+                      errorMessage: errors | getErrorMessage('medical-equipment-type-other-description'),
+                      value: data['answers']['medical-equipment-type-other-description']
+                    })
+            }, #}
+
+      {{ govukButton({
+        text: "Continue",
+        classes: "govuk-!-margin-top-5"
+      }) }}
+
+    </form>
+
+  </div>
+</div>
+
+{% endblock %}

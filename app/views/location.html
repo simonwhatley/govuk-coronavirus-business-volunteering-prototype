@@ -1,0 +1,107 @@
+{% extends "layout.html" %}
+
+{% block pageTitle %}
+  {{ 'Error: ' if errors | length -}} Where can you offer your services?
+{% endblock %}
+
+{% block beforeContent %}
+{% include "./partials/_phase-banner.html" %}
+{{ govukBackLink({
+  text: "Back",
+  href: actions.back
+}) if actions.back | length }}
+{% endblock %}
+
+{% block content %}
+
+{% include "./partials/_error-summary.html" %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    <form action="{{ actions.save }}" method="post" accept-charset="utf-8" novalidate>
+
+      {{ govukCheckboxes({
+        idPrefix: "location",
+        name: "answers[location]",
+        fieldset: {
+          legend: {
+            text: "Where can you offer your services?",
+            isPageHeading: true,
+            classes: "govuk-fieldset__legend--xl"
+          }
+        },
+        hint: {
+          text: "Select all that apply"
+        },
+        errorMessage: errors | getErrorMessage('location'),
+        items: [
+          {
+            value: "east_midlands",
+            text: "East Midlands",
+            checked: checked("answers['location']", "east_midlands")
+          },
+          {
+            value: "east_england",
+            text: "East of England",
+            checked: checked("answers['location']", "east_england")
+          },
+          {
+            value: "london",
+            text: "London",
+            checked: checked("answers['location']", "london")
+          },
+          {
+            value: "north_west",
+            text: "North West",
+            checked: checked("answers['location']", "north_west")
+          },
+          {
+            value: "south_east",
+            text: "South East",
+            checked: checked("answers['location']", "south_east")
+          },
+          {
+            value: "south_west",
+            text: "South West",
+            checked: checked("answers['location']", "south_west")
+          },
+          {
+            value: "west_midlands",
+            text: "West Midlands",
+            checked: checked("answers['location']", "west_midlands")
+          },
+          {
+            value: "yorkshire_humber",
+            text: "Yorkshire and The Humber",
+            checked: checked("answers['location']", "yorkshire_humber")
+          },
+          {
+            value: "northern_ireland",
+            text: "Northern Ireland",
+            checked: checked("answers['location']", "northern_ireland")
+          },
+          {
+            value: "scotland",
+            text: "Scotland",
+            checked: checked("answers['location']", "scotland")
+          },
+          {
+            value: "wales",
+            text: "Wales",
+            checked: checked("answers['location']", "wales")
+          }
+        ]
+      }) }}
+
+      {{ govukButton({
+        text: "Continue",
+        classes: "govuk-!-margin-top-5"
+      }) }}
+
+    </form>
+
+  </div>
+</div>
+
+{% endblock %}

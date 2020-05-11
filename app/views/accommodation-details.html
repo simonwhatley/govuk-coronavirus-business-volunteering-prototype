@@ -1,0 +1,50 @@
+{% extends "layout.html" %}
+
+{% block pageTitle %}
+  {{ 'Error: ' if errors | length -}} How many rooms can you offer?
+{% endblock %}
+
+{% block beforeContent %}
+{% include "./partials/_phase-banner.html" %}
+{{ govukBackLink({
+  text: "Back",
+  href: actions.back
+}) if actions.back | length }}
+{% endblock %}
+
+{% block content %}
+
+{% include "./partials/_error-summary.html" %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    <form action="{{ actions.save }}" method="post" accept-charset="utf-8" novalidate>
+
+      {{ govukInput({
+        id: "accommodation-quantity",
+        name: "answers[accommodation][quantity]",
+        label: {
+          text: "How many rooms can you offer?",
+          isPageHeading: true,
+          classes: "govuk-label--xl"
+        },
+        hint: {
+          text: "Give an approximate amount, for example 10, 500, 10000"
+        },
+        errorMessage: errors | getErrorMessage('accommodation-quantity'),
+        value: data['answers']['accommodation']['quantity'],
+        classes: "govuk-input--width-10"
+      }) }}
+
+      {{ govukButton({
+        text: "Continue",
+        classes: "govuk-!-margin-top-5"
+      }) }}
+
+    </form>
+
+  </div>
+</div>
+
+{% endblock %}

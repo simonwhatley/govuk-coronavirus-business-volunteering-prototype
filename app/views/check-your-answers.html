@@ -1,0 +1,48 @@
+{% extends "layout.html" %}
+
+{% block pageTitle %}
+  Are you ready to send the form?
+{% endblock %}
+
+{% block beforeContent %}
+{% include "./partials/_phase-banner.html" %}
+{{ govukBackLink({
+  text: "Back",
+  href: actions.back
+}) if actions.back | length }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <h1 class="govuk-heading-xl">
+      Are you ready to send the form?
+    </h1>
+
+
+    {% include "./partials/_non-medical-equipment-details-summary.html" %}
+
+    {%- if data['answers']['offer-medical-equipment'] == "yes" %}
+
+      {% include "./partials/_medical-equipment-details-summary.html" %}
+
+    {% endif -%}
+
+    {% include "./partials/_business-details-summary.html" %}
+
+    {% include "./partials/_contact-details-summary.html" %}
+
+    {{ govukInsetText({
+      text: "By submitting this for you‘re confirming that, to the best of your knowledge, the details you‘re providing are correct."
+    }) }}
+
+    {{ govukButton({
+      text: "Accept and send",
+      href: actions.next
+    }) }}
+
+  </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,103 @@
+{% extends "layout.html" %}
+
+{% block pageTitle %}
+  {{ 'Error: ' if errors | length -}} Can you offer social care or childcare?
+{% endblock %}
+
+{% block beforeContent %}
+{% include "./partials/_phase-banner.html" %}
+{{ govukBackLink({
+  text: "Back",
+  href: actions.back
+}) if actions.back | length }}
+{% endblock %}
+
+{% block content %}
+
+{% include "./partials/_error-summary.html" %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    <form action="{{ actions.save }}" method="post" accept-charset="utf-8" novalidate>
+
+      {{ govukCheckboxes({
+        idPrefix: "care-type",
+        name: "answers[care][type]",
+        fieldset: {
+          legend: {
+            text: "What kind of care can you offer?",
+            isPageHeading: true,
+            classes: "govuk-fieldset__legend--xl"
+          }
+        },
+        hint: {
+          text: "Select all that apply"
+        },
+        errorMessage: errors | getErrorMessage('care-type'),
+        items: [
+          {
+            value: "adults",
+            text: "Care for adults",
+            checked: checked("answers['care']['type']", "adults")
+          },
+          {
+            value: "children",
+            text: "Care for children",
+            checked: checked("answers['care']['type']", "children")
+          }
+        ]
+      }) }}
+
+      {{ govukCheckboxes({
+        idPrefix: "care-qualifications",
+        name: "answers[care][qualifications]",
+        fieldset: {
+          legend: {
+            text: "What qualifications or certificates do you have?",
+            classes: "govuk-fieldset__legend--s"
+          }
+        },
+        hint: {
+          text: "Select all the qualifications that you or people in your business have"
+        },
+        errorMessage: errors | getErrorMessage('care-qualifications'),
+        items: [
+          {
+            value: "dbs",
+            text: "DBS check",
+            checked: checked("answers['care']['qualifications']", "dbs")
+          },
+          {
+            value: "healthcare",
+            text: "Nursing or other healthcare qualifications",
+            conditional: {
+              html: govukTextarea({
+                      id: "care-qualifications-healthcare-description",
+                      name: "answers[care][description][healthcare]",
+                      label: {
+                        text: "Give a description"
+                      },
+                      hint: {
+                        text: ""
+                      },
+                      errorMessage: errors | getErrorMessage('care-qualifications-healthcare-description'),
+                      value: data['answers']['care']['description']['healthcare']
+                    })
+            },
+            checked: checked("answers['care']['qualifications']", "healthcare")
+          }
+        ]
+      }) }}
+
+      {{ govukButton({
+        text: "Continue",
+        classes: "govuk-!-margin-top-5"
+      }) }}
+
+    </form>
+
+  </div>
+</div>
+
+{% endblock %}

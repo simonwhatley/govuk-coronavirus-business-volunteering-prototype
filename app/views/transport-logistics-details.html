@@ -1,0 +1,81 @@
+{% extends "layout.html" %}
+
+{% block pageTitle %}
+  {{ 'Error: ' if errors | length -}} Can you offer transport or logistics?
+{% endblock %}
+
+{% block beforeContent %}
+{% include "./partials/_phase-banner.html" %}
+{{ govukBackLink({
+  text: "Back",
+  href: actions.back
+}) if actions.back | length }}
+{% endblock %}
+
+{% block content %}
+
+{% include "./partials/_error-summary.html" %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    <form action="{{ actions.save }}" method="post" accept-charset="utf-8" novalidate>
+
+      {{ govukCheckboxes({
+        idPrefix: "transport-logistics-type",
+        name: "answers[transport-logistics][type]",
+        fieldset: {
+          legend: {
+            text: "What kind of transport or logistics services can you offer?",
+            isPageHeading: true,
+            classes: "govuk-fieldset__legend--xl"
+          }
+        },
+        hint: {
+          text: "Select all that apply"
+        },
+        errorMessage: errors | getErrorMessage('transport-logistics-type'),
+        items: [
+          {
+            value: "people",
+            text: "Moving people",
+            checked: checked("answers['transport-logistics']['type']", "people")
+          },
+          {
+            value: "goods",
+            text: "Moving goods",
+            checked: checked("answers['transport-logistics']['type']", "goods")
+          },
+          {
+            value: "other",
+            text: "Other",
+            checked: checked("answers['transport-logistics']['type']", "other")
+          }
+        ]
+      }) }}
+
+      {{ govukTextarea({
+        id: "transport-logistics-description",
+        name: "answers[transport-logistics][description]",
+        label: {
+          text: "Give a description",
+          classes: "govuk-label--s"
+        },
+        hint: {
+          text: "For example, how many vehicles you can offer and what type of vehicle they are"
+        },
+        errorMessage: errors | getErrorMessage('transport-logistics-description'),
+        value: data['answers']['transport-logistics']['description']
+      }) }}
+
+      {{ govukButton({
+        text: "Continue",
+        classes: "govuk-!-margin-top-5"
+      }) }}
+
+    </form>
+
+  </div>
+</div>
+
+{% endblock %}

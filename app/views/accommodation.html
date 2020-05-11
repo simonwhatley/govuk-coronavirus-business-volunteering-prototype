@@ -1,0 +1,67 @@
+{% extends "layout.html" %}
+
+{% block pageTitle %}
+  {{ 'Error: ' if errors | length -}} Can you offer hotel rooms?
+{% endblock %}
+
+{% block beforeContent %}
+{% include "./partials/_phase-banner.html" %}
+{{ govukBackLink({
+  text: "Back",
+  href: actions.back
+}) if actions.back | length }}
+{% endblock %}
+
+{% block content %}
+
+{% include "./partials/_error-summary.html" %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    <form action="{{ actions.save }}" method="post" accept-charset="utf-8" novalidate>
+
+      {{ govukRadios({
+        idPrefix: "accommodation",
+        name: "answers[offer-accommodation]",
+        fieldset: {
+          legend: {
+            text: "Can you offer hotel rooms?",
+            isPageHeading: true,
+            classes: "govuk-fieldset__legend--xl"
+          }
+        },
+        hint: {
+          text: ""
+        },
+        errorMessage: errors | getErrorMessage('accommodation'),
+        items: [
+          {
+            value: "yes_people",
+            text: "Yes – for people to stay in",
+            checked: true if data['answers']['offer-accommodation'] == "yes_people"
+          },
+          {
+            value: "yes_any",
+            text: "Yes – for any use",
+            checked: true if data['answers']['offer-accommodation'] == "yes_any"
+          },
+          {
+            value: "no",
+            text: "No",
+            checked: true if data['answers']['offer-accommodation'] == "no"
+          }
+        ]
+      }) }}
+
+      {{ govukButton({
+        text: "Continue",
+        classes: "govuk-!-margin-top-5"
+      }) }}
+
+    </form>
+
+  </div>
+</div>
+
+{% endblock %}

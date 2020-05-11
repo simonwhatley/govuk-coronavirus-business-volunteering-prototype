@@ -5,6 +5,8 @@ moment.suppressDeprecationWarnings = true;
 const numeral = require('numeral');
 const marked = require('marked');
 
+const questions = require('./data/equipment-types.json');
+
 module.exports = function (env) {
   /**
   * Instantiate object used to store the methods registered as a
@@ -93,7 +95,7 @@ module.exports = function (env) {
 
     return error;
   }
-  
+
   /* ------------------------------------------------------------------
     utility function to create HTML from markdown
     example: {{ "**Enter a title**" | markdownToHtml }}
@@ -105,7 +107,78 @@ module.exports = function (env) {
 
     return html = marked(markdown);
   }
-  
+
+  /* ------------------------------------------------------------------
+    utility function to get the name of the equipment as string
+    example: {{ 'ffp3_respirators' | getEquipmentTypeAsString }}
+    outputs: "FFP3 respirators"
+  ------------------------------------------------------------------ */
+  filters.getEquipmentTypeAsString = function(value) {
+    if (!value)
+      return null;
+
+    let question = questions.filter( (obj) =>
+      obj.value == value
+    )[0];
+
+    return question.text;
+
+  }
+
+  /* ------------------------------------------------------------------
+    utility function to get the company size as string
+    example: {{ 'under_50' | getCompanySizeAsString }}
+    outputs: "Under 50 people"
+  ------------------------------------------------------------------ */
+  filters.getCompanySizeAsString = function(value) {
+    if (!value)
+      return null;
+
+    let text = '';
+
+    switch (value) {
+      case 'under_50':
+        text = 'Under 50 people';
+        break;
+      case '50_to_250':
+        text = '50 to 250 people';
+        break;
+      case 'over_250':
+        text = 'More than 250 people';
+        break;
+    }
+
+    return text;
+
+  }
+
+  /* ------------------------------------------------------------------
+    utility function to get the location as string
+    example: {{ 'row' | getLocationAsString }}
+    outputs: "Rest of World"
+  ------------------------------------------------------------------ */
+  filters.getLocationAsString = function(value) {
+    if (!value)
+      return null;
+
+    let text = "";
+
+    switch (value) {
+      case 'uk':
+        text = 'United Kingdom';
+        break;
+      case 'eu':
+        text = 'European Union';
+        break;
+      case 'row':
+        text = 'Rest of World';
+        break;
+    }
+
+    return text;
+
+  }
+
   /*
   =====================================================================
   arrayToGovukTable
@@ -182,7 +255,7 @@ module.exports = function (env) {
   */
 
   // var CSV = require('csv-string')
-  // 
+  //
   // filters.csvToArray = (csvString) => {
   //   array = CSV.parse(csvString);
   //   // Flatten nested array if it's only a single line
