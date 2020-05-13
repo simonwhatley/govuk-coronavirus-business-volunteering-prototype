@@ -1,0 +1,212 @@
+{% extends "layout.html" %}
+
+{% block pageTitle %}
+  {{ 'Error: ' if errors | length -}} What kind of staff can you offer?
+{% endblock %}
+
+{% block beforeContent %}
+{% include "./partials/_phase-banner.html" %}
+{{ govukBackLink({
+  text: "Back",
+  href: actions.back
+}) if actions.back | length }}
+{% endblock %}
+
+{% block content %}
+
+{% include "./partials/_error-summary.html" %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    <form action="{{ actions.save }}" method="post" accept-charset="utf-8" novalidate>
+
+      {{ govukCheckboxes({
+        idPrefix: "staff-type",
+        name: "answers[staff][type]",
+        fieldset: {
+          legend: {
+            text: "What kind of staff can you offer?",
+            isPageHeading: true,
+            classes: "govuk-fieldset__legend--xl"
+          }
+        },
+        hint: {
+          text: "Select all that apply"
+        },
+        errorMessage: errors | getErrorMessage('staff-type'),
+        items: [
+          {
+            value: "cleaners",
+            text: "Cleaners",
+            conditional: {
+              html: govukInput({
+                      id: "staff-quantity-cleaners",
+                      name: "answers[staff][quantity][cleaners]",
+                      label: {
+                        text: "Approximate number of people"
+                      },
+                      hint: {
+                        text: "For example, 10, 20, 100"
+                      },
+                      errorMessage: errors | getErrorMessage('staff-quantity-cleaners'),
+                      value: data['answers']['staff']['quantity']['cleaners'],
+                      classes: "govuk-input--width-10"
+                    })
+            },
+            checked: checked("answers['staff']['type']", "cleaners")
+          },
+          {
+            value: "developers",
+            text: "Developers",
+            conditional: {
+              html: govukInput({
+                      id: "staff-quantity-developers",
+                      name: "answers[staff][quantity][developers]",
+                      label: {
+                        text: "Approximate number of people"
+                      },
+                      hint: {
+                        text: "For example, 10, 20, 100"
+                      },
+                      errorMessage: errors | getErrorMessage('staff-quantity-developers'),
+                      value: data['answers']['staff']['quantity']['developers'],
+                      classes: "govuk-input--width-10"
+                    })
+            },
+            checked: checked("answers['staff']['type']", "developers")
+          },
+          {
+            value: "medical_staff",
+            text: "Medical staff",
+            conditional: {
+              html: govukInput({
+                      id: "staff-quantity-medical-staff",
+                      name: "answers[staff][quantity][medical_staff]",
+                      label: {
+                        text: "Approximate number of people"
+                      },
+                      hint: {
+                        text: "For example, 10, 20, 100"
+                      },
+                      errorMessage: errors | getErrorMessage('staff-quantity-medical-staff'),
+                      value: data['answers']['staff']['quantity']['medical_staff'],
+                      classes: "govuk-input--width-10"
+                    })
+            },
+            checked: checked("answers['staff']['type']", "medical_staff")
+          },
+          {
+            value: "office_staff",
+            text: "Office staff",
+            conditional: {
+              html: govukInput({
+                      id: "staff-quantity-office-staff",
+                      name: "answers[staff][quantity][office_staff]",
+                      label: {
+                        text: "Approximate number of people"
+                      },
+                      hint: {
+                        text: "For example, 10, 20, 100"
+                      },
+                      errorMessage: errors | getErrorMessage('staff-quantity-office-staff'),
+                      value: data['answers']['staff']['quantity']['office_staff'],
+                      classes: "govuk-input--width-10"
+                    })
+            },
+            checked: checked("answers['staff']['type']", "office_staff")
+          },
+          {
+            value: "security_staff",
+            text: "Security staff",
+            conditional: {
+              html: govukInput({
+                      id: "staff-quantity-security-staff",
+                      name: "answers[staff][quantity][security_staff]",
+                      label: {
+                        text: "Approximate number of people"
+                      },
+                      hint: {
+                        text: "For example, 10, 20, 100"
+                      },
+                      errorMessage: errors | getErrorMessage('staff-quantity-security-staff'),
+                      value: data['answers']['staff']['quantity']['security_staff'],
+                      classes: "govuk-input--width-10"
+                    })
+            },
+            checked: checked("answers['staff']['type']", "security_staff")
+          },
+          {
+            value: "trainers_or_coaches",
+            text: "Trainers or coaches",
+            conditional: {
+              html: govukInput({
+                      id: "staff-quantity-trainers-or-coaches",
+                      name: "answers[staff][quantity][trainers_or_coaches]",
+                      label: {
+                        text: "Approximate number of people"
+                      },
+                      hint: {
+                        text: "For example, 10, 20, 100"
+                      },
+                      errorMessage: errors | getErrorMessage('staff-quantity-trainers-or-coaches'),
+                      value: data['answers']['staff']['quantity']['trainers_or_coaches'],
+                      classes: "govuk-input--width-10"
+                    })
+            },
+            checked: checked("answers['staff']['type']", "trainers_or_coaches")
+          },
+          {
+            value: "translators",
+            text: "Translators",
+            conditional: {
+              html: govukInput({
+                      id: "staff-quantity-translators",
+                      name: "answers[staff][quantity][translators]",
+                      label: {
+                        text: "Approximate number of people"
+                      },
+                      hint: {
+                        text: "For example, 10, 20, 100"
+                      },
+                      errorMessage: errors | getErrorMessage('staff-quantity-translators'),
+                      value: data['answers']['staff']['quantity']['translators'],
+                      classes: "govuk-input--width-10"
+                    })
+            },
+            checked: checked("answers['staff']['type']", "translators")
+          },
+          {
+            value: "other_staff",
+            text: "Other staff",
+            conditional: {
+              html: govukInput({
+                      id: "staff-quantity-other-staff",
+                      name: "answers[staff][quantity][other_staff]",
+                      label: {
+                        text: "Approximate number of people"
+                      },
+                      hint: {
+                        text: "For example, 10, 20, 100"
+                      },
+                      errorMessage: errors | getErrorMessage('staff-quantity-other-staff'),
+                      value: data['answers']['staff']['quantity']['other_staff'],
+                      classes: "govuk-input--width-10"
+                    })
+            },
+            checked: checked("answers['staff']['type']", "other_staff")
+          }
+        ]
+      }) }}
+
+      {{ govukButton({
+        text: "Continue",
+        classes: "govuk-!-margin-top-5"
+      }) }}
+
+    </form>
+
+  </div>
+</div>
+
+{% endblock %}

@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 
 {% block pageTitle %}
-  {{ 'Error: ' if errors | length -}} Can you offer accommodation?
+  {{ 'Error: ' if errors | length -}} Can you offer staff?
 {% endblock %}
 
 {% block beforeContent %}
@@ -22,11 +22,11 @@
     <form action="{{ actions.save }}" method="post" accept-charset="utf-8" novalidate>
 
       {{ govukRadios({
-        idPrefix: "accommodation",
-        name: "answers[offer-accommodation]",
+        idPrefix: "staff",
+        name: "answers[offer-staff]",
         fieldset: {
           legend: {
-            text: "Can you offer accommodation?",
+            text: "Can you offer staff?",
             isPageHeading: true,
             classes: "govuk-fieldset__legend--xl"
           }
@@ -34,22 +34,17 @@
         hint: {
           text: ""
         },
-        errorMessage: errors | getErrorMessage('accommodation'),
+        errorMessage: errors | getErrorMessage('staff'),
         items: [
           {
-            value: "yes_people",
-            text: "Yes – for people to stay in",
-            checked: true if data['answers']['offer-accommodation'] == "yes_people"
-          },
-          {
-            value: "yes_any",
-            text: "Yes – for any use",
-            checked: true if data['answers']['offer-accommodation'] == "yes_any"
+            value: "yes",
+            text: "Yes",
+            checked: true if data['answers']['offer-staff'] == "yes"
           },
           {
             value: "no",
             text: "No",
-            checked: true if data['answers']['offer-accommodation'] == "no"
+            checked: true if data['answers']['offer-staff'] == "no"
           }
         ]
       }) }}
