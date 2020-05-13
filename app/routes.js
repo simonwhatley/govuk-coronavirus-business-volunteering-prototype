@@ -35,6 +35,11 @@ router.get('/medical-equipment', (req, res) => {
     next = next + '?referer=check-your-answers';
   }
 
+  let previous = req.baseUrl + '/';
+  if (req.headers.referer.includes('check-your-answers')) {
+    previous = previous + 'check-your-answers';
+  }
+
   if (req.session.data.answers === undefined) {
     req.session.data.answers = {};
   }
@@ -42,7 +47,7 @@ router.get('/medical-equipment', (req, res) => {
   res.render('medical-equipment', {
     actions: {
       save: next,
-      back: req.baseUrl + '/',
+      back: previous,
       start: req.baseUrl + '/'
     }
   });
@@ -79,9 +84,21 @@ router.post('/medical-equipment', checkHasAnswers, (req, res) => {
   } else {
 
     if (req.session.data.answers['offer-medical-equipment'] == 'yes') {
-      res.redirect(req.baseUrl + '/business-type');
+
+      if (req.query.referer == 'check-your-answers') {
+        res.redirect(req.baseUrl + '/check-your-answers');
+      } else {
+        res.redirect(req.baseUrl + '/business-type');
+      }
+
     } else {
-      res.redirect(req.baseUrl + '/accommodation');
+
+      if (req.query.referer == 'check-your-answers') {
+        res.redirect(req.baseUrl + '/check-your-answers');
+      } else {
+        res.redirect(req.baseUrl + '/accommodation');
+      }
+
     }
 
   }
@@ -102,10 +119,15 @@ router.get('/accommodation', checkHasAnswers, (req, res) => {
     next = next + '?referer=check-your-answers';
   }
 
+  let previous = req.baseUrl + '/medical-equipment';
+  if (req.headers.referer.includes('check-your-answers')) {
+    previous = req.baseUrl + '/check-your-answers';
+  }
+
   res.render('accommodation', {
     actions: {
       save: next,
-      back: req.baseUrl + '/medical-equipment',
+      back: previous,
       start: req.baseUrl + '/'
     }
   });
@@ -156,7 +178,7 @@ router.post('/accommodation', checkHasAnswers, (req, res) => {
       if (req.query.referer == 'check-your-answers') {
         res.redirect(req.baseUrl + '/check-your-answers');
       } else {
-        res.redirect(req.baseUrl + '/transport-logistics');
+        res.redirect(req.baseUrl + '/transport');
       }
 
     }
@@ -217,7 +239,7 @@ router.post('/accommodation-details', checkHasAnswers, (req, res) => {
     if (req.query.referer == 'check-your-answers') {
       res.redirect(req.baseUrl + '/check-your-answers');
     } else {
-      res.redirect(req.baseUrl + '/transport-logistics');
+      res.redirect(req.baseUrl + '/transport');
     }
 
   }
@@ -227,16 +249,20 @@ router.post('/accommodation-details', checkHasAnswers, (req, res) => {
 // --------------------------------------------------
 // Q: Can you offer transport or logistics?
 // --------------------------------------------------
-router.get('/transport-logistics', checkHasAnswers, (req, res) => {
+router.get('/transport', checkHasAnswers, (req, res) => {
 
-  let next = req.baseUrl + '/transport-logistics';
+  let next = req.baseUrl + '/transport';
   if (req.headers.referer.includes('check-your-answers')) {
     next = next + '?referer=check-your-answers';
   }
 
   let previous = req.baseUrl + '/accommodation';
   if (req.session.data.answers['offer-accommodation'].includes('yes')) {
-    previous = req.baseUrl + '/accommodation-details';
+    if (req.headers.referer.includes('check-your-answers')) {
+      previous = req.baseUrl + '/check-your-answers';
+    } else {
+      previous = req.baseUrl + '/accommodation-details';
+    }
   }
 
   res.render('transport-logistics', {
@@ -248,9 +274,9 @@ router.get('/transport-logistics', checkHasAnswers, (req, res) => {
   });
 });
 
-router.post('/transport-logistics', checkHasAnswers, (req, res) => {
+router.post('/transport', checkHasAnswers, (req, res) => {
 
-  let next = req.baseUrl + '/transport-logistics';
+  let next = req.baseUrl + '/transport';
   if (req.query.referer == 'check-your-answers') {
     next = next + '?referer=check-your-answers';
   }
@@ -286,9 +312,9 @@ router.post('/transport-logistics', checkHasAnswers, (req, res) => {
     if (req.session.data.answers['offer-transport-logistics'] == 'yes') {
 
       if (req.query.referer == 'check-your-answers') {
-        res.redirect(req.baseUrl + '/transport-logistics-details?referer=check-your-answers');
+        res.redirect(req.baseUrl + '/transport-details?referer=check-your-answers');
       } else {
-        res.redirect(req.baseUrl + '/transport-logistics-details');
+        res.redirect(req.baseUrl + '/transport-details');
       }
 
     } else {
@@ -310,9 +336,9 @@ router.post('/transport-logistics', checkHasAnswers, (req, res) => {
 // --------------------------------------------------
 // Q: What kind of transport or logistics can you offer?
 // --------------------------------------------------
-router.get('/transport-logistics-details', checkHasAnswers, (req, res) => {
+router.get('/transport-details', checkHasAnswers, (req, res) => {
 
-  let next = req.baseUrl + '/transport-logistics-details';
+  let next = req.baseUrl + '/transport-details';
   if (req.headers.referer.includes('check-your-answers') || req.query.referer == 'check-your-answers') {
     next = next + '?referer=check-your-answers';
   }
@@ -320,15 +346,15 @@ router.get('/transport-logistics-details', checkHasAnswers, (req, res) => {
   res.render('transport-logistics-details', {
     actions: {
       save: next,
-      back: req.baseUrl + '/transport-logistics',
+      back: req.baseUrl + '/transport',
       start: req.baseUrl + '/'
     }
   });
 });
 
-router.post('/transport-logistics-details', checkHasAnswers, (req, res) => {
+router.post('/transport-details', checkHasAnswers, (req, res) => {
 
-  let next = req.baseUrl + '/transport-logistics-details';
+  let next = req.baseUrl + '/transport-details';
   if (req.query.referer == 'check-your-answers') {
     next = next + '?referer=check-your-answers';
   }
@@ -357,7 +383,7 @@ router.post('/transport-logistics-details', checkHasAnswers, (req, res) => {
       errors: errors,
       actions: {
         save: next,
-        back: req.baseUrl + '/transport-logistics',
+        back: req.baseUrl + '/transport',
         start: req.baseUrl + '/'
       }
     });
@@ -384,9 +410,13 @@ router.get('/space', checkHasAnswers, (req, res) => {
     next = next + '?referer=check-your-answers';
   }
 
-  let previous = req.baseUrl + '/transport-logistics';
+  let previous = req.baseUrl + '/transport';
   if (req.session.data.answers['offer-transport-logistics'] == 'yes') {
-    previous = req.baseUrl + '/transport-logistics-details';
+    if (req.headers.referer.includes('check-your-answers')) {
+      previous = req.baseUrl + '/check-your-answers';
+    } else {
+      previous = req.baseUrl + '/transport-details';
+    }
   }
 
   res.render('space', {
@@ -405,9 +435,9 @@ router.post('/space', checkHasAnswers, (req, res) => {
     next = next + '?referer=check-your-answers';
   }
 
-  let previous = req.baseUrl + '/transport-logistics';
+  let previous = req.baseUrl + '/transport';
   if (req.session.data.answers['offer-transport-logistics'] == 'yes') {
-    previous = req.baseUrl + '/transport-logistics-details';
+    previous = req.baseUrl + '/transport-details';
   }
 
   let errors = [];
@@ -448,7 +478,7 @@ router.post('/space', checkHasAnswers, (req, res) => {
       if (req.query.referer == 'check-your-answers') {
         res.redirect(req.baseUrl + '/check-your-answers');
       } else {
-        res.redirect(req.baseUrl + '/care');
+        res.redirect(req.baseUrl + '/staff');
       }
 
     }
@@ -543,6 +573,166 @@ router.post('/space-details', checkHasAnswers, (req, res) => {
     if (req.query.referer == 'check-your-answers') {
       res.redirect(req.baseUrl + '/check-your-answers');
     } else {
+      res.redirect(req.baseUrl + '/staff');
+    }
+
+  }
+
+});
+
+// --------------------------------------------------
+// Q: Can you offer staff?
+// --------------------------------------------------
+router.get('/staff', checkHasAnswers, (req, res) => {
+
+  let next = req.baseUrl + '/staff';
+  if (req.headers.referer.includes('check-your-answers')) {
+    next = next + '?referer=check-your-answers';
+  }
+
+  let previous = req.baseUrl + '/space';
+  if (req.session.data.answers['offer-space'] == 'yes') {
+    if (req.headers.referer.includes('check-your-answers')) {
+      previous = req.baseUrl + '/check-your-answers';
+    } else {
+      previous = req.baseUrl + '/space-details';
+    }
+  }
+
+  res.render('staff', {
+    actions: {
+      save: next,
+      back: previous,
+      start: req.baseUrl + '/'
+    }
+  });
+});
+
+router.post('/staff', checkHasAnswers, (req, res) => {
+
+  let next = req.baseUrl + '/staff';
+  if (req.query.referer == 'check-your-answers') {
+    next = next + '?referer=check-your-answers';
+  }
+
+  let previous = req.baseUrl + '/space';
+  if (req.session.data.answers['offer-space'] == 'yes') {
+    previous = req.baseUrl + '/space-details';
+  }
+
+  let errors = [];
+
+  if (req.session.data.answers['offer-staff'] === undefined) {
+    let error = {};
+    error.fieldName = 'staff';
+    error.href = '#staff';
+    error.text = 'Choose whether you can offer staff';
+    errors.push(error);
+  }
+
+  if (errors.length) {
+
+    res.render('staff', {
+      errors: errors,
+      actions: {
+        save: next,
+        back: previous,
+        start: req.baseUrl + '/'
+      }
+    });
+
+  } else {
+
+    if (req.session.data.answers['offer-staff'] == 'yes') {
+
+      if (req.query.referer == 'check-your-answers') {
+        res.redirect(req.baseUrl + '/staff-details?referer=check-your-answers');
+      } else {
+        res.redirect(req.baseUrl + '/staff-details');
+      }
+
+    } else {
+
+      delete req.session.data.answers['staff'];
+
+      if (req.query.referer == 'check-your-answers') {
+        res.redirect(req.baseUrl + '/check-your-answers');
+      } else {
+        res.redirect(req.baseUrl + '/care');
+      }
+
+    }
+
+  }
+
+});
+
+// --------------------------------------------------
+// Q: What kind of care can you offer?
+// --------------------------------------------------
+router.get('/staff-details', checkHasAnswers, (req, res) => {
+
+  let next = req.baseUrl + '/staff-details';
+  if (req.headers.referer.includes('check-your-answers') || req.query.referer == 'check-your-answers') {
+    next = next + '?referer=check-your-answers';
+  }
+
+  res.render('staff-details', {
+    actions: {
+      save: next,
+      back: req.baseUrl + '/staff',
+      start: req.baseUrl + '/'
+    }
+  });
+});
+
+router.post('/staff-details', checkHasAnswers, (req, res) => {
+
+  let next = req.baseUrl + '/staff-details';
+  if (req.query.referer == 'check-your-answers') {
+    next = next + '?referer=check-your-answers';
+  }
+
+  let errors = [];
+
+  if (req.session.data.answers['staff']['type'] === undefined) {
+    let error = {};
+    error.fieldName = 'staff-type';
+    error.href = '#staff-type';
+    error.text = 'Choose what kind of staff you can offer';
+    errors.push(error);
+  } else {
+
+    let types = ['cleaners','developers','medical_staff','office_staff','security_staff','trainers_or_coaches','translators','other_staff'];
+
+    types.forEach(element => {
+      if (req.session.data.answers['staff']['type'].indexOf(element) !== -1 && !req.session.data.answers['staff']['quantity'][element].length) {
+        let error = {};
+        error.fieldName = 'staff-quantity-' + element.replace('_','-');
+        error.href = '#staff-quantity-' + element.replace('_','-');
+        error.text = 'Enter the quantity of ' + element.replace('_',' ');
+        errors.push(error);
+      }
+    });
+
+  }
+
+  if (errors.length) {
+
+    res.render('staff-details', {
+      errors: errors,
+      actions: {
+        save: req.baseUrl + '/staff-details',
+        back: req.baseUrl + '/staff',
+        start: req.baseUrl + '/'
+      }
+    });
+
+  } else {
+
+    if (req.query.referer == 'check-your-answers') {
+      res.redirect(req.baseUrl + '/check-your-answers');
+    } else {
       res.redirect(req.baseUrl + '/care');
     }
 
@@ -560,9 +750,13 @@ router.get('/care', checkHasAnswers, (req, res) => {
     next = next + '?referer=check-your-answers';
   }
 
-  let previous = req.baseUrl + '/space';
-  if (req.session.data.answers['offer-space'] == 'yes') {
-    previous = req.baseUrl + '/space-details';
+  let previous = req.baseUrl + '/staff';
+  if (req.session.data.answers['offer-staff'] == 'yes') {
+    if (req.headers.referer.includes('check-your-answers')) {
+      previous = req.baseUrl + '/check-your-answers';
+    } else {
+      previous = req.baseUrl + '/staff-details';
+    }
   }
 
   res.render('care', {
@@ -581,9 +775,9 @@ router.post('/care', checkHasAnswers, (req, res) => {
     next = next + '?referer=check-your-answers';
   }
 
-  let previous = req.baseUrl + '/space';
-  if (req.session.data.answers['offer-space'] == 'yes') {
-    previous = req.baseUrl + '/space-details';
+  let previous = req.baseUrl + '/staff';
+  if (req.session.data.answers['offer-staff'] == 'yes') {
+    previous = req.baseUrl + '/staff-details';
   }
 
   let errors = [];
@@ -723,6 +917,10 @@ router.get('/expertise', checkHasAnswers, (req, res) => {
     previous = req.baseUrl + '/care-details';
   }
 
+  if (req.headers.referer.includes('check-your-answers')) {
+    previous = req.baseUrl + '/check-your-answers';
+  }
+
   res.render('expertise', {
     actions: {
       save: next,
@@ -797,10 +995,15 @@ router.get('/other-support', checkHasAnswers, (req, res) => {
     next = next + '?referer=check-your-answers';
   }
 
+  let previous = req.baseUrl + '/expertise';
+  if (req.headers.referer.includes('check-your-answers')) {
+    previous = req.baseUrl + '/check-your-answers';
+  }
+
   res.render('other-support', {
     actions: {
       save: next,
-      back: req.baseUrl + '/expertise',
+      back: previous,
       start: req.baseUrl + '/'
     }
   });
@@ -856,10 +1059,15 @@ router.get('/location', checkHasAnswers, (req, res) => {
     next = next + '?referer=check-your-answers';
   }
 
+  let previous = req.baseUrl + '/other-support';
+  if (req.headers.referer.includes('check-your-answers')) {
+    previous = req.baseUrl + '/check-your-answers';
+  }
+
   res.render('location', {
     actions: {
       save: next,
-      back: req.baseUrl + '/other-support',
+      back: previous,
       start: req.baseUrl + '/'
     }
   });
