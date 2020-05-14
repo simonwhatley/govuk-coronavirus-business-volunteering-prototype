@@ -8,12 +8,12 @@
 
 {%- set expertiseHtml %}
 <ul class="govuk-list govuk-list--bullet">
-  {% for item in data['answers']['expertise'] %}
+  {% for item in data['answers']['expertise']['type'] %}
     <li>{{ item | replace("_"," ") | capitalize | replace("It ","IT ") }}</li>
   {% endfor %}
 </ul>
-{%- if data['answers']['expertise-other'] | length %}
-  <p class="govuk-body">{{ data['answers']['expertise-other'] }}</p>
+{%- if data['answers']['expertise']['description']['other'] | length %}
+  <p class="govuk-body">{{ data['answers']['expertise']['description']['other'] }}</p>
 {% endif -%}
 {% endset -%}
 
@@ -47,6 +47,38 @@
 {% endif -%}
 {% endset -%}
 
+{%- set spaceTypeHtml %}
+<ul class="govuk-list govuk-list--bullet">
+  {% for item in data['answers']['space']['type'] %}
+    <li>{{ item | replace("_"," ") | capitalize }} {{ "(" + data['answers']['space']['quantity'][item] | numeral('0,00') + " square feet)" }}</li>
+  {% endfor %}
+</ul>
+{% endset -%}
+
+{%- set staffTypeHtml %}
+<ul class="govuk-list govuk-list--bullet">
+  {% for item in data['answers']['staff']['type'] %}
+    <li>{{ item | replace("_"," ") | capitalize }} {{ "(" + data['answers']['staff']['quantity'][item] | numeral('0,00') + " people)" }}</li>
+  {% endfor %}
+</ul>
+{% endset -%}
+
+{%- set constructionExpertiseHtml %}
+<ul class="govuk-list govuk-list--bullet">
+  {% for item in data['answers']['expertise-construction']['type'] %}
+    <li>{{ item | replace("_"," ") | capitalize }}</li>
+  {% endfor %}
+</ul>
+{% endset -%}
+
+{%- set itServicesExpertiseHtml %}
+<ul class="govuk-list govuk-list--bullet">
+  {% for item in data['answers']['expertise-it-services']['type'] %}
+    <li>{{ item | replace("_"," ") | capitalize }}</li>
+  {% endfor %}
+</ul>
+{% endset -%}
+
 {{ govukSummaryList({
   rows: [
     {
@@ -71,7 +103,7 @@
         text: "What kind of business are you?"
       },
       value: {
-        text: businessTypeHtml
+        html: businessTypeHtml
       },
       actions: {
         items: [
@@ -127,7 +159,7 @@
       actions: {
         items: [
           {
-            href: "/transport-logistics",
+            href: "/transport",
             text: "Change",
             visuallyHiddenText: "whether you can offer transport or logistics"
           }
@@ -144,7 +176,7 @@
       actions: {
         items: [
           {
-            href: "/transport-logistics-details",
+            href: "/transport-details",
             text: "Change",
             visuallyHiddenText: "what kind of transport or logistics you can offer"
           }
@@ -161,7 +193,7 @@
       actions: {
         items: [
           {
-            href: "/transport-logistics-details",
+            href: "/transport-details",
             text: "Change",
             visuallyHiddenText: "the description of the transport and logistics services you can offer"
           }
@@ -190,7 +222,7 @@
         text: "What kind of space can you offer?"
       },
       value: {
-        text: data['answers']['space']['type'] | arrayToList | capitalize
+        html: spaceTypeHtml
       },
       actions: {
         items: [
@@ -219,6 +251,40 @@
         ]
       }
     } if data['answers']['offer-space'] == "yes",
+    {
+      key: {
+        text: "Can you offer staff?"
+      },
+      value: {
+        text: data['answers']['offer-staff'] | capitalize
+      },
+      actions: {
+        items: [
+          {
+            href: "/staff",
+            text: "Change",
+            visuallyHiddenText: "whether you can offer staff"
+          }
+        ]
+      }
+    },
+    {
+      key: {
+        text: "What kind of staff can you offer?"
+      },
+      value: {
+        html: staffTypeHtml
+      },
+      actions: {
+        items: [
+          {
+            href: "/staff-details",
+            text: "Change",
+            visuallyHiddenText: "what kind of staff you can offer"
+          }
+        ]
+      }
+    } if data['answers']['offer-staff'] == "yes",
     {
       key: {
         text: "Can you offer social care or childcare?"
@@ -275,7 +341,7 @@
         text: "What kind of expertise can you offer?"
       },
       value: {
-        html: expertiseHtml if data['answers']['expertise'] | length else "I cannot offer expertise"
+        html: expertiseHtml if data['answers']['expertise']['type'] | length else "I cannot offer expertise"
       },
       actions: {
         items: [
@@ -287,6 +353,40 @@
         ]
       }
     },
+    {
+      key: {
+        text: "What kind of construction services can you offer?"
+      },
+      value: {
+        html: constructionExpertiseHtml
+      },
+      actions: {
+        items: [
+          {
+            href: "/expertise-construction",
+            text: "Change",
+            visuallyHiddenText: "what type of construction services you can offer"
+          }
+        ]
+      }
+    } if data['answers']['expertise']['type'] | length and "construction" in data['answers']['expertise']['type'],
+    {
+      key: {
+        text: "What kind of IT services can you offer?"
+      },
+      value: {
+        html: itServicesExpertiseHtml
+      },
+      actions: {
+        items: [
+          {
+            href: "/expertise-it-services",
+            text: "Change",
+            visuallyHiddenText: "what type of IT services you can offer"
+          }
+        ]
+      }
+    } if data['answers']['expertise']['type'] | length and "it_services" in data['answers']['expertise']['type'],
     {
       key: {
         text: "Can you offer any other kind of support?"

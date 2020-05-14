@@ -1,0 +1,31 @@
+
+{% extends "layout.html" %}
+
+{% block pageTitle %}
+  Components – GOV.UK Prototype Kit
+{% endblock %}
+
+{% block beforeContent %}
+{% include "../partials/_phase-banner.html" %}
+{{ govukBackLink({
+  text: "Back",
+  href: "../"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <h1 class="govuk-heading-xl">
+        <span class="govuk-caption-xl">GOV.UK Prototype</span>
+        Components
+      </h1>
+
+      <ul class="govuk-list govuk-list--bullet">
+        <li><a href="/components/input/">Input</a></li>
+      </ul>
+    </div>
+</div>
+
+{% endblock %}

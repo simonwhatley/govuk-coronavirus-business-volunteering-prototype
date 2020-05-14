@@ -20,7 +20,6 @@
       Are you ready to send the form?
     </h1>
 
-
     {% include "./partials/_non-medical-equipment-details-summary.html" %}
 
     {%- if data['answers']['offer-medical-equipment'] == "yes" %}
@@ -34,7 +33,7 @@
     {% include "./partials/_contact-details-summary.html" %}
 
     {{ govukInsetText({
-      text: "By submitting this for you‘re confirming that, to the best of your knowledge, the details you‘re providing are correct."
+      text: "By submitting this form you‘re confirming that, to the best of your knowledge, the details you‘re providing are correct."
     }) }}
 
     {{ govukButton({

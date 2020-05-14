@@ -29,6 +29,8 @@
 {% from "govuk/components/textarea/macro.njk"         import govukTextarea %}
 {% from "govuk/components/warning-text/macro.njk"     import govukWarningText %}
 
+{% from "./components/input/macro.njk"                import appInput %}
+
 {% block head %}
   {% include "includes/head.html" %}
 {% endblock %}
@@ -44,8 +46,9 @@
     homepageUrl: "/",
     serviceName: serviceName,
     serviceUrl: "/",
-    containerClasses: "govuk-width-container"
+    containerClasses: "govuk-width-container govuk-header__container--no-border-bottom"
   }) }}
+  {% include "includes/global-bar-narrow.html" %}
 {% endblock %}
 
 {% set mainClasses = mainClasses | default("govuk-main-wrapper--auto-spacing") %}
@@ -58,6 +61,10 @@
           {
             href: "/prototype-admin/clear-data",
             text: "Clear data"
+          },
+          {
+            href: "/components",
+            text: "Components"
           }
         ]
       }
