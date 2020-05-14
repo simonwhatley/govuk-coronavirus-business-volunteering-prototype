@@ -1,0 +1,91 @@
+{% extends "layout.html" %}
+
+{% block pageTitle %}
+  {{ 'Error: ' if errors | length -}} What kind of construction services can you offer?
+{% endblock %}
+
+{% block beforeContent %}
+{% include "./partials/_phase-banner.html" %}
+{{ govukBackLink({
+  text: "Back",
+  href: actions.back
+}) if actions.back | length }}
+{% endblock %}
+
+{% block content %}
+
+{% include "./partials/_error-summary.html" %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    <form action="{{ actions.save }}" method="post" accept-charset="utf-8" novalidate>
+
+      {{ govukCheckboxes({
+        idPrefix: "expertise-construction",
+        name: "answers[expertise-construction]",
+        fieldset: {
+          legend: {
+            text: "What kind of construction services can you offer?",
+            isPageHeading: true,
+            classes: "govuk-fieldset__legend--xl"
+          }
+        },
+        hint: {
+          text: "Select all that apply"
+        },
+        errorMessage: errors | getErrorMessage('expertise-construction'),
+        items: [
+          {
+            value: "building_materials",
+            text: "Building materials",
+            checked: checked("answers['expertise-construction']", "building_materials")
+          },
+          {
+            value: "building_maintenance",
+            text: "Building maintenance",
+            checked: checked("answers['expertise-construction']", "building_maintenance")
+          },
+          {
+            value: "constructing_temporary_buildings",
+            text: "Constructing temporary buildings",
+            checked: checked("answers['expertise-construction']", "constructing_temporary_buildings")
+          },
+          {
+            value: "construction_work",
+            text: "Construction work",
+            checked: checked("answers['expertise-construction']", "construction_work")
+          },
+          {
+            value: "other",
+            text: "Other",
+            conditional: {
+              html: govukTextarea({
+                id: "expertise-construction-other",
+                name: "answers[expertise-construction-other]",
+                label: {
+                  text: "Give a description"
+                },
+                hint: {
+                  text: ""
+                },
+                errorMessage: errors | getErrorMessage('expertise-construction-other'),
+                value: data['answers']['expertise-construction-other']
+              })
+            },
+            checked: checked("answers['expertise-construction']", "other")
+          }
+        ]
+      }) }}
+
+      {{ govukButton({
+        text: "Continue",
+        classes: "govuk-!-margin-top-5"
+      }) }}
+
+    </form>
+
+  </div>
+</div>
+
+{% endblock %}
