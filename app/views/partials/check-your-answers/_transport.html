@@ -1,0 +1,67 @@
+<h3 class="govuk-heading-m">Can you offer transport or logistics?</h3>
+
+{%- set transportTypeHtml %}
+<ul class="govuk-list govuk-list--bullet">
+  {% for item in data['answers']['transport-logistics']['type'] %}
+    <li>{{ item | replace("people","Moving people") | replace("goods","Moving goods") | capitalize }}</li>
+  {% endfor %}
+</ul>
+{% endset -%}
+
+{{ govukSummaryList({
+  rows: [
+    {
+      key: {
+        text: "Can you offer transport or logistics?"
+      },
+      value: {
+        text: data['answers']['offer-transport-logistics'] | capitalize
+      },
+      actions: {
+        items: [
+          {
+            href: "/transport",
+            text: "Change",
+            visuallyHiddenText: "whether you can offer transport or logistics"
+          }
+        ]
+      }
+    },
+    {
+      key: {
+        text: "What kind of transport or logistics services can you offer?"
+      },
+      value: {
+        html: transportTypeHtml
+      },
+      actions: {
+        items: [
+          {
+            href: "/transport-details",
+            text: "Change",
+            visuallyHiddenText: "what kind of transport or logistics you can offer"
+          }
+        ]
+      }
+    } if data['answers']['offer-transport-logistics'] == "yes",
+    {
+      key: {
+        text: "Description of your transport or logistics services"
+      },
+      value: {
+        text: data['answers']['transport-logistics']['description']
+      },
+      actions: {
+        items: [
+          {
+            href: "/transport-details",
+            text: "Change",
+            visuallyHiddenText: "the description of the transport and logistics services you can offer"
+          }
+        ]
+      }
+    } if data['answers']['offer-transport-logistics'] == "yes"
+  ]
+}) }}
+
+<hr class="govuk-section-break govuk-section-break--l">

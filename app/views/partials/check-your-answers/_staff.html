@@ -1,0 +1,50 @@
+<h3 class="govuk-heading-m">Can you offer staff?</h3>
+
+{%- set staffTypeHtml %}
+<ul class="govuk-list govuk-list--bullet">
+  {% for item in data['answers']['staff']['type'] %}
+    <li>{{ item | replace("_"," ") | capitalize }} {{ "(" + data['answers']['staff']['quantity'][item] | numeral('0,00') + " people)" }}</li>
+  {% endfor %}
+</ul>
+{% endset -%}
+
+{{ govukSummaryList({
+  rows: [
+    {
+      key: {
+        text: "Can you offer staff?"
+      },
+      value: {
+        text: data['answers']['offer-staff'] | capitalize
+      },
+      actions: {
+        items: [
+          {
+            href: "/staff",
+            text: "Change",
+            visuallyHiddenText: "whether you can offer staff"
+          }
+        ]
+      }
+    },
+    {
+      key: {
+        text: "What kind of staff can you offer?"
+      },
+      value: {
+        html: staffTypeHtml
+      },
+      actions: {
+        items: [
+          {
+            href: "/staff-details",
+            text: "Change",
+            visuallyHiddenText: "what kind of staff you can offer"
+          }
+        ]
+      }
+    } if data['answers']['offer-staff'] == "yes"
+  ]
+}) }}
+
+<hr class="govuk-section-break govuk-section-break--l">

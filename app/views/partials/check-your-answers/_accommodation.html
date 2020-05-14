@@ -1,0 +1,42 @@
+<h3 class="govuk-heading-m">Can you offer accommodation?</h3>
+
+{{ govukSummaryList({
+  rows: [
+    {
+      key: {
+        text: "Can you offer accommodation?"
+      },
+      value: {
+        text: data['answers']['offer-accommodation'] | replace("yes_any", "Yes – for any use") | replace("yes_people", "Yes – for people to stay in") | capitalize
+      },
+      actions: {
+        items: [
+          {
+            href: "/accommodation",
+            text: "Change",
+            visuallyHiddenText: "whether you can offer accommodation"
+          }
+        ]
+      }
+    },
+    {
+      key: {
+        text: "How many rooms can you offer?"
+      },
+      value: {
+        text: data['answers']['accommodation']['quantity'] | numeral('0,00')
+      },
+      actions: {
+        items: [
+          {
+            href: "/accommodation-details",
+            text: "Change",
+            visuallyHiddenText: "how many rooms you can offer"
+          }
+        ]
+      }
+    } if data['answers']['offer-accommodation'] in ["yes_people","yes_any"]
+  ]
+}) }}
+
+<hr class="govuk-section-break govuk-section-break--l">

@@ -1,0 +1,86 @@
+<h3 class="govuk-heading-m">What kind of services or expertise can you offer?</h3>
+
+{%- set expertiseHtml %}
+<ul class="govuk-list govuk-list--bullet">
+  {% for item in data['answers']['expertise']['type'] %}
+    <li>{{ item | replace("_"," ") | capitalize | replace("It ","IT ") }}</li>
+  {% endfor %}
+</ul>
+{%- if data['answers']['expertise']['description']['other'] | length %}
+  <p class="govuk-body">{{ data['answers']['expertise']['description']['other'] }}</p>
+{% endif -%}
+{% endset -%}
+
+{%- set constructionExpertiseHtml %}
+<ul class="govuk-list govuk-list--bullet">
+  {% for item in data['answers']['expertise-construction']['type'] %}
+    <li>{{ item | replace("_"," ") | capitalize }}</li>
+  {% endfor %}
+</ul>
+{% endset -%}
+
+{%- set itServicesExpertiseHtml %}
+<ul class="govuk-list govuk-list--bullet">
+  {% for item in data['answers']['expertise-it-services']['type'] %}
+    <li>{{ item | replace("_"," ") | capitalize }}</li>
+  {% endfor %}
+</ul>
+{% endset -%}
+
+{{ govukSummaryList({
+  rows: [
+    {
+      key: {
+        text: "What kind of expertise can you offer?"
+      },
+      value: {
+        html: expertiseHtml if data['answers']['expertise']['type'] | length else "I cannot offer expertise"
+      },
+      actions: {
+        items: [
+          {
+            href: "/expertise",
+            text: "Change",
+            visuallyHiddenText: "what type of expertise you can offer"
+          }
+        ]
+      }
+    },
+    {
+      key: {
+        text: "What kind of construction services can you offer?"
+      },
+      value: {
+        html: constructionExpertiseHtml
+      },
+      actions: {
+        items: [
+          {
+            href: "/expertise-construction",
+            text: "Change",
+            visuallyHiddenText: "what type of construction services you can offer"
+          }
+        ]
+      }
+    } if data['answers']['expertise']['type'] | length and "construction" in data['answers']['expertise']['type'],
+    {
+      key: {
+        text: "What kind of IT services can you offer?"
+      },
+      value: {
+        html: itServicesExpertiseHtml
+      },
+      actions: {
+        items: [
+          {
+            href: "/expertise-it-services",
+            text: "Change",
+            visuallyHiddenText: "what type of IT services you can offer"
+          }
+        ]
+      }
+    } if data['answers']['expertise']['type'] | length and "it_services" in data['answers']['expertise']['type']
+  ]
+}) }}
+
+<hr class="govuk-section-break govuk-section-break--l">

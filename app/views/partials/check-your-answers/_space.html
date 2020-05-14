@@ -1,0 +1,67 @@
+<h3 class="govuk-heading-m">Can you offer space?</h3>
+
+{%- set spaceTypeHtml %}
+<ul class="govuk-list govuk-list--bullet">
+  {% for item in data['answers']['space']['type'] %}
+    <li>{{ item | replace("_"," ") | capitalize }} {{ "(" + data['answers']['space']['quantity'][item] | numeral('0,00') + " square feet)" }}</li>
+  {% endfor %}
+</ul>
+{% endset -%}
+
+{{ govukSummaryList({
+  rows: [
+    {
+      key: {
+        text: "Can you offer space?"
+      },
+      value: {
+        text: data['answers']['offer-space'] | capitalize
+      },
+      actions: {
+        items: [
+          {
+            href: "/space",
+            text: "Change",
+            visuallyHiddenText: "whether you can offer space"
+          }
+        ]
+      }
+    },
+    {
+      key: {
+        text: "What kind of space can you offer?"
+      },
+      value: {
+        html: spaceTypeHtml
+      },
+      actions: {
+        items: [
+          {
+            href: "/space-details",
+            text: "Change",
+            visuallyHiddenText: "what kind of space you can offer"
+          }
+        ]
+      }
+    } if data['answers']['offer-space'] == "yes",
+    {
+      key: {
+        text: "Description of your space"
+      },
+      value: {
+        text: data['answers']['space']['description']
+      },
+      actions: {
+        items: [
+          {
+            href: "/space-details",
+            text: "Change",
+            visuallyHiddenText: "the description of the space you can offer"
+          }
+        ]
+      }
+    } if data['answers']['offer-space'] == "yes"
+  ]
+}) }}
+
+<hr class="govuk-section-break govuk-section-break--l">

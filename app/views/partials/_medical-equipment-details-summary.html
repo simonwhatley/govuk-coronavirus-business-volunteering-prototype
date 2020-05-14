@@ -1,8 +1,8 @@
-<h2 class="govuk-heading-l">Medical equipment details</h2>
+<h2 class="govuk-heading-m">Medical equipment details</h2>
 
 {%- for product in data['answers']['products'] %}
 
-<h3 class="govuk-heading-m">Product {{ loop.index }}</h3>
+<h3 class="govuk-heading-s">Product {{ loop.index }}</h3>
 
 {{ govukSummaryList({
   classes: "govuk-!-margin-bottom-5" if loop.last else "govuk-!-margin-bottom-7",
@@ -149,5 +149,5 @@
 {% endfor -%}
 
 <p class="govuk-body">
-  <a href="./medical-equipment-type" class="govuk-link">Add another product</a>
+  <a href="./medical-equipment-type" class="govuk-link">{{ "Add another product" if data['answers']['products'] | length else "Add a product" }}</a>
 <p>
