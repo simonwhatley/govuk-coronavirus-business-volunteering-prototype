@@ -944,7 +944,7 @@ router.post('/expertise', checkHasAnswers, (req, res) => {
 
   let errors = [];
 
-  if (req.session.data.answers['expertise'] === undefined) {
+  if (req.session.data.answers['expertise']['type'] === undefined) {
     // let error = {};
     // error.fieldName = 'expertise';
     // error.href = '#expertise';
@@ -952,10 +952,10 @@ router.post('/expertise', checkHasAnswers, (req, res) => {
     // errors.push(error);
   } else {
 
-    if (req.session.data.answers['expertise'] == 'other' && !req.session.data.answers['expertise-other'].length) {
+    if (req.session.data.answers['expertise']['type'].indexOf('other') !== -1 && !req.session.data.answers['expertise']['description']['other'].length) {
       let error = {};
-      error.fieldName = 'expertise-other';
-      error.href = '#expertise-other';
+      error.fieldName = 'expertise-description-other';
+      error.href = '#expertise-description-other';
       error.text = 'Enter a description for other types of expertise';
       errors.push(error);
     }
@@ -965,6 +965,225 @@ router.post('/expertise', checkHasAnswers, (req, res) => {
   if (errors.length) {
 
     res.render('expertise', {
+      errors: errors,
+      actions: {
+        save: next,
+        back: previous,
+        start: req.baseUrl + '/'
+      }
+    });
+
+  } else {
+
+    if (req.query.referer == 'check-your-answers') {
+
+      if (req.session.data.answers['expertise']['type'] !== undefined) {
+
+        // delete construction expertise if user hasn't checked the option
+        if (req.session.data.answers['expertise']['type'].indexOf('construction') === -1) {
+          delete req.session.data.answers['expertise-construction'];
+        }
+
+        // delete IT expertise if user hasn't checked the option
+        if (req.session.data.answers['expertise']['type'].indexOf('it_services') === -1) {
+          delete req.session.data.answers['expertise-it-services'];
+        }
+
+        if (req.session.data.answers['expertise']['type'].indexOf('construction') !== -1 && req.session.data.answers['expertise-construction'] === undefined) {
+          res.redirect(req.baseUrl + '/expertise-construction?referer=check-your-answers');
+        } else if (req.session.data.answers['expertise']['type'].indexOf('it_services') !== -1 && req.session.data.answers['expertise-it-services'] === undefined) {
+          res.redirect(req.baseUrl + '/expertise-it-services?referer=check-your-answers');
+        } else {
+          res.redirect(req.baseUrl + '/check-your-answers');
+        }
+
+      } else {
+
+        delete req.session.data.answers['expertise-construction'];
+        delete req.session.data.answers['expertise-it-services'];
+
+        res.redirect(req.baseUrl + '/check-your-answers');
+
+      }
+
+    } else {
+
+      if (req.session.data.answers['expertise']['type'] !== undefined) {
+
+        if (req.session.data.answers['expertise']['type'].indexOf('construction') !== -1) {
+          res.redirect(req.baseUrl + '/expertise-construction');
+        }
+
+        if (req.session.data.answers['expertise']['type'].indexOf('it_services') !== -1) {
+          res.redirect(req.baseUrl + '/expertise-it-services');
+        }
+
+      } else {
+        delete req.session.data.answers['expertise-construction'];
+        delete req.session.data.answers['expertise-it-services'];
+
+        res.redirect(req.baseUrl + '/other-support');
+      }
+
+    }
+
+  }
+
+});
+
+// --------------------------------------------------
+// Q: What kind of construction expertise can you offer?
+// --------------------------------------------------
+router.get('/expertise-construction', checkHasAnswers, (req, res) => {
+
+  let next = req.baseUrl + '/expertise-construction';
+  if (req.headers.referer.includes('check-your-answers') || req.query.referer == 'check-your-answers') {
+    next = next + '?referer=check-your-answers';
+  }
+
+  let previous = req.baseUrl + '/expertise';
+  if (req.headers.referer.includes('check-your-answers')) {
+    previous = req.baseUrl + '/check-your-answers';
+  }
+
+  res.render('expertise-details-construction', {
+    actions: {
+      save: next,
+      back: previous,
+      start: req.baseUrl + '/'
+    }
+  });
+});
+
+router.post('/expertise-construction', checkHasAnswers, (req, res) => {
+
+  let next = req.baseUrl + '/expertise-construction';
+  if (req.query.referer == 'check-your-answers') {
+    next = next + '?referer=check-your-answers';
+  }
+
+  let previous = req.baseUrl + '/expertise';
+  if (req.query.referer == 'check-your-answers') {
+    previous = req.baseUrl + '/check-your-answers';
+  }
+
+  let errors = [];
+
+  if (req.session.data.answers['expertise-construction']['type'] === undefined) {
+    let error = {};
+    error.fieldName = 'expertise-construction-type';
+    error.href = '#expertise-construction-type';
+    error.text = 'Choose what kinds of construction services you can offer';
+    errors.push(error);
+  } else {
+
+    if (req.session.data.answers['expertise-construction']['type'].indexOf('other') !== -1 && !req.session.data.answers['expertise-construction']['description']['other'].length) {
+      let error = {};
+      error.fieldName = 'expertise-construction-description-other';
+      error.href = '#expertise-construction-description-other';
+      error.text = 'Enter a description for other types of construction services you can offer';
+      errors.push(error);
+    }
+
+  }
+
+  if (errors.length) {
+
+    res.render('expertise-details-construction', {
+      errors: errors,
+      actions: {
+        save: next,
+        back: previous,
+        start: req.baseUrl + '/'
+      }
+    });
+
+  } else {
+
+    if (req.query.referer == 'check-your-answers') {
+      res.redirect(req.baseUrl + '/check-your-answers');
+    } else {
+
+      if (req.session.data.answers['expertise']['type'].indexOf('it_services') !== -1) {
+        res.redirect(req.baseUrl + '/expertise-it-services');
+      } else {
+        res.redirect(req.baseUrl + '/other-support');
+      }
+
+    }
+
+  }
+
+});
+
+// --------------------------------------------------
+// Q: What kind of IT services expertise can you offer?
+// --------------------------------------------------
+router.get('/expertise-it-services', checkHasAnswers, (req, res) => {
+
+  let next = req.baseUrl + '/expertise-it-services';
+  if (req.headers.referer.includes('expertise-construction')) {
+    next = next + '?referer=expertise-construction';
+  }
+  if (req.headers.referer.includes('check-your-answers') || req.query.referer == 'check-your-answers') {
+    next = next + '?referer=check-your-answers';
+  }
+
+  let previous = req.baseUrl + '/expertise';
+  if (req.headers.referer.includes('expertise-construction') || req.session.data.answers['expertise']['type'].indexOf('construction') !== -1) {
+    previous = req.baseUrl + '/expertise-construction';
+  }
+  if (req.headers.referer.includes('check-your-answers')) {
+    previous = req.baseUrl + '/check-your-answers';
+  }
+
+  res.render('expertise-details-it-services', {
+    actions: {
+      save: next,
+      back: previous,
+      start: req.baseUrl + '/'
+    }
+  });
+});
+
+router.post('/expertise-it-services', checkHasAnswers, (req, res) => {
+
+  let next = req.baseUrl + '/expertise-it-services';
+  if (req.query.referer == 'check-your-answers') {
+    next = next + '?referer=check-your-answers';
+  }
+
+  let previous = req.baseUrl + '/expertise';
+  if (req.query.referer == 'expertise-construction') {
+    previous = req.baseUrl + '/expertise-construction';
+  }
+  if (req.query.referer == 'check-your-answers') {
+    previous = req.baseUrl + '/check-your-answers';
+  }
+
+  let errors = [];
+
+  if (req.session.data.answers['expertise-it-services']['type'] === undefined) {
+    let error = {};
+    error.fieldName = 'expertise-it-services-type';
+    error.href = '#expertise-it-services-type';
+    error.text = 'Choose what kinds of IT services you can offer';
+    errors.push(error);
+  } else {
+
+    if (req.session.data.answers['expertise-it-services']['type'].indexOf('other') !== -1 && !req.session.data.answers['expertise-it-services']['description']['other'].length) {
+      let error = {};
+      error.fieldName = 'expertise-it-services-description-other';
+      error.href = '#expertise-it-services-description-other';
+      error.text = 'Enter a description for other types of IT services you can offer';
+      errors.push(error);
+    }
+
+  }
+
+  if (errors.length) {
+
+    res.render('expertise-details-it-services', {
       errors: errors,
       actions: {
         save: next,
@@ -996,6 +1215,12 @@ router.get('/other-support', checkHasAnswers, (req, res) => {
   }
 
   let previous = req.baseUrl + '/expertise';
+  if (req.headers.referer.includes('expertise-construction')) {
+    previous = req.baseUrl + '/expertise-construction';
+  }
+  if (req.headers.referer.includes('expertise-it-services')) {
+    previous = req.baseUrl + '/expertise-it-services';
+  }
   if (req.headers.referer.includes('check-your-answers')) {
     previous = req.baseUrl + '/check-your-answers';
   }
