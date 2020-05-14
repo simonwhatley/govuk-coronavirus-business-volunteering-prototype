@@ -1,0 +1,115 @@
+{% extends "layout.html" %}
+
+{% block pageTitle %}
+  Input component – GOV.UK prototype
+{% endblock %}
+
+{% block beforeContent %}
+{% include "../../partials/_phase-banner.html" %}
+{{ govukBackLink({
+  text: "Back",
+  href: "../"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <h1 class="govuk-heading-xl">
+      <span class="govuk-caption-xl">Components</span>
+      Input (prefix and suffix)
+    </h1>
+
+    <p class="govuk-body-l">To help users understand how to provide numeric values such as quantities, financial figures, percentages or units of measurement.</p>
+
+    <p class="govuk-body"><a class="govuk-link" href="https://components.publishing.service.gov.uk/component-guide/input/">GOV.UK component guide</a></p>
+
+    <h2 class="govuk-heading-l">Examples</h2>
+
+    <h3 class="govuk-heading-m">Example 1 – Prefixes</h3>
+
+    <p class=""govuk-body>Often used for currencies</p>
+
+    {{ appInput({
+      id: "example-prefix",
+      name: "example-prefix",
+      label: {
+        text: "Your annual salary before taxes",
+        classes: "govuk-label--s"
+      },
+      hint: {
+        text: "This can be found on your P60"
+      },
+      prefix: {
+        text: "£"
+      },
+      classes: "govuk-input--width-10"
+    }) }}
+
+    <h3 class="govuk-heading-m">Example 2 – Prefixes with error</h3>
+
+    {{ appInput({
+      id: "example-prefix-with-error",
+      name: "example-prefix-with-error",
+      label: {
+        text: "Your annual salary before taxes",
+        classes: "govuk-label--s"
+      },
+      hint: {
+        text: "This can be found on your P60"
+      },
+      prefix: {
+        text: "£"
+      },
+      errorMessage: {
+        text: "Enter your annual salary before taxes"
+      },
+      classes: "govuk-input--width-10"
+    }) }}
+
+    <h3 class="govuk-heading-m">Example 3 – Suffixes</h3>
+
+    <p class=""govuk-body>Often used for units of measurement</p>
+
+    {{ appInput({
+      id: "example-suffix",
+      name: "example-suffix",
+      label: {
+        text: "Length in centimeters",
+        classes: "govuk-label--s"
+      },
+      hint: {
+        text: "For example enter 1250 for 12.5m"
+      },
+      suffix: {
+        text: "cm"
+      },
+      classes: "govuk-input--width-5"
+    }) }}
+
+    <h3 class="govuk-heading-m">Example 4 – Suffixes with error</h3>
+
+    {{ appInput({
+      id: "example-suffix-with-error",
+      name: "example-suffix-with-error",
+      label: {
+        text: "Length in centimeters",
+        classes: "govuk-label--s"
+      },
+      hint: {
+        text: "For example enter 1250 for 12.5m"
+      },
+      suffix: {
+        text: "cm"
+      },
+      errorMessage: {
+        text: "Enter the length in centimeters"
+      },
+      classes: "govuk-input--width-5"
+    }) }}
+
+  </div>
+</div>
+
+{% endblock %}
