@@ -52,9 +52,11 @@
 {% if params.suffix %}
   <div class="app-c-input__wrapper">
     {{ inputTag | safe -}}
-    <span class="app-c-input__suffix {{- ' ' + params.suffix.classes if params.suffix.classes }}" aria-hidden="true" {%- for attribute, value in item.attributes %} {{attribute}}="{{value}}"{% endfor %}>
-      {{- params.suffix.html | safe if params.suffix.html else params.suffix.text -}}
-    </span>
+    {%- if params.suffix.html | length or params.suffix.text | length %}
+      <span class="app-c-input__suffix {{- ' ' + params.suffix.classes if params.suffix.classes }}" aria-hidden="true" {%- for attribute, value in item.attributes %} {{attribute}}="{{value}}"{% endfor %}>
+        {{- params.suffix.html | safe if params.suffix.html else params.suffix.text -}}
+      </span>
+    {% endif -%}
   </div>
 {% else %}
   {{ inputTag | safe }}

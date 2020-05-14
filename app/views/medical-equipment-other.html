@@ -42,7 +42,7 @@
         }
       }) }}
 
-      {{ govukInput({
+      {{ appInput({
         id: "product-quantity",
         name: "answers[product][quantity]",
         label: {
@@ -51,6 +51,9 @@
         },
         hint: {
           text: "Approximate amount. For example, 10, 500, 10000"
+        },
+        suffix: {
+          text: "items"
         },
         errorMessage: errors | getErrorMessage('product-quantity'),
         value: data['answers']['product']['quantity'],
@@ -167,7 +170,7 @@
         }
       }) }}
 
-      {{ govukInput({
+      {{ appInput({
         id: "product-lead-time",
         name: "answers[product][lead-time]",
         label: {
@@ -176,6 +179,9 @@
         },
         hint: {
           text: ""
+        },
+        suffix: {
+          text: "days"
         },
         errorMessage: errors | getErrorMessage('product-lead-time'),
         value: data['answers']['product']['lead-time'],

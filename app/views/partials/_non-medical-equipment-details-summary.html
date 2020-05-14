@@ -47,6 +47,22 @@
 {% endif -%}
 {% endset -%}
 
+{%- set spaceTypeHtml %}
+<ul class="govuk-list govuk-list--bullet">
+  {% for item in data['answers']['space']['type'] %}
+    <li>{{ item | replace("_"," ") | capitalize }} {{ "(" + data['answers']['space']['quantity'][item] | numeral('0,00') + " square feet)" }}</li>
+  {% endfor %}
+</ul>
+{% endset -%}
+
+{%- set staffTypeHtml %}
+<ul class="govuk-list govuk-list--bullet">
+  {% for item in data['answers']['staff']['type'] %}
+    <li>{{ item | replace("_"," ") | capitalize }} {{ "(" + data['answers']['staff']['quantity'][item] | numeral('0,00') + " people)" }}</li>
+  {% endfor %}
+</ul>
+{% endset -%}
+
 {{ govukSummaryList({
   rows: [
     {
@@ -71,7 +87,7 @@
         text: "What kind of business are you?"
       },
       value: {
-        text: businessTypeHtml
+        html: businessTypeHtml
       },
       actions: {
         items: [
@@ -190,7 +206,7 @@
         text: "What kind of space can you offer?"
       },
       value: {
-        text: data['answers']['space']['type'] | arrayToList | capitalize
+        html: spaceTypeHtml
       },
       actions: {
         items: [
@@ -219,6 +235,40 @@
         ]
       }
     } if data['answers']['offer-space'] == "yes",
+    {
+      key: {
+        text: "Can you offer staff?"
+      },
+      value: {
+        text: data['answers']['offer-staff'] | capitalize
+      },
+      actions: {
+        items: [
+          {
+            href: "/staff",
+            text: "Change",
+            visuallyHiddenText: "whether you can offer staff"
+          }
+        ]
+      }
+    },
+    {
+      key: {
+        text: "What kind of staff can you offer?"
+      },
+      value: {
+        html: staffTypeHtml
+      },
+      actions: {
+        items: [
+          {
+            href: "/staff-details",
+            text: "Change",
+            visuallyHiddenText: "what kind of staff you can offer"
+          }
+        ]
+      }
+    } if data['answers']['offer-staff'] == "yes",
     {
       key: {
         text: "Can you offer social care or childcare?"
