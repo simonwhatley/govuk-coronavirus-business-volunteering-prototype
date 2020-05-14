@@ -1101,6 +1101,9 @@ router.post('/expertise-construction', checkHasAnswers, (req, res) => {
   } else {
 
     if (req.query.referer == 'check-your-answers') {
+
+      // TODO if the referer is check-your-answers, but IT services is empty, do that first
+
       res.redirect(req.baseUrl + '/check-your-answers');
     } else {
 
