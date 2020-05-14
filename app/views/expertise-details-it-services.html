@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 
 {% block pageTitle %}
-  {{ 'Error: ' if errors | length -}} What kind of construction services can you offer?
+  {{ 'Error: ' if errors | length -}} What kind of IT services can you offer?
 {% endblock %}
 
 {% block beforeContent %}
@@ -22,8 +22,8 @@
     <form action="{{ actions.save }}" method="post" accept-charset="utf-8" novalidate>
 
       {{ govukCheckboxes({
-        idPrefix: "expertise-it-services",
-        name: "answers[expertise-it-services]",
+        idPrefix: "expertise-it-services-type",
+        name: "answers[expertise-it-services][type]",
         fieldset: {
           legend: {
             text: "What kind of IT services can you offer?",
@@ -34,51 +34,51 @@
         hint: {
           text: "Select all that apply"
         },
-        errorMessage: errors | getErrorMessage('expertise-it-services'),
+        errorMessage: errors | getErrorMessage('expertise-it-services-type'),
         items: [
           {
             value: "broadband_or_wifi",
             text: "Broadband or wifi",
-            checked: checked("answers['expertise-it-services']", "broadband_or_wifi")
+            checked: checked("answers['expertise-it-services']['type']", "broadband_or_wifi")
           },
           {
             value: "laptops_desktops_or_other_computer_equipment",
             text: "Laptops, desktops, or other computer equipment",
-            checked: checked("answers['expertise-it-services']", "laptops_desktops_or_other_computer_equipment")
+            checked: checked("answers['expertise-it-services']['type']", "laptops_desktops_or_other_computer_equipment")
           },
           {
             value: "mobile_phones",
             text: "Mobile phones",
-            checked: checked("answers['expertise-it-services']", "mobile_phones")
+            checked: checked("answers['expertise-it-services']['type']", "mobile_phones")
           },
           {
             value: "video_conferencing",
             text: "Video conferencing",
-            checked: checked("answers['expertise-it-services']", "video_conferencing")
+            checked: checked("answers['expertise-it-services']['type']", "video_conferencing")
           },
           {
             value: "virtual_office_tools",
             text: "Virtual office tools",
-            checked: checked("answers['expertise-it-services']", "virtual_office_tools")
+            checked: checked("answers['expertise-it-services']['type']", "virtual_office_tools")
           },
           {
             value: "other",
             text: "Other",
             conditional: {
               html: govukTextarea({
-                id: "expertise-it-services-other",
-                name: "answers[expertise-it-services-other]",
+                id: "expertise-it-services-description-other",
+                name: "answers[expertise-it-services][description][other]",
                 label: {
                   text: "Give a description"
                 },
                 hint: {
                   text: ""
                 },
-                errorMessage: errors | getErrorMessage('expertise-it-services-other'),
-                value: data['answers']['expertise-it-services-other']
+                errorMessage: errors | getErrorMessage('expertise-it-services-description-other'),
+                value: data['answers']['expertise-it-services']['description']['other']
               })
             },
-            checked: checked("answers['expertise-it-services']", "other")
+            checked: checked("answers['expertise-it-services']['type']", "other")
           }
         ]
       }) }}

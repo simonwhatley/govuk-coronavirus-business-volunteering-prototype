@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 
 {% block pageTitle %}
-  {{ 'Error: ' if errors | length -}} Your business details
+  {{ 'Error: ' if errors | length -}} What are your business details?
 {% endblock %}
 
 {% block beforeContent %}
@@ -19,7 +19,7 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
     <h1 class="govuk-heading-xl">
-      Your business details
+      What are your business details?
     </h1>
 
     <form action="{{ actions.save }}" method="post" accept-charset="utf-8" novalidate>

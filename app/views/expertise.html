@@ -22,8 +22,8 @@
     <form action="{{ actions.save }}" method="post" accept-charset="utf-8" novalidate>
 
       {{ govukCheckboxes({
-        idPrefix: "expertise",
-        name: "answers[expertise]",
+        idPrefix: "expertise-type",
+        name: "answers[expertise][type]",
         fieldset: {
           legend: {
             text: "What kind of expertise can you offer?",
@@ -34,56 +34,56 @@
         hint: {
           text: "Select all that apply"
         },
-        errorMessage: errors | getErrorMessage('expertise'),
+        errorMessage: errors | getErrorMessage('expertise-type'),
         items: [
           {
             value: "medical",
             text: "Medical",
-            checked: checked("answers['expertise']", "medical")
+            checked: checked("answers['expertise']['type']", "medical")
           },
           {
             value: "engineering",
             text: "Engineering",
-            checked: checked("answers['expertise']", "engineering")
+            checked: checked("answers['expertise']['type']", "engineering")
           },
           {
             value: "construction",
             text: "Construction",
-            checked: checked("answers['expertise']", "construction")
+            checked: checked("answers['expertise']['type']", "construction")
           },
           {
             value: "project_procurement",
             text: "Project management or procurement",
-            checked: checked("answers['expertise']", "project_procurement")
+            checked: checked("answers['expertise']['type']", "project_procurement")
           },
           {
             value: "it_services",
             text: "IT services",
-            checked: checked("answers['expertise']", "it_services")
+            checked: checked("answers['expertise']['type']", "it_services")
           },
           {
             value: "manufacturing",
             text: "Manufacturing",
-            checked: checked("answers['expertise']", "manufacturing")
+            checked: checked("answers['expertise']['type']", "manufacturing")
           },
           {
             value: "other",
             text: "Other",
             conditional: {
               html: govukTextarea({
-                id: "expertise-other",
-                name: "answers[expertise-other]",
+                id: "expertise-description-other",
+                name: "answers[expertise][description][other]",
                 label: {
                   text: "Give a description"
                 },
                 hint: {
                   text: ""
                 },
-                errorMessage: errors | getErrorMessage('expertise-other'),
-                value: data['answers']['expertise-other']
+                errorMessage: errors | getErrorMessage('expertise-description-other'),
+                value: data['answers']['expertise']['description']['other']
               })
             },
-            checked: checked("answers['expertise']", "other")
+            checked: checked("answers['expertise']['type']", "other")
           }
         ]
       }) }}

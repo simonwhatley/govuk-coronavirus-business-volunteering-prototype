@@ -22,8 +22,8 @@
     <form action="{{ actions.save }}" method="post" accept-charset="utf-8" novalidate>
 
       {{ govukCheckboxes({
-        idPrefix: "expertise-construction",
-        name: "answers[expertise-construction]",
+        idPrefix: "expertise-construction-type",
+        name: "answers[expertise-construction][type]",
         fieldset: {
           legend: {
             text: "What kind of construction services can you offer?",
@@ -34,46 +34,46 @@
         hint: {
           text: "Select all that apply"
         },
-        errorMessage: errors | getErrorMessage('expertise-construction'),
+        errorMessage: errors | getErrorMessage('expertise-construction-type'),
         items: [
           {
             value: "building_materials",
             text: "Building materials",
-            checked: checked("answers['expertise-construction']", "building_materials")
+            checked: checked("answers['expertise-construction']['type']", "building_materials")
           },
           {
             value: "building_maintenance",
             text: "Building maintenance",
-            checked: checked("answers['expertise-construction']", "building_maintenance")
+            checked: checked("answers['expertise-construction']['type']", "building_maintenance")
           },
           {
             value: "constructing_temporary_buildings",
             text: "Constructing temporary buildings",
-            checked: checked("answers['expertise-construction']", "constructing_temporary_buildings")
+            checked: checked("answers['expertise-construction']['type']", "constructing_temporary_buildings")
           },
           {
             value: "construction_work",
             text: "Construction work",
-            checked: checked("answers['expertise-construction']", "construction_work")
+            checked: checked("answers['expertise-construction']['type']", "construction_work")
           },
           {
             value: "other",
             text: "Other",
             conditional: {
               html: govukTextarea({
-                id: "expertise-construction-other",
-                name: "answers[expertise-construction-other]",
+                id: "expertise-construction-description-other",
+                name: "answers[expertise-construction][description][other]",
                 label: {
                   text: "Give a description"
                 },
                 hint: {
                   text: ""
                 },
-                errorMessage: errors | getErrorMessage('expertise-construction-other'),
-                value: data['answers']['expertise-construction-other']
+                errorMessage: errors | getErrorMessage('expertise-construction-description-other'),
+                value: data['answers']['expertise-construction']['description']['other']
               })
             },
-            checked: checked("answers['expertise-construction']", "other")
+            checked: checked("answers['expertise-construction']['type']", "other")
           }
         ]
       }) }}
