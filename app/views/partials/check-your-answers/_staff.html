@@ -29,7 +29,7 @@
     },
     {
       key: {
-        text: "What kind of staff can you offer?"
+        text: "Kind of staff you can offer"
       },
       value: {
         html: staffTypeHtml
@@ -63,10 +63,10 @@
     } if data['answers']['offer-staff'] == "yes",
     {
       key: {
-        text: "How much would you charge?"
+        text: "How much you will charge"
       },
       value: {
-        text: data['answers']['staff']['cost']
+        text: data['answers']['staff']['cost'] | getCostAsString
       },
       actions: {
         items: [

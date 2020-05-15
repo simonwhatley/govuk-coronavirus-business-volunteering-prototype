@@ -32,7 +32,7 @@
     },
     {
       key: {
-        text: "What kind of care can you offer?"
+        text: "Kind of care you can offer"
       },
       value: {
         text: data['answers']['care']['type'] | arrayToList | capitalize
@@ -49,7 +49,7 @@
     } if data['answers']['offer-care'] == "yes",
     {
       key: {
-        text: "What qualifications or certificates do you have?"
+        text: "Qualifications or certificates you have"
       },
       value: {
         html: qualificationsHtml if data['answers']['care']['qualifications'] | length
@@ -66,10 +66,10 @@
     } if data['answers']['offer-care'] == "yes",
     {
       key: {
-        text: "How much would you charge?"
+        text: "How much you will charge"
       },
       value: {
-        text: data['answers']['care']['cost']
+        text: data['answers']['care']['cost'] | getCostAsString
       },
       actions: {
         items: [

@@ -31,7 +31,7 @@
   rows: [
     {
       key: {
-        text: "What kind of expertise can you offer?"
+        text: "Kind of expertise you can offer"
       },
       value: {
         html: expertiseHtml if data['answers']['expertise']['type'] | length else "I cannot offer expertise"
@@ -48,7 +48,7 @@
     },
     {
       key: {
-        text: "What kind of construction services can you offer?"
+        text: "Kind of construction services you can offer"
       },
       value: {
         html: constructionExpertiseHtml
@@ -65,7 +65,7 @@
     } if data['answers']['expertise']['type'] | length and "construction" in data['answers']['expertise']['type'],
     {
       key: {
-        text: "What kind of IT services can you offer?"
+        text: "Kind of IT services you can offer"
       },
       value: {
         html: itServicesExpertiseHtml

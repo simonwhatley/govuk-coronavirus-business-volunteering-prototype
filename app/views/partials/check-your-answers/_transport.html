@@ -29,7 +29,7 @@
     },
     {
       key: {
-        text: "What kind of transport or logistics services can you offer?"
+        text: "Kind of transport or logistics services you can offer"
       },
       value: {
         html: transportTypeHtml
@@ -63,10 +63,10 @@
     } if data['answers']['offer-transport'] == "yes",
     {
       key: {
-        text: "How much would you charge?"
+        text: "How much you will charge"
       },
       value: {
-        text: data['answers']['transport']['cost']
+        text: data['answers']['transport']['cost'] | getCostAsString
       },
       actions: {
         items: [

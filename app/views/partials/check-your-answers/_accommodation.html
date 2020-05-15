@@ -21,7 +21,7 @@
     },
     {
       key: {
-        text: "How many rooms can you offer?"
+        text: "Number of rooms you can offer"
       },
       value: {
         text: data['answers']['accommodation']['quantity'] | numeral('0,00')
@@ -55,10 +55,10 @@
     } if data['answers']['offer-accommodation'] in ["yes_people","yes_any"],
     {
       key: {
-        text: "How much would you charge?"
+        text: "How much you will charge"
       },
       value: {
-        text: data['answers']['accommodation']['cost']
+        text: data['answers']['accommodation']['cost'] | getCostAsString
       },
       actions: {
         items: [

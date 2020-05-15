@@ -29,7 +29,7 @@
     },
     {
       key: {
-        text: "What kind of space can you offer?"
+        text: "Kind of space you can offer"
       },
       value: {
         html: spaceTypeHtml
@@ -63,10 +63,10 @@
     } if data['answers']['offer-space'] == "yes",
     {
       key: {
-        text: "How much would you charge?"
+        text: "How much you will charge"
       },
       value: {
-        text: data['answers']['space']['cost']
+        text: data['answers']['space']['cost'] | getCostAsString
       },
       actions: {
         items: [
