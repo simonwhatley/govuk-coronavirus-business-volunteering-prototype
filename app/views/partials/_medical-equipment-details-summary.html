@@ -1,8 +1,8 @@
-<h2 class="govuk-heading-m">Medical equipment details</h2>
+<h2 class="govuk-heading-l">Medical equipment details</h2>
 
 {%- for product in data['answers']['products'] %}
 
-<h3 class="govuk-heading-s">Product {{ loop.index }}</h3>
+<h3 class="govuk-heading-m">Product {{ loop.index }}</h3>
 
 {{ govukSummaryList({
   classes: "govuk-!-margin-bottom-5" if loop.last else "govuk-!-margin-bottom-7",
@@ -97,7 +97,7 @@
         text: "Where is the product made, or stored if it's already made?"
       },
       value: {
-        text: product['location'] | getLocationAsString + (" (" + product['postcode'] | upper + ")") if product['postcode'] | length
+        text: product['location'] | getLocationAsString + (" (" + product['postcode'] | upper + ")" if product['postcode'] | length)
       },
       actions: {
         items: [

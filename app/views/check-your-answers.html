@@ -22,6 +22,10 @@
 
     {% include "./partials/check-your-answers/_medical-equipment.html" %}
 
+    {%- if data['answers']['offer-medical-equipment'] == "yes" %}
+      {% include "./partials/_medical-equipment-details-summary.html" %}
+    {% endif -%}
+
     {% include "./partials/check-your-answers/_accommodation.html" %}
 
     {% include "./partials/check-your-answers/_transport.html" %}
@@ -45,10 +49,6 @@
     {% include "./partials/check-your-answers/_other.html" %}
 
     {% include "./partials/check-your-answers/_location.html" %}
-
-    {%- if data['answers']['offer-medical-equipment'] == "yes" %}
-      {% include "./partials/_medical-equipment-details-summary.html" %}
-    {% endif -%}
 
     {% include "./partials/_business-details-summary.html" %}
 
