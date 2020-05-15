@@ -223,6 +223,14 @@ router.post('/accommodation-details', checkHasAnswers, (req, res) => {
     errors.push(error);
   }
 
+  if (req.session.data.answers['accommodation']['cost'] === undefined) {
+    let error = {};
+    error.fieldName = 'accommodation-cost';
+    error.href = '#accommodation-cost';
+    error.text = 'Choose how much you would charge';
+    errors.push(error);
+  }
+
   if (errors.length) {
 
     res.render('accommodation-details', {
@@ -265,7 +273,7 @@ router.get('/transport', checkHasAnswers, (req, res) => {
     }
   }
 
-  res.render('transport-logistics', {
+  res.render('transport', {
     actions: {
       save: next,
       back: previous,
@@ -288,17 +296,17 @@ router.post('/transport', checkHasAnswers, (req, res) => {
 
   let errors = [];
 
-  if (req.session.data.answers['offer-transport-logistics'] === undefined) {
+  if (req.session.data.answers['offer-transport'] === undefined) {
     let error = {};
-    error.fieldName = 'transport-logistics';
-    error.href = '#transport-logistics';
+    error.fieldName = 'transport';
+    error.href = '#transport';
     error.text = 'Choose whether you can offer transport or logistics';
     errors.push(error);
   }
 
   if (errors.length) {
 
-    res.render('transport-logistics', {
+    res.render('transport', {
       errors: errors,
       actions: {
         save: next,
@@ -309,7 +317,7 @@ router.post('/transport', checkHasAnswers, (req, res) => {
 
   } else {
 
-    if (req.session.data.answers['offer-transport-logistics'] == 'yes') {
+    if (req.session.data.answers['offer-transport'] == 'yes') {
 
       if (req.query.referer == 'check-your-answers') {
         res.redirect(req.baseUrl + '/transport-details?referer=check-your-answers');
@@ -319,7 +327,7 @@ router.post('/transport', checkHasAnswers, (req, res) => {
 
     } else {
 
-      delete req.session.data.answers['transport-logistics'];
+      delete req.session.data.answers['transport'];
 
       if (req.query.referer == 'check-your-answers') {
         res.redirect(req.baseUrl + '/check-your-answers');
@@ -343,7 +351,7 @@ router.get('/transport-details', checkHasAnswers, (req, res) => {
     next = next + '?referer=check-your-answers';
   }
 
-  res.render('transport-logistics-details', {
+  res.render('transport-details', {
     actions: {
       save: next,
       back: req.baseUrl + '/transport',
@@ -361,25 +369,33 @@ router.post('/transport-details', checkHasAnswers, (req, res) => {
 
   let errors = [];
 
-  if (req.session.data.answers['transport-logistics']['type'] === undefined) {
+  if (req.session.data.answers['transport']['type'] === undefined) {
     let error = {};
-    error.fieldName = 'transport-logistics-type';
-    error.href = '#transport-logistics-type';
+    error.fieldName = 'transport-type';
+    error.href = '#transport-type';
     error.text = 'Choose what kinds of transport or logisitics services you can offer';
     errors.push(error);
   }
 
-  if (!req.session.data.answers['transport-logistics']['description'].length) {
+  // if (!req.session.data.answers['transport']['description'].length) {
+  //   let error = {};
+  //   error.fieldName = 'transport-description';
+  //   error.href = '#transport-description';
+  //   error.text = 'Enter a description of the kind of transport or logistics services you can offer';
+  //   errors.push(error);
+  // }
+
+  if (req.session.data.answers['transport']['cost'] === undefined) {
     let error = {};
-    error.fieldName = 'transport-logistics-description';
-    error.href = '#transport-logistics-description';
-    error.text = 'Enter a description of the kind of transport or logistics services you can offer';
+    error.fieldName = 'transport-cost';
+    error.href = '#transport-cost';
+    error.text = 'Choose how much you would charge';
     errors.push(error);
   }
 
   if (errors.length) {
 
-    res.render('transport-logistics-details', {
+    res.render('transport-details', {
       errors: errors,
       actions: {
         save: next,
@@ -411,7 +427,7 @@ router.get('/space', checkHasAnswers, (req, res) => {
   }
 
   let previous = req.baseUrl + '/transport';
-  if (req.session.data.answers['offer-transport-logistics'] == 'yes') {
+  if (req.session.data.answers['offer-transport'] == 'yes') {
     if (req.headers.referer.includes('check-your-answers')) {
       previous = req.baseUrl + '/check-your-answers';
     } else {
@@ -436,7 +452,7 @@ router.post('/space', checkHasAnswers, (req, res) => {
   }
 
   let previous = req.baseUrl + '/transport';
-  if (req.session.data.answers['offer-transport-logistics'] == 'yes') {
+  if (req.session.data.answers['offer-transport'] == 'yes') {
     previous = req.baseUrl + '/transport-details';
   }
 
@@ -549,11 +565,19 @@ router.post('/space-details', checkHasAnswers, (req, res) => {
 
   }
 
-  if (!req.session.data.answers['space']['description'].length) {
+  // if (!req.session.data.answers['space']['description'].length) {
+  //   let error = {};
+  //   error.fieldName = 'space-description';
+  //   error.href = '#space-description';
+  //   error.text = 'Enter a description of the kind of space you can offer';
+  //   errors.push(error);
+  // }
+
+  if (req.session.data.answers['space']['cost'] === undefined) {
     let error = {};
-    error.fieldName = 'space-description';
-    error.href = '#space-description';
-    error.text = 'Enter a description of the kind of space you can offer';
+    error.fieldName = 'space-cost';
+    error.href = '#space-cost';
+    error.text = 'Choose how much you would charge';
     errors.push(error);
   }
 
@@ -668,7 +692,7 @@ router.post('/staff', checkHasAnswers, (req, res) => {
 });
 
 // --------------------------------------------------
-// Q: What kind of care can you offer?
+// Q: What kind of staff can you offer?
 // --------------------------------------------------
 router.get('/staff-details', checkHasAnswers, (req, res) => {
 
@@ -715,6 +739,14 @@ router.post('/staff-details', checkHasAnswers, (req, res) => {
       }
     });
 
+  }
+
+  if (req.session.data.answers['staff']['cost'] === undefined) {
+    let error = {};
+    error.fieldName = 'staff-cost';
+    error.href = '#staff-cost';
+    error.text = 'Choose how much you would charge';
+    errors.push(error);
   }
 
   if (errors.length) {
