@@ -1,59 +1,50 @@
-{# <h3 class="govuk-heading-m">Can you offer medical equipment?</h3> #}
 
-{#% if data['answers']['offer-medical-equipment'] == "yes" %#}
+{%- set businessTypeHtml %}
+<ul class="govuk-list govuk-list--bullet">
+  {% for item in data['answers']['business-type'] %}
+    <li>{{ item | replace("_"," ") | capitalize }}</li>
+  {% endfor %}
+</ul>
+{% endset -%}
 
-  {%- set businessTypeHtml %}
-  <ul class="govuk-list govuk-list--bullet">
-    {% for item in data['answers']['business-type'] %}
-      <li>{{ item | replace("_"," ") | capitalize }}</li>
-    {% endfor %}
-  </ul>
-  {% endset -%}
-
-  {{ govukSummaryList({
-    rows: [
-      {
-        key: {
-          text: "Can you offer medical equipment?"
-        },
-        value: {
-          text: data['answers']['offer-medical-equipment'] | capitalize
-        },
-        actions: {
-          items: [
-            {
-              href: "/medical-equipment",
-              text: "Change",
-              visuallyHiddenText: "whether you can offer medical equipment"
-            }
-          ]
-        }
+{{ govukSummaryList({
+  rows: [
+    {
+      key: {
+        text: "Can you offer medical equipment?"
       },
-      {
-        key: {
-          text: "What kind of business are you?"
-        },
-        value: {
-          html: businessTypeHtml
-        },
-        actions: {
-          items: [
-            {
-              href: "/business-type",
-              text: "Change",
-              visuallyHiddenText: "whether you can offer medical equipment"
-            }
-          ]
-        }
-      } if data['answers']['business-type'] | length and data['answers']['offer-medical-equipment'] == "yes"
-    ]
-  }) }}
-
-{#% else %}
-
-<p class="govuk-body">I cannot offer medical equipment</p>
-
-{% endif -%#}
+      value: {
+        text: data['answers']['offer-medical-equipment'] | capitalize
+      },
+      actions: {
+        items: [
+          {
+            href: "/medical-equipment",
+            text: "Change",
+            visuallyHiddenText: "whether you can offer medical equipment"
+          }
+        ]
+      }
+    },
+    {
+      key: {
+        text: "What kind of business are you?"
+      },
+      value: {
+        html: businessTypeHtml
+      },
+      actions: {
+        items: [
+          {
+            href: "/business-type",
+            text: "Change",
+            visuallyHiddenText: "whether you can offer medical equipment"
+          }
+        ]
+      }
+    } if data['answers']['business-type'] | length and data['answers']['offer-medical-equipment'] == "yes"
+  ]
+}) }}
 
 <hr class="govuk-section-break govuk-section-break--l">
 
