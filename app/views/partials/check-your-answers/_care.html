@@ -63,8 +63,43 @@
           }
         ]
       }
+    } if data['answers']['offer-care'] == "yes",
+    {
+      key: {
+        text: "How much would you charge?"
+      },
+      value: {
+        text: data['answers']['care']['cost']
+      },
+      actions: {
+        items: [
+          {
+            href: "/care-details",
+            text: "Change",
+            visuallyHiddenText: "how much you would charge for your care"
+          }
+        ]
+      }
     } if data['answers']['offer-care'] == "yes"
   ]
 }) }}
 
 <hr class="govuk-section-break govuk-section-break--l">
+
+{# {
+      key: {
+        text: "Description of of the type of care"
+      },
+      value: {
+        text: data['answers']['care']['description']
+      },
+      actions: {
+        items: [
+          {
+            href: "/care-details",
+            text: "Change",
+            visuallyHiddenText: "the description of the type of care you can offer"
+          }
+        ]
+      }
+    } if data['answers']['offer-care'] == "yes", #}

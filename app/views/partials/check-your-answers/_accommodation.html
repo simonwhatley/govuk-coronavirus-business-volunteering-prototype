@@ -35,6 +35,40 @@
           }
         ]
       }
+    } if data['answers']['offer-accommodation'] in ["yes_people","yes_any"],
+    {
+      key: {
+        text: "Description of the type of the rooms"
+      },
+      value: {
+        text: data['answers']['accommodation']['description']
+      },
+      actions: {
+        items: [
+          {
+            href: "/accommodation-details",
+            text: "Change",
+            visuallyHiddenText: "the description of the type of accommodation you can offer"
+          }
+        ]
+      }
+    } if data['answers']['offer-accommodation'] in ["yes_people","yes_any"],
+    {
+      key: {
+        text: "How much would you charge?"
+      },
+      value: {
+        text: data['answers']['accommodation']['cost']
+      },
+      actions: {
+        items: [
+          {
+            href: "/accommodation-details",
+            text: "Change",
+            visuallyHiddenText: "how much you would charge for your accommodation"
+          }
+        ]
+      }
     } if data['answers']['offer-accommodation'] in ["yes_people","yes_any"]
   ]
 }) }}

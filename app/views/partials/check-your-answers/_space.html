@@ -60,6 +60,23 @@
           }
         ]
       }
+    } if data['answers']['offer-space'] == "yes",
+    {
+      key: {
+        text: "How much would you charge?"
+      },
+      value: {
+        text: data['answers']['space']['cost']
+      },
+      actions: {
+        items: [
+          {
+            href: "/space-details",
+            text: "Change",
+            visuallyHiddenText: "how much you would charge for your space"
+          }
+        ]
+      }
     } if data['answers']['offer-space'] == "yes"
   ]
 }) }}

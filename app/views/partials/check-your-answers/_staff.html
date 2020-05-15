@@ -43,6 +43,40 @@
           }
         ]
       }
+    } if data['answers']['offer-staff'] == "yes",
+    {
+      key: {
+        text: "Description of the type of staff"
+      },
+      value: {
+        text: data['answers']['staff']['description']
+      },
+      actions: {
+        items: [
+          {
+            href: "/staff-details",
+            text: "Change",
+            visuallyHiddenText: "the description of the type of staff you can offer"
+          }
+        ]
+      }
+    } if data['answers']['offer-staff'] == "yes",
+    {
+      key: {
+        text: "How much would you charge?"
+      },
+      value: {
+        text: data['answers']['staff']['cost']
+      },
+      actions: {
+        items: [
+          {
+            href: "/staff-details",
+            text: "Change",
+            visuallyHiddenText: "how much you would charge for your staff"
+          }
+        ]
+      }
     } if data['answers']['offer-staff'] == "yes"
   ]
 }) }}

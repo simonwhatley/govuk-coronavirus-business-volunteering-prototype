@@ -27,12 +27,12 @@
 
 {%- set transportTypeHtml %}
 <ul class="govuk-list govuk-list--bullet">
-  {% for item in data['answers']['transport-logistics']['type'] %}
+  {% for item in data['answers']['transport']['type'] %}
     <li>{{ item | replace("people","Moving people") | replace("goods","Moving goods") | capitalize }}</li>
   {% endfor %}
 </ul>
-{%- if data['answers']['transport-logistics']['description'] | length %}
-  <p class="govuk-body">{{ data['answers']['transport-logistics']['description'] }}</p>
+{%- if data['answers']['transport']['description'] | length %}
+  <p class="govuk-body">{{ data['answers']['transport']['description'] }}</p>
 {% endif -%}
 {% endset -%}
 
@@ -154,7 +154,7 @@
         text: "Can you offer transport or logistics?"
       },
       value: {
-        text: data['answers']['offer-transport-logistics'] | capitalize
+        text: data['answers']['offer-transport'] | capitalize
       },
       actions: {
         items: [
@@ -182,13 +182,13 @@
           }
         ]
       }
-    } if data['answers']['offer-transport-logistics'] == "yes",
+    } if data['answers']['offer-transport'] == "yes",
     {
       key: {
         text: "Description of your transport or logistics services"
       },
       value: {
-        text: data['answers']['transport-logistics']['description']
+        text: data['answers']['transport']['description']
       },
       actions: {
         items: [
@@ -199,7 +199,7 @@
           }
         ]
       }
-    } if data['answers']['offer-transport-logistics'] == "yes",
+    } if data['answers']['offer-transport'] == "yes",
     {
       key: {
         text: "Can you offer space?"

@@ -199,6 +199,52 @@
         ]
       }) }}
 
+      {{ govukTextarea({
+        id: "staff-description",
+        name: "answers[staff][description]",
+        label: {
+          text: "Give a description of the type of staff (optional)",
+          classes: "govuk-label--s"
+        },
+        hint: {
+          text: "For example, whether they would be available to work full time"
+        },
+        errorMessage: errors | getErrorMessage('staff-description'),
+        value: data['answers']['staff']['description']
+      }) }}
+
+      {{ govukRadios({
+        idPrefix: "staff-cost",
+        name: "answers[staff][cost]",
+        fieldset: {
+          legend: {
+            text: "How much would you charge?",
+            classes: "govuk-fieldset__legend--s"
+          }
+        },
+        hint: {
+          text: ""
+        },
+        errorMessage: errors | getErrorMessage('staff-cost'),
+        items: [
+          {
+            value: "nothing",
+            text: "Nothing, it would be a donation",
+            checked: true if data['answers']['staff']['cost'] == "nothing"
+          },
+          {
+            value: "reduced",
+            text: "A reduced price",
+            checked: true if data['answers']['staff']['cost'] == "reduced"
+          },
+          {
+            value: "standard",
+            text: "A standard price",
+            checked: true if data['answers']['staff']['cost'] == "standard"
+          }
+        ]
+      }) }}
+
       {{ govukButton({
         text: "Continue",
         classes: "govuk-!-margin-top-5"

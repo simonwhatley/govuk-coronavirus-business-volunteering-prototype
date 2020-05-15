@@ -90,6 +90,52 @@
         ]
       }) }}
 
+      {#{ govukTextarea({
+        id: "care-description",
+        name: "answers[care][description]",
+        label: {
+          text: "Give a description of the type of care (optional)",
+          classes: "govuk-label--s"
+        },
+        hint: {
+          text: ""
+        },
+        errorMessage: errors | getErrorMessage('care-description'),
+        value: data['answers']['care']['description']
+      }) }#}
+
+      {{ govukRadios({
+        idPrefix: "care-cost",
+        name: "answers[care][cost]",
+        fieldset: {
+          legend: {
+            text: "How much would you charge?",
+            classes: "govuk-fieldset__legend--s"
+          }
+        },
+        hint: {
+          text: ""
+        },
+        errorMessage: errors | getErrorMessage('care-cost'),
+        items: [
+          {
+            value: "nothing",
+            text: "Nothing, it would be a donation",
+            checked: true if data['answers']['care']['cost'] == "nothing"
+          },
+          {
+            value: "reduced",
+            text: "A reduced price",
+            checked: true if data['answers']['care']['cost'] == "reduced"
+          },
+          {
+            value: "standard",
+            text: "A standard price",
+            checked: true if data['answers']['care']['cost'] == "standard"
+          }
+        ]
+      }) }}
+
       {{ govukButton({
         text: "Continue",
         classes: "govuk-!-margin-top-5"

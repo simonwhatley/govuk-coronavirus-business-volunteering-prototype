@@ -2,7 +2,7 @@
 
 {%- set transportTypeHtml %}
 <ul class="govuk-list govuk-list--bullet">
-  {% for item in data['answers']['transport-logistics']['type'] %}
+  {% for item in data['answers']['transport']['type'] %}
     <li>{{ item | replace("people","Moving people") | replace("goods","Moving goods") | capitalize }}</li>
   {% endfor %}
 </ul>
@@ -15,7 +15,7 @@
         text: "Can you offer transport or logistics?"
       },
       value: {
-        text: data['answers']['offer-transport-logistics'] | capitalize
+        text: data['answers']['offer-transport'] | capitalize
       },
       actions: {
         items: [
@@ -43,13 +43,13 @@
           }
         ]
       }
-    } if data['answers']['offer-transport-logistics'] == "yes",
+    } if data['answers']['offer-transport'] == "yes",
     {
       key: {
         text: "Description of your transport or logistics services"
       },
       value: {
-        text: data['answers']['transport-logistics']['description']
+        text: data['answers']['transport']['description']
       },
       actions: {
         items: [
@@ -60,7 +60,24 @@
           }
         ]
       }
-    } if data['answers']['offer-transport-logistics'] == "yes"
+    } if data['answers']['offer-transport'] == "yes",
+    {
+      key: {
+        text: "How much would you charge?"
+      },
+      value: {
+        text: data['answers']['transport']['cost']
+      },
+      actions: {
+        items: [
+          {
+            href: "/transport-details",
+            text: "Change",
+            visuallyHiddenText: "how much you would charge for your transport and logistics services"
+          }
+        ]
+      }
+    } if data['answers']['offer-transport'] == "yes"
   ]
 }) }}
 
