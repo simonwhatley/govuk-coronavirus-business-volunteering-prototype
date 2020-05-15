@@ -45,7 +45,7 @@
             }
           ]
         }
-      } if data['answers']['business-type'] | length
+      } if data['answers']['business-type'] | length and data['answers']['offer-medical-equipment'] == "yes"
     ]
   }) }}
 
