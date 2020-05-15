@@ -1,4 +1,4 @@
-<h3 class="govuk-heading-m">IT services</h3>
+{# <h3 class="govuk-heading-m">IT services</h3> #}
 
 {%- set expertiseHtml %}
 <ul class="govuk-list govuk-list--bullet">
@@ -8,7 +8,48 @@
 </ul>
 {% endset -%}
 
-{{ govukSummaryList({
+{{ appSummaryList({
+  heading: {
+    text: "IT services",
+    classes: "govuk-heading-m"
+  },
+  actions: [
+    {
+      href: "/expertise-it-services",
+      text: "Change",
+      visuallyHiddenText: "what kind of IT services you can offer",
+      classes: "app-c-summary-list__edit-section-link"
+    }
+  ],
+  rows: [
+    {
+      key: {
+        text: "Kind of IT services you can offer"
+      },
+      value: {
+        html: expertiseHtml
+      }
+    },
+    {
+      key: {
+        text: "Description of your IT services"
+      },
+      value: {
+        text: data['answers']['expertise-it-services']['description']
+      }
+    },
+    {
+      key: {
+        text: "How much you will charge"
+      },
+      value: {
+        text: data['answers']['expertise-it-services']['cost'] | getCostAsString
+      }
+    }
+  ]
+}) }}
+
+{#{ govukSummaryList({
   rows: [
     {
       key: {
@@ -62,6 +103,6 @@
       }
     }
   ]
-}) }}
+}) }#}
 
 <hr class="govuk-section-break govuk-section-break--l">

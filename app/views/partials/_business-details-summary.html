@@ -1,6 +1,56 @@
-<h2 class="govuk-heading-l">What are your business details?</h2>
+{# <h2 class="govuk-heading-l">What are your business details?</h2> #}
 
-{{ govukSummaryList({
+{{ appSummaryList({
+  heading: {
+    text: "Business details",
+    classes: "govuk-heading-l"
+  },
+  actions: [
+    {
+      href: "/contact-details",
+      text: "Change",
+      visuallyHiddenText: "your business details",
+      classes: "app-c-summary-list__edit-section-link"
+    }
+  ],
+  classes: "govuk-!-margin-bottom-9",
+  rows: [
+    {
+      key: {
+        text: "Company name"
+      },
+      value: {
+        text: data['answers']['company']['name']
+      }
+    },
+    {
+      key: {
+        text: "Company number"
+      },
+      value: {
+        text: data['answers']['company']['number']
+      }
+    },
+    {
+      key: {
+        text: "Company size"
+      },
+      value: {
+        text: data['answers']['company']['size'] | getCompanySizeAsString
+      }
+    },
+    {
+      key: {
+        text: "Company location"
+      },
+      value: {
+        text: data['answers']['company']['location'] | getLocationAsString + (" (" + data['answers']['company']['postcode'] | upper + ")" if data['answers']['company']['postcode'] | length)
+      }
+    }
+  ]
+}) }}
+
+{#{ govukSummaryList({
   classes: "govuk-!-margin-bottom-9",
   rows: [
     {
@@ -72,6 +122,6 @@
       }
     }
   ]
-}) }}
+}) }#}
 
 {# <hr class="govuk-section-break govuk-section-break--l"> #}

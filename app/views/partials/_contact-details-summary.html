@@ -1,6 +1,55 @@
-<h2 class="govuk-heading-l">What are your contact details?</h2>
+{# <h2 class="govuk-heading-l">What are your contact details?</h2> #}
 
-{{ govukSummaryList({
+{{ appSummaryList({
+  heading: {
+    text: "Contact details",
+    classes: "govuk-heading-l"
+  },
+  actions: [
+    {
+      href: "/contact-details",
+      text: "Change",
+      visuallyHiddenText: "your contact details",
+      classes: "app-c-summary-list__edit-section-link"
+    }
+  ],
+  rows: [
+    {
+      key: {
+        text: "Name of main contact"
+      },
+      value: {
+        text: data['answers']['contact']['name']
+      }
+    },
+    {
+      key: {
+        text: "Role of main contact"
+      },
+      value: {
+        text: data['answers']['contact']['role']
+      }
+    },
+    {
+      key: {
+        text: "Phone number of main contact"
+      },
+      value: {
+        text: data['answers']['contact']['phone']
+      }
+    },
+    {
+      key: {
+        text: "Email address of main contact"
+      },
+      value: {
+        text: data['answers']['contact']['email']
+      }
+    }
+  ]
+}) }}
+
+{#{ govukSummaryList({
   rows: [
     {
       key: {
@@ -71,6 +120,6 @@
       }
     }
   ]
-}) }}
+}) }#}
 
 <hr class="govuk-section-break govuk-section-break--l">
