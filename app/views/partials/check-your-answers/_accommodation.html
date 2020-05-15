@@ -1,6 +1,17 @@
-<h3 class="govuk-heading-l">Accommodation</h3>
-
-{{ govukSummaryList({
+{{ appSummaryList({
+  classes: "govuk-summary-list--no-border",
+  heading: {
+    text: "Accommodation",
+    classes: "govuk-heading-l"
+  },
+  actions: [
+    {
+      href: "/accommodation",
+      text: "Change",
+      visuallyHiddenText: "your business details",
+      classes: "app-c-summary-list__edit-section-link"
+    }
+  ],
   rows: [
     {
       key: {
@@ -8,69 +19,50 @@
       },
       value: {
         text: data['answers']['offer-accommodation'] | replace("yes_any", "Yes – for any use") | replace("yes_people", "Yes – for people to stay in") | capitalize
-      },
-      actions: {
-        items: [
-          {
-            href: "/accommodation",
-            text: "Change",
-            visuallyHiddenText: "whether you can offer accommodation"
-          }
-        ]
       }
-    },
+    }
+  ]
+}) }}
+
+{{ appSummaryList({
+  heading: {
+    text: "Accommodation details",
+    classes: "govuk-heading-m"
+  },
+  actions: [
+    {
+      href: "/accommodation-details",
+      text: "Change",
+      visuallyHiddenText: "your business details",
+      classes: "app-c-summary-list__edit-section-link"
+    }
+  ],
+  rows: [
     {
       key: {
         text: "Number of rooms you can offer"
       },
       value: {
         text: data['answers']['accommodation']['quantity'] | numeral('0,00')
-      },
-      actions: {
-        items: [
-          {
-            href: "/accommodation-details",
-            text: "Change",
-            visuallyHiddenText: "how many rooms you can offer"
-          }
-        ]
       }
-    } if data['answers']['offer-accommodation'] in ["yes_people","yes_any"],
+    },
     {
       key: {
         text: "Description of the type of the rooms"
       },
       value: {
         text: data['answers']['accommodation']['description']
-      },
-      actions: {
-        items: [
-          {
-            href: "/accommodation-details",
-            text: "Change",
-            visuallyHiddenText: "the description of the type of accommodation you can offer"
-          }
-        ]
       }
-    } if data['answers']['offer-accommodation'] in ["yes_people","yes_any"],
+    },
     {
       key: {
         text: "How much you will charge"
       },
       value: {
         text: data['answers']['accommodation']['cost'] | getCostAsString
-      },
-      actions: {
-        items: [
-          {
-            href: "/accommodation-details",
-            text: "Change",
-            visuallyHiddenText: "how much you would charge for your accommodation"
-          }
-        ]
       }
-    } if data['answers']['offer-accommodation'] in ["yes_people","yes_any"]
+    }
   ]
-}) }}
+}) if data['answers']['offer-accommodation'] in ["yes_people","yes_any"] }}
 
 <hr class="govuk-section-break govuk-section-break--l">

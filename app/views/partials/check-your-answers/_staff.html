@@ -1,5 +1,3 @@
-<h3 class="govuk-heading-l">Staff</h3>
-
 {%- set staffTypeHtml %}
 <ul class="govuk-list govuk-list--bullet">
   {% for item in data['answers']['staff']['type'] %}
@@ -8,7 +6,19 @@
 </ul>
 {% endset -%}
 
-{{ govukSummaryList({
+{{ appSummaryList({
+  classes: "govuk-summary-list--no-border",
+  heading: {
+    text: "Staff",
+    classes: "govuk-heading-l"
+  },
+  actions: [
+    {
+      href: "/staff",
+      text: "Change",
+      visuallyHiddenText: "whether you can offer staff"
+    }
+  ],
   rows: [
     {
       key: {
@@ -16,69 +26,49 @@
       },
       value: {
         text: data['answers']['offer-staff'] | capitalize
-      },
-      actions: {
-        items: [
-          {
-            href: "/staff",
-            text: "Change",
-            visuallyHiddenText: "whether you can offer staff"
-          }
-        ]
       }
-    },
+    }
+  ]
+}) }}
+
+{{ appSummaryList({
+  heading: {
+    text: "Staff details",
+    classes: "govuk-heading-m"
+  },
+  actions: [
+    {
+      href: "/staff-details",
+      text: "Change",
+      visuallyHiddenText: "whether you can offer staff"
+    }
+  ],
+  rows: [
     {
       key: {
         text: "Kind of staff you can offer"
       },
       value: {
         html: staffTypeHtml
-      },
-      actions: {
-        items: [
-          {
-            href: "/staff-details",
-            text: "Change",
-            visuallyHiddenText: "what kind of staff you can offer"
-          }
-        ]
       }
-    } if data['answers']['offer-staff'] == "yes",
+    },
     {
       key: {
         text: "Description of the type of staff"
       },
       value: {
         text: data['answers']['staff']['description']
-      },
-      actions: {
-        items: [
-          {
-            href: "/staff-details",
-            text: "Change",
-            visuallyHiddenText: "the description of the type of staff you can offer"
-          }
-        ]
       }
-    } if data['answers']['offer-staff'] == "yes",
+    },
     {
       key: {
         text: "How much you will charge"
       },
       value: {
         text: data['answers']['staff']['cost'] | getCostAsString
-      },
-      actions: {
-        items: [
-          {
-            href: "/staff-details",
-            text: "Change",
-            visuallyHiddenText: "how much you would charge for your staff"
-          }
-        ]
       }
-    } if data['answers']['offer-staff'] == "yes"
+    }
   ]
-}) }}
+}) if data['answers']['offer-staff'] == "yes" }}
 
 <hr class="govuk-section-break govuk-section-break--l">

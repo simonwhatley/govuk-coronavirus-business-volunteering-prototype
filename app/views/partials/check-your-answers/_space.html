@@ -1,5 +1,3 @@
-<h3 class="govuk-heading-l">Space</h3>
-
 {%- set spaceTypeHtml %}
 <ul class="govuk-list govuk-list--bullet">
   {% for item in data['answers']['space']['type'] %}
@@ -8,7 +6,19 @@
 </ul>
 {% endset -%}
 
-{{ govukSummaryList({
+{{ appSummaryList({
+  classes: "govuk-summary-list--no-border",
+  heading: {
+    text: "Space",
+    classes: "govuk-heading-l"
+  },
+  actions: [
+    {
+      href: "/space",
+      text: "Change",
+      visuallyHiddenText: "whether you can offer space"
+    }
+  ],
   rows: [
     {
       key: {
@@ -16,69 +26,49 @@
       },
       value: {
         text: data['answers']['offer-space'] | capitalize
-      },
-      actions: {
-        items: [
-          {
-            href: "/space",
-            text: "Change",
-            visuallyHiddenText: "whether you can offer space"
-          }
-        ]
       }
-    },
+    }
+  ]
+}) }}
+
+{{ appSummaryList({
+  heading: {
+    text: "Space details",
+    classes: "govuk-heading-m"
+  },
+  actions: [
+    {
+      href: "/space-details",
+      text: "Change",
+      visuallyHiddenText: "whether you can offer space"
+    }
+  ],
+  rows: [
     {
       key: {
         text: "Kind of space you can offer"
       },
       value: {
         html: spaceTypeHtml
-      },
-      actions: {
-        items: [
-          {
-            href: "/space-details",
-            text: "Change",
-            visuallyHiddenText: "what kind of space you can offer"
-          }
-        ]
       }
-    } if data['answers']['offer-space'] == "yes",
+    },
     {
       key: {
         text: "Description of your space"
       },
       value: {
         text: data['answers']['space']['description']
-      },
-      actions: {
-        items: [
-          {
-            href: "/space-details",
-            text: "Change",
-            visuallyHiddenText: "the description of the space you can offer"
-          }
-        ]
       }
-    } if data['answers']['offer-space'] == "yes",
+    },
     {
       key: {
         text: "How much you will charge"
       },
       value: {
         text: data['answers']['space']['cost'] | getCostAsString
-      },
-      actions: {
-        items: [
-          {
-            href: "/space-details",
-            text: "Change",
-            visuallyHiddenText: "how much you would charge for your space"
-          }
-        ]
       }
-    } if data['answers']['offer-space'] == "yes"
+    }
   ]
-}) }}
+}) if data['answers']['offer-space'] == "yes" }}
 
 <hr class="govuk-section-break govuk-section-break--l">

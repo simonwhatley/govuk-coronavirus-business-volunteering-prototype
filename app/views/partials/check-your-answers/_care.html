@@ -1,5 +1,3 @@
-<h3 class="govuk-heading-l">Social care or childcare</h3>
-
 {%- set qualificationsHtml %}
 <ul class="govuk-list govuk-list--bullet">
   {% for item in data['answers']['care']['qualifications'] %}
@@ -11,7 +9,19 @@
 {% endif -%}
 {% endset -%}
 
-{{ govukSummaryList({
+{{ appSummaryList({
+  classes: "govuk-summary-list--no-border",
+  heading: {
+    text: "Social care or childcare",
+    classes: "govuk-heading-l"
+  },
+  actions: [
+    {
+      href: "/care",
+      text: "Change",
+      visuallyHiddenText: "whether you can offer social care or childcare"
+    }
+  ],
   rows: [
     {
       key: {
@@ -19,87 +29,49 @@
       },
       value: {
         text: data['answers']['offer-care'] | capitalize
-      },
-      actions: {
-        items: [
-          {
-            href: "/care",
-            text: "Change",
-            visuallyHiddenText: "whether you can offer social care or childcare"
-          }
-        ]
       }
-    },
+    }
+  ]
+}) }}
+
+{{ appSummaryList({
+  heading: {
+    text: "Social care and childcare details",
+    classes: "govuk-heading-m"
+  },
+  actions: [
+    {
+      href: "/care-details",
+      text: "Change",
+      visuallyHiddenText: "how much you would charge for your care"
+    }
+  ],
+  rows: [
     {
       key: {
         text: "Kind of care you can offer"
       },
       value: {
         text: data['answers']['care']['type'] | arrayToList | capitalize
-      },
-      actions: {
-        items: [
-          {
-            href: "/care-details",
-            text: "Change",
-            visuallyHiddenText: "what kind of care you can offer"
-          }
-        ]
       }
-    } if data['answers']['offer-care'] == "yes",
+    },
     {
       key: {
         text: "Qualifications or certificates you have"
       },
       value: {
         html: qualificationsHtml if data['answers']['care']['qualifications'] | length
-      },
-      actions: {
-        items: [
-          {
-            href: "/care-details",
-            text: "Change",
-            visuallyHiddenText: "what qualifications or certificates you have"
-          }
-        ]
       }
-    } if data['answers']['offer-care'] == "yes",
+    },
     {
       key: {
         text: "How much you will charge"
       },
       value: {
         text: data['answers']['care']['cost'] | getCostAsString
-      },
-      actions: {
-        items: [
-          {
-            href: "/care-details",
-            text: "Change",
-            visuallyHiddenText: "how much you would charge for your care"
-          }
-        ]
       }
-    } if data['answers']['offer-care'] == "yes"
+    }
   ]
-}) }}
+}) if data['answers']['offer-care'] == "yes" }}
 
 <hr class="govuk-section-break govuk-section-break--l">
-
-{# {
-      key: {
-        text: "Description of of the type of care"
-      },
-      value: {
-        text: data['answers']['care']['description']
-      },
-      actions: {
-        items: [
-          {
-            href: "/care-details",
-            text: "Change",
-            visuallyHiddenText: "the description of the type of care you can offer"
-          }
-        ]
-      }
-    } if data['answers']['offer-care'] == "yes", #}
