@@ -1,0 +1,67 @@
+<h3 class="govuk-heading-s">IT services</h3>
+
+{%- set expertiseHtml %}
+<ul class="govuk-list govuk-list--bullet">
+  {% for item in data['answers']['expertise-it-services']['type'] %}
+    <li>{{ item | replace("_"," ") | capitalize }}</li>
+  {% endfor %}
+</ul>
+{% endset -%}
+
+{{ govukSummaryList({
+  rows: [
+    {
+      key: {
+        text: "Kind of IT services you can offer"
+      },
+      value: {
+        html: expertiseHtml
+      },
+      actions: {
+        items: [
+          {
+            href: "/expertise-it-services",
+            text: "Change",
+            visuallyHiddenText: "what type of IT services you can offer"
+          }
+        ]
+      }
+    },
+    {
+      key: {
+        text: "Description of your IT services"
+      },
+      value: {
+        text: data['answers']['expertise-it-services']['description']
+      },
+      actions: {
+        items: [
+          {
+            href: "/expertise-it-services",
+            text: "Change",
+            visuallyHiddenText: "the description of the IT services you can offer"
+          }
+        ]
+      }
+    },
+    {
+      key: {
+        text: "How much you will charge"
+      },
+      value: {
+        text: data['answers']['expertise-it-services']['cost'] | getCostAsString
+      },
+      actions: {
+        items: [
+          {
+            href: "/expertise-it-services",
+            text: "Change",
+            visuallyHiddenText: "how much you would charge for your IT services"
+          }
+        ]
+      }
+    }
+  ]
+}) }}
+
+<hr class="govuk-section-break govuk-section-break--l">

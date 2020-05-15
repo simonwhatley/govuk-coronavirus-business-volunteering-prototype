@@ -34,14 +34,20 @@
 
     {% include "./partials/check-your-answers/_expertise.html" %}
 
+    {%- if "construction" in data['answers']['expertise']['type'] %}
+      {% include "./partials/check-your-answers/_expertise-construction.html" %}
+    {% endif -%}
+
+    {%- if "it_services" in data['answers']['expertise']['type'] %}
+      {% include "./partials/check-your-answers/_expertise-it-services.html" %}
+    {% endif -%}
+
     {% include "./partials/check-your-answers/_other.html" %}
 
     {% include "./partials/check-your-answers/_location.html" %}
 
     {%- if data['answers']['offer-medical-equipment'] == "yes" %}
-
       {% include "./partials/_medical-equipment-details-summary.html" %}
-
     {% endif -%}
 
     {% include "./partials/_business-details-summary.html" %}

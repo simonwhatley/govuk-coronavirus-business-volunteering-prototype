@@ -11,22 +11,6 @@
 {% endif -%}
 {% endset -%}
 
-{%- set constructionExpertiseHtml %}
-<ul class="govuk-list govuk-list--bullet">
-  {% for item in data['answers']['expertise-construction']['type'] %}
-    <li>{{ item | replace("_"," ") | capitalize }}</li>
-  {% endfor %}
-</ul>
-{% endset -%}
-
-{%- set itServicesExpertiseHtml %}
-<ul class="govuk-list govuk-list--bullet">
-  {% for item in data['answers']['expertise-it-services']['type'] %}
-    <li>{{ item | replace("_"," ") | capitalize }}</li>
-  {% endfor %}
-</ul>
-{% endset -%}
-
 {{ govukSummaryList({
   rows: [
     {
@@ -45,41 +29,7 @@
           }
         ]
       }
-    },
-    {
-      key: {
-        text: "Kind of construction services you can offer"
-      },
-      value: {
-        html: constructionExpertiseHtml
-      },
-      actions: {
-        items: [
-          {
-            href: "/expertise-construction",
-            text: "Change",
-            visuallyHiddenText: "what type of construction services you can offer"
-          }
-        ]
-      }
-    } if data['answers']['expertise']['type'] | length and "construction" in data['answers']['expertise']['type'],
-    {
-      key: {
-        text: "Kind of IT services you can offer"
-      },
-      value: {
-        html: itServicesExpertiseHtml
-      },
-      actions: {
-        items: [
-          {
-            href: "/expertise-it-services",
-            text: "Change",
-            visuallyHiddenText: "what type of IT services you can offer"
-          }
-        ]
-      }
-    } if data['answers']['expertise']['type'] | length and "it_services" in data['answers']['expertise']['type']
+    }
   ]
 }) }}
 

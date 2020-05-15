@@ -911,6 +911,14 @@ router.post('/care-details', checkHasAnswers, (req, res) => {
     }
   }
 
+  if (req.session.data.answers['care']['cost'] === undefined) {
+    let error = {};
+    error.fieldName = 'care-cost';
+    error.href = '#care-cost';
+    error.text = 'Choose how much you would charge';
+    errors.push(error);
+  }
+
   if (errors.length) {
 
     res.render('care-details', {
@@ -1107,16 +1115,14 @@ router.post('/expertise-construction', checkHasAnswers, (req, res) => {
     error.href = '#expertise-construction-type';
     error.text = 'Choose what kinds of construction services you can offer';
     errors.push(error);
-  } else {
+  }
 
-    if (req.session.data.answers['expertise-construction']['type'].indexOf('other') !== -1 && !req.session.data.answers['expertise-construction']['description']['other'].length) {
-      let error = {};
-      error.fieldName = 'expertise-construction-description-other';
-      error.href = '#expertise-construction-description-other';
-      error.text = 'Enter a description for other types of construction services you can offer';
-      errors.push(error);
-    }
-
+  if (req.session.data.answers['expertise-construction']['cost'] === undefined) {
+    let error = {};
+    error.fieldName = 'expertise-construction-cost';
+    error.href = '#expertise-construction-cost';
+    error.text = 'Choose how much you would charge';
+    errors.push(error);
   }
 
   if (errors.length) {
@@ -1204,16 +1210,14 @@ router.post('/expertise-it-services', checkHasAnswers, (req, res) => {
     error.href = '#expertise-it-services-type';
     error.text = 'Choose what kinds of IT services you can offer';
     errors.push(error);
-  } else {
+  }
 
-    if (req.session.data.answers['expertise-it-services']['type'].indexOf('other') !== -1 && !req.session.data.answers['expertise-it-services']['description']['other'].length) {
-      let error = {};
-      error.fieldName = 'expertise-it-services-description-other';
-      error.href = '#expertise-it-services-description-other';
-      error.text = 'Enter a description for other types of IT services you can offer';
-      errors.push(error);
-    }
-
+  if (req.session.data.answers['expertise-it-services']['cost'] === undefined) {
+    let error = {};
+    error.fieldName = 'expertise-it-services-cost';
+    error.href = '#expertise-it-services-cost';
+    error.text = 'Choose how much you would charge';
+    errors.push(error);
   }
 
   if (errors.length) {
