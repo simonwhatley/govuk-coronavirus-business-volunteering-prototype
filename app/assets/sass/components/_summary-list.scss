@@ -1,0 +1,59 @@
+/* ==========================================================================
+   #SUMMARY LIST
+   Based on https://github.com/alphagov/govuk_publishing_components/blob/master/app/assets/stylesheets/govuk_publishing_components/components/_summary-list.scss
+   ========================================================================== */
+
+.app-c-summary-list {
+  position: relative;
+  // border-bottom: 1px solid $govuk-border-colour;
+
+  @include govuk-font(19);
+  @include govuk-responsive-margin(6, "top");
+
+  &:nth-of-type(1) {
+    margin-top: govuk-spacing(0);
+  }
+
+  &:nth-last-of-type(1) {
+    border-bottom: 0;
+  }
+}
+
+.app-c-summary-list__row:first-of-type {
+  button:first-of-type {
+    visibility: hidden;
+  }
+}
+
+.app-c-summary-list__row:last-of-type {
+  button:last-of-type {
+    visibility: hidden;
+  }
+}
+
+.govuk-summary-list__actions-list {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: auto;
+}
+
+.app-c-summary__block {
+  @include govuk-responsive-margin(6, "bottom");
+}
+
+.app-c-summary-list__row {
+  cursor: move;
+}
+
+.app-c-summary-list__row--chosen {
+  background-color: govuk-colour("light-grey");
+  outline: 2px dotted $govuk-border-colour;
+  border-color: transparent;
+}
+
+.app-c-summary-list__row--drag {
+  background-color: govuk-colour("white");
+  border-color: transparent;
+  padding: govuk-spacing(2);
+}

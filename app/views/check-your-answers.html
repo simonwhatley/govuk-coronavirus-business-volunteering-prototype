@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block beforeContent %}
-{% include "./partials/_phase-banner.html" %}
+{# {% include "./partials/_phase-banner.html" %} #}
 {{ govukBackLink({
   text: "Back",
   href: actions.back
@@ -20,13 +20,37 @@
       Are you ready to send the form?
     </h1>
 
-    {% include "./partials/_non-medical-equipment-details-summary.html" %}
+    <h2 class="govuk-heading-l">Medical equipment</h2>
+
+    {% include "./partials/check-your-answers/_medical-equipment.html" %}
 
     {%- if data['answers']['offer-medical-equipment'] == "yes" %}
-
       {% include "./partials/_medical-equipment-details-summary.html" %}
-
     {% endif -%}
+
+    {% include "./partials/check-your-answers/_accommodation.html" %}
+
+    {% include "./partials/check-your-answers/_transport.html" %}
+
+    {% include "./partials/check-your-answers/_space.html" %}
+
+    {% include "./partials/check-your-answers/_staff.html" %}
+
+    {% include "./partials/check-your-answers/_care.html" %}
+
+    {% include "./partials/check-your-answers/_expertise.html" %}
+
+    {%- if "construction" in data['answers']['expertise']['type'] %}
+      {% include "./partials/check-your-answers/_expertise-construction.html" %}
+    {% endif -%}
+
+    {%- if "it_services" in data['answers']['expertise']['type'] %}
+      {% include "./partials/check-your-answers/_expertise-it-services.html" %}
+    {% endif -%}
+
+    {% include "./partials/check-your-answers/_other.html" %}
+
+    {% include "./partials/check-your-answers/_location.html" %}
 
     {% include "./partials/_business-details-summary.html" %}
 

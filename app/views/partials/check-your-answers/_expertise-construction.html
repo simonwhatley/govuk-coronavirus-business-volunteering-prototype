@@ -1,0 +1,50 @@
+{%- set expertiseHtml %}
+<ul class="govuk-list govuk-list--bullet">
+  {% for item in data['answers']['expertise-construction']['type'] %}
+    <li>{{ item | replace("_"," ") | capitalize }}</li>
+  {% endfor %}
+</ul>
+{% endset -%}
+
+{{ appSummaryList({
+  heading: {
+    text: "Construction",
+    classes: "govuk-heading-m"
+  },
+  actions: [
+    {
+      href: "/expertise-construction",
+      text: "Change",
+      visuallyHiddenText: "what kind of construction services you can offer",
+      classes: "app-c-summary-list__edit-section-link"
+    }
+  ],
+  rows: [
+    {
+      key: {
+        text: "Kind of construction services you can offer"
+      },
+      value: {
+        html: expertiseHtml
+      }
+    },
+    {
+      key: {
+        text: "Description of your construction services"
+      },
+      value: {
+        text: data['answers']['expertise-construction']['description']
+      }
+    },
+    {
+      key: {
+        text: "How much you will charge"
+      },
+      value: {
+        text: data['answers']['expertise-construction']['cost'] | getCostAsString
+      }
+    }
+  ]
+}) }}
+
+<hr class="govuk-section-break govuk-section-break--l">

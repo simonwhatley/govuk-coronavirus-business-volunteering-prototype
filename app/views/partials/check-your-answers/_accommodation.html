@@ -1,0 +1,67 @@
+{{ appSummaryList({
+  heading: {
+    text: "Accommodation",
+    classes: "govuk-heading-l"
+  },
+  actions: [
+    {
+      href: "/accommodation",
+      text: "Change",
+      visuallyHiddenText: "your business details",
+      classes: "app-c-summary-list__edit-section-link"
+    }
+  ],
+  rows: [
+    {
+      key: {
+        text: "Can you offer accommodation?"
+      },
+      value: {
+        text: data['answers']['offer-accommodation'] | replace("yes_any", "Yes – for any use") | replace("yes_people", "Yes – for people to stay in") | capitalize
+      }
+    }
+  ]
+}) }}
+
+{{ appSummaryList({
+  heading: {
+    text: "Details of your offer",
+    classes: "govuk-heading-m"
+  },
+  actions: [
+    {
+      href: "/accommodation-details",
+      text: "Change",
+      visuallyHiddenText: "your business details",
+      classes: "app-c-summary-list__edit-section-link"
+    }
+  ],
+  rows: [
+    {
+      key: {
+        text: "Number of rooms you can offer"
+      },
+      value: {
+        text: data['answers']['accommodation']['quantity'] | numeral('0,00')
+      }
+    },
+    {
+      key: {
+        text: "Description of the type of the rooms"
+      },
+      value: {
+        text: data['answers']['accommodation']['description']
+      }
+    },
+    {
+      key: {
+        text: "How much you will charge"
+      },
+      value: {
+        text: data['answers']['accommodation']['cost'] | getCostAsString
+      }
+    }
+  ]
+}) if data['answers']['offer-accommodation'] in ["yes_people","yes_any"] }}
+
+<hr class="govuk-section-break govuk-section-break--l">

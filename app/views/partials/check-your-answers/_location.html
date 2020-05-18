@@ -1,0 +1,34 @@
+<h3 class="govuk-heading-l">Location</h3>
+
+{%- set locationHtml %}
+<ul class="govuk-list govuk-list--bullet">
+  {% for item in data['answers']['location'] %}
+    <li>{{ item | replace("_"," ") | title | replace("Yorkshire Humber","Yorkshire and the Humber") }}</li>
+  {% endfor %}
+</ul>
+{% endset -%}
+
+{{ govukSummaryList({
+  rows: [
+    {
+      key: {
+        text: "Details of where you can offer your services"
+      },
+      value: {
+        html: locationHtml if data['answers']['location'] | length
+      },
+      actions: {
+        items: [
+          {
+            href: "/location",
+            text: "Change",
+            visuallyHiddenText: "where you can offer your services"
+          }
+        ]
+      }
+    }
+  ]
+}) }}
+
+<hr class="govuk-section-break govuk-section-break--l">
+

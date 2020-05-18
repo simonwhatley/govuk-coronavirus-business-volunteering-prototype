@@ -22,8 +22,8 @@
     <form action="{{ actions.save }}" method="post" accept-charset="utf-8" novalidate>
 
       {{ govukRadios({
-        idPrefix: "transport-logistics",
-        name: "answers[offer-transport-logistics]",
+        idPrefix: "transport",
+        name: "answers[offer-transport]",
         fieldset: {
           legend: {
             text: "Can you offer transport or logistics?",
@@ -34,17 +34,17 @@
         hint: {
           text: ""
         },
-        errorMessage: errors | getErrorMessage('transport-logistics'),
+        errorMessage: errors | getErrorMessage('transport'),
         items: [
           {
             value: "yes",
             text: "Yes",
-            checked: true if data['answers']['offer-transport-logistics'] == "yes"
+            checked: true if data['answers']['offer-transport'] == "yes"
           },
           {
             value: "no",
             text: "No",
-            checked: true if data['answers']['offer-transport-logistics'] == "no"
+            checked: true if data['answers']['offer-transport'] == "no"
           }
         ]
       }) }}

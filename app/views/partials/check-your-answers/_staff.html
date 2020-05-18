@@ -1,0 +1,73 @@
+{%- set staffTypeHtml %}
+<ul class="govuk-list govuk-list--bullet">
+  {% for item in data['answers']['staff']['type'] %}
+    <li>{{ item | replace("_"," ") | capitalize }} {{ "(" + data['answers']['staff']['quantity'][item] | numeral('0,00') + " people)" }}</li>
+  {% endfor %}
+</ul>
+{% endset -%}
+
+{{ appSummaryList({
+  heading: {
+    text: "Staff",
+    classes: "govuk-heading-l"
+  },
+  actions: [
+    {
+      href: "/staff",
+      text: "Change",
+      visuallyHiddenText: "whether you can offer staff"
+    }
+  ],
+  rows: [
+    {
+      key: {
+        text: "Can you offer staff?"
+      },
+      value: {
+        text: data['answers']['offer-staff'] | capitalize
+      }
+    }
+  ]
+}) }}
+
+{{ appSummaryList({
+  heading: {
+    text: "Details of your offer",
+    classes: "govuk-heading-m"
+  },
+  actions: [
+    {
+      href: "/staff-details",
+      text: "Change",
+      visuallyHiddenText: "whether you can offer staff"
+    }
+  ],
+  rows: [
+    {
+      key: {
+        text: "Kind of staff you can offer"
+      },
+      value: {
+        html: staffTypeHtml
+      }
+    },
+    {
+      key: {
+        text: "Description of the type of staff"
+      },
+      value: {
+        text: data['answers']['staff']['description']
+      }
+    },
+    {
+      key: {
+        text: "How much you will charge"
+      },
+      value: {
+        text: data['answers']['staff']['cost'] | getCostAsString
+      }
+    }
+  ]
+}) if data['answers']['offer-staff'] == "yes" }}
+
+<hr class="govuk-section-break govuk-section-break--l">

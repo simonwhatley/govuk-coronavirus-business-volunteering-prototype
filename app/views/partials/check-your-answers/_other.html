@@ -1,0 +1,25 @@
+<h3 class="govuk-heading-l">Other support</h3>
+
+{{ govukSummaryList({
+  rows: [
+    {
+      key: {
+        text: "Details of other support you can offer"
+      },
+      value: {
+        text: data['answers']['other-support'] if data['answers']['other-support'] | length else "I cannot offer any other kind of support"
+      },
+      actions: {
+        items: [
+          {
+            href: "/other-support",
+            text: "Change",
+            visuallyHiddenText: "whether you can offer any other kind of support"
+          }
+        ]
+      }
+    }
+  ]
+}) }}
+
+<hr class="govuk-section-break govuk-section-break--l">

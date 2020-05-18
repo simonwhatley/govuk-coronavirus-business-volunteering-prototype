@@ -1,0 +1,36 @@
+<h3 class="govuk-heading-l">Services or expertise</h3>
+
+{%- set expertiseHtml %}
+<ul class="govuk-list govuk-list--bullet">
+  {% for item in data['answers']['expertise']['type'] %}
+    <li>{{ item | replace("_"," ") | capitalize | replace("It ","IT ") }}</li>
+  {% endfor %}
+</ul>
+{%- if data['answers']['expertise']['description']['other'] | length %}
+  <p class="govuk-body">{{ data['answers']['expertise']['description']['other'] }}</p>
+{% endif -%}
+{% endset -%}
+
+{{ govukSummaryList({
+  rows: [
+    {
+      key: {
+        text: "Kind of expertise you can offer"
+      },
+      value: {
+        html: expertiseHtml if data['answers']['expertise']['type'] | length else "I cannot offer expertise"
+      },
+      actions: {
+        items: [
+          {
+            href: "/expertise",
+            text: "Change",
+            visuallyHiddenText: "what type of expertise you can offer"
+          }
+        ]
+      }
+    }
+  ]
+}) }}
+
+<hr class="govuk-section-break govuk-section-break--l">

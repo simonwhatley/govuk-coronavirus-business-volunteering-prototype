@@ -1,0 +1,76 @@
+{%- set qualificationsHtml %}
+<ul class="govuk-list govuk-list--bullet">
+  {% for item in data['answers']['care']['qualifications'] %}
+    <li>{{ item | replace("dbs","DBS check") | replace("healthcare","Nursing or other healthcare qualifications") }}</li>
+  {% endfor %}
+</ul>
+{%- if data['answers']['care']['description']['healthcare'] | length %}
+  <p class="govuk-body">{{ data['answers']['care']['description']['healthcare'] }}</p>
+{% endif -%}
+{% endset -%}
+
+{{ appSummaryList({
+  heading: {
+    text: "Social care or childcare",
+    classes: "govuk-heading-l"
+  },
+  actions: [
+    {
+      href: "/care",
+      text: "Change",
+      visuallyHiddenText: "whether you can offer social care or childcare"
+    }
+  ],
+  rows: [
+    {
+      key: {
+        text: "Can you offer social care or childcare?"
+      },
+      value: {
+        text: data['answers']['offer-care'] | capitalize
+      }
+    }
+  ]
+}) }}
+
+{{ appSummaryList({
+  heading: {
+    text: "Details of your offer",
+    classes: "govuk-heading-m"
+  },
+  actions: [
+    {
+      href: "/care-details",
+      text: "Change",
+      visuallyHiddenText: "how much you would charge for your care"
+    }
+  ],
+  rows: [
+    {
+      key: {
+        text: "Kind of care you can offer"
+      },
+      value: {
+        text: data['answers']['care']['type'] | arrayToList | capitalize
+      }
+    },
+    {
+      key: {
+        text: "Qualifications or certificates you have"
+      },
+      value: {
+        html: qualificationsHtml if data['answers']['care']['qualifications'] | length
+      }
+    },
+    {
+      key: {
+        text: "How much you will charge"
+      },
+      value: {
+        text: data['answers']['care']['cost'] | getCostAsString
+      }
+    }
+  ]
+}) if data['answers']['offer-care'] == "yes" }}
+
+<hr class="govuk-section-break govuk-section-break--l">

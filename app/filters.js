@@ -179,6 +179,33 @@ module.exports = function (env) {
 
   }
 
+  /* ------------------------------------------------------------------
+    utility function to get the location as string
+    example: {{ 'nothing' | getCostAsString }}
+    outputs: "Nothing – it would be a donation"
+  ------------------------------------------------------------------ */
+  filters.getCostAsString = function(value) {
+    if (!value)
+      return null;
+
+    let text = "";
+
+    switch (value) {
+      case 'nothing':
+        text = 'Nothing – it would be a donation';
+        break;
+      case 'reduced':
+        text = 'A reduced rate';
+        break;
+      case 'standard':
+        text = 'A standard rate';
+        break;
+    }
+
+    return text;
+
+  }
+
   /*
   =====================================================================
   arrayToGovukTable

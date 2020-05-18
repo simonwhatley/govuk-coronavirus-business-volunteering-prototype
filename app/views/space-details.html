@@ -115,14 +115,46 @@
         id: "space-description",
         name: "answers[space][description]",
         label: {
-          text: "Give a description",
+          text: "Give a description of the space (optional)",
           classes: "govuk-label--s"
         },
         hint: {
-          text: "For example, whether you have one space or multiple units"
+          text: "For example, whether you have one space or multiple unit"
         },
         errorMessage: errors | getErrorMessage('space-description'),
         value: data['answers']['space']['description']
+      }) }}
+
+      {{ govukRadios({
+        idPrefix: "space-cost",
+        name: "answers[space][cost]",
+        fieldset: {
+          legend: {
+            text: "How much would you charge?",
+            classes: "govuk-fieldset__legend--s"
+          }
+        },
+        hint: {
+          text: ""
+        },
+        errorMessage: errors | getErrorMessage('space-cost'),
+        items: [
+          {
+            value: "nothing",
+            text: "Nothing, it would be a donation",
+            checked: true if data['answers']['space']['cost'] == "nothing"
+          },
+          {
+            value: "reduced",
+            text: "A reduced price",
+            checked: true if data['answers']['space']['cost'] == "reduced"
+          },
+          {
+            value: "standard",
+            text: "A standard price",
+            checked: true if data['answers']['space']['cost'] == "standard"
+          }
+        ]
       }) }}
 
       {{ govukButton({
