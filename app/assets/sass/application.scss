@@ -17,6 +17,7 @@ $govuk-assets-path: '/govuk/assets/';
 // Components that aren't in Frontend
 @import "components/cookie-banner";
 @import "components/covid";
+@import "components/feedback";
 @import "components/input-suffix";
 @import "components/global-bar";
 @import "components/markdown";
@@ -32,3 +33,7 @@ $govuk-assets-path: '/govuk/assets/';
 @import "utilities/overwrites";
 
 // Add extra styles here, or re-organise the Sass files in whichever way makes most sense to you
+
+.govuk-footer--border-top {
+  border-top: 10px solid govuk-colour("blue");
+}
