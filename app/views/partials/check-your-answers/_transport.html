@@ -7,7 +7,6 @@
 {% endset -%}
 
 {{ appSummaryList({
-  classes: "govuk-summary-list--no-border",
   heading: {
     text: "Transport or logistics",
     classes: "govuk-heading-l"
@@ -50,15 +49,6 @@
       },
       value: {
         html: transportTypeHtml
-      },
-      actions: {
-        items: [
-          {
-            href: "/transport-details",
-            text: "Change",
-            visuallyHiddenText: "what kind of transport or logistics you can offer"
-          }
-        ]
       }
     },
     {
@@ -67,15 +57,6 @@
       },
       value: {
         text: data['answers']['transport']['description']
-      },
-      actions: {
-        items: [
-          {
-            href: "/transport-details",
-            text: "Change",
-            visuallyHiddenText: "the description of the transport and logistics services you can offer"
-          }
-        ]
       }
     },
     {
@@ -84,15 +65,6 @@
       },
       value: {
         text: data['answers']['transport']['cost'] | getCostAsString
-      },
-      actions: {
-        items: [
-          {
-            href: "/transport-details",
-            text: "Change",
-            visuallyHiddenText: "how much you would charge for your transport and logistics services"
-          }
-        ]
       }
     }
   ]

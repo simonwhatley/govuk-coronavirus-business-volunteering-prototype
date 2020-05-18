@@ -1052,10 +1052,10 @@ router.post('/expertise', checkHasAnswers, (req, res) => {
 
         if (req.session.data.answers['expertise']['type'].indexOf('construction') !== -1) {
           res.redirect(req.baseUrl + '/expertise-construction');
-        }
-
-        if (req.session.data.answers['expertise']['type'].indexOf('it_services') !== -1) {
+        } else if (req.session.data.answers['expertise']['type'].indexOf('it_services') !== -1) {
           res.redirect(req.baseUrl + '/expertise-it-services');
+        } else {
+          res.redirect(req.baseUrl + '/other-support');
         }
 
       } else {
