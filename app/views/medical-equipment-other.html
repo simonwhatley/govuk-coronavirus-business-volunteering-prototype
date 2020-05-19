@@ -64,7 +64,7 @@
         classes: "govuk-input--width-10"
       }) }}
 
-      {{ govukInput({
+      {{ appInput({
         id: "product-cost",
         name: "answers[product][cost]",
         label: {
@@ -73,6 +73,9 @@
         },
         hint: {
           text: "For example, 23.99. Enter 0 if you will donate it"
+        },
+        prefix: {
+          text: "£"
         },
         errorMessage: errors | getErrorMessage('product-cost'),
         value: data['answers']['product']['cost'],
