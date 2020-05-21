@@ -64,6 +64,11 @@
         classes: "govuk-input--width-10"
       }) }}
 
+      {{ govukDetails({
+        summaryText: "Summary text",
+        text: "Text"
+      }) }}
+
       {{ appInput({
         id: "product-cost",
         name: "answers[product][cost]",

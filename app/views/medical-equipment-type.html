@@ -21,6 +21,13 @@
 
     <form action="{{ actions.save }}" method="post" accept-charset="utf-8" novalidate>
 
+      {%- set hintHtml %}
+        {{ govukInsetText({
+          html: '<p class="govuk-body">If your offer is below 1,000 pieces of equipment, your offer may be suitable for localised demand. We request that you consider contacting your <a class="govuk-link" href="#">NHS Regional Incident Coordination Centre (ICC)</a> to offer your products to service their requirements.</p>'
+        }) }}
+        <p class="govuk-hint">Give details for one product at a time</p>
+      {% endset -%}
+
       {{ govukRadios({
         idPrefix: "medical-equipment-type",
         name: "answers[medical-equipment-type]",
@@ -32,13 +39,13 @@
           }
         },
         hint: {
-          text: "Give details for one product at a time"
+          html: hintHtml
         },
         errorMessage: errors | getErrorMessage('medical-equipment-type'),
         items: [
           {
             value: "ppe",
-            text: "Personal protective equipment",
+            text: "Personal protective equipment (PPE)",
             hint: {
               text: "For example, masks, detergent and waste bags"
             },

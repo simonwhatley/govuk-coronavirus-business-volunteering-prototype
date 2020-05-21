@@ -21,6 +21,12 @@
 
     <form action="{{ actions.save }}" method="post" accept-charset="utf-8" novalidate>
 
+      {%- set hintHtml %}
+        {{ govukInsetText({
+          html: '<p class="govuk-body">If your offer is below 1,000 pieces of equipment, your offer may be suitable for localised demand. We request that you consider contacting your <a class="govuk-link" href="#">NHS Regional Incident Coordination Centre (ICC)</a> to offer your products to service their requirements.</p>'
+        }) }}
+      {% endset -%}
+
       {{ govukRadios({
         idPrefix: "medical-equipment",
         name: "answers[offer-medical-equipment]",
@@ -32,7 +38,7 @@
           }
         },
         hint: {
-          text: ""
+          html: hintHtml
         },
         errorMessage: errors | getErrorMessage('medical-equipment'),
         items: [
