@@ -42,6 +42,20 @@
         }
       }) }}
 
+      {{ govukTextarea({
+        id: "product-description",
+        name: "product[description]",
+        label: {
+          text: "Description of product (optional)",
+          classes: "govuk-label--s"
+        },
+        hint: {
+          text: ""
+        },
+        errorMessage: errors | getErrorMessage('product-description'),
+        value: data['answers']['product']['description']
+      }) }}
+
       {{ appInput({
         id: "product-quantity",
         name: "answers[product][quantity]",
@@ -50,7 +64,7 @@
           classes: "govuk-label--s"
         },
         hint: {
-          text: "Approximate amount. For example, 10, 500, 10000"
+          text: "Approximate amount. For example, 1200, 5000, 10000"
         },
         suffix: {
           text: "items"
@@ -65,8 +79,8 @@
       }) }}
 
       {{ govukDetails({
-        summaryText: "Summary text",
-        text: "Text"
+        summaryText: "If you can offer less than 1000 pieces of equipment",
+        html: '<p class="govuk-body">If you can offer less than 1000 pieces of equipment, you should not use this form. <a class="govuk-link" href="#">Contact your NHS Regional Incident Coordination Centre (ICC)</a>.</p>'
       }) }}
 
       {{ appInput({

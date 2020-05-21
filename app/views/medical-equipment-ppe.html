@@ -164,7 +164,7 @@
           classes: "govuk-label--s"
         },
         hint: {
-          text: "Approximate amount. For example, 10, 500, 10000"
+          text: "Approximate amount. For example, 1200, 5000, 10000"
         },
         suffix: {
           text: "items"
@@ -178,22 +178,9 @@
         classes: "govuk-input--width-10"
       }) }}
 
-      {#%- set summaryHtml %}
-        <p class="govuk-body">If your offer is below 1,000 pieces of PPE, your offer may be suitable for localised demand(s). We request that you consider contacting your NHS Regional Incident Coordination Centre (ICC) to offer your products to service their requirements. Contact details can be found below:<p>
-        <ul class="govuk-list govuk-list--bullet">
-          <li>East of England Regional ICC: <a class="govuk-link" href="mailto:england.eastofengland-covid19@nhs.net">england.eastofengland-covid19@nhs.net</a></li>
-          <li>London Regional ICC: <a class="govuk-link" href="mailto:england.london-covid19@nhs.net">england.london-covid19@nhs.net</a></li>
-          <li>Midlands Regional ICC: <a class="govuk-link" href="mailto:england.mids-incident@nhs.net">england.mids-incident@nhs.net</a></li>
-          <li>North East and Yorkshire Regional ICC: <a class="govuk-link" href="mailto:england.eprrney@nhs.net">england.eprrney@nhs.net</a></li>
-          <li>North West Regional ICC: <a class="govuk-link" href="mailto:england.eprrnw@nhs.net">england.eprrnw@nhs.net</a></li>
-          <li>South East Regional ICC: <a class="govuk-link" href="mailto:england.se-incident@nhs.net">england.se-incident@nhs.net</a></li>
-          <li>South West Regional ICC: <a class="govuk-link" href="mailto:england.sw-incident1@nhs.net">england.sw-incident1@nhs.net</a></li>
-        </ul>
-      {% endset -%#}
-
       {{ govukDetails({
-        summaryText: "If your offer is below 1,000 pieces of PPE",
-        html: '<p class="govuk-body">If you cannot offer more than 1,000 items of a product you should not use this service. <a class="govuk-link" href="#">Contact your NHS regional incident coordination centre</a>.</p>'
+        summaryText: "If you can offer less than 1000 pieces of PPE",
+        html: '<p class="govuk-body">If you can offer less than 1000 pieces of PPE, you should not use this form. <a class="govuk-link" href="#">Contact your NHS Regional Incident Coordination Centre (ICC)</a>.</p>'
       }) }}
 
       {{ appInput({
