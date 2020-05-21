@@ -1,0 +1,36 @@
+
+{% extends "layout.html" %}
+
+{% block pageTitle %}
+  Contact an NHS Regional Incident Coordination Centre to offer your personal protective equipment
+{% endblock %}
+
+{% block beforeContent %}
+{% include "./partials/_phase-banner.html" %}
+{{ govukBackLink({
+  text: "Back",
+  href: actions.back
+}) }}
+{% endblock %}
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <h1 class="govuk-heading-xl">
+      Contact an NHS Regional Incident Coordination Centre to offer your personal protective equipment
+    </h1>
+
+    <ul class="govuk-list govuk-list--bullet">
+      <li>East of England Regional ICC: <a class="govuk-link" href="mailto:england.eastofengland-covid19@nhs.net">england.eastofengland-covid19@nhs.net</a></li>
+      <li>London Regional ICC: <a class="govuk-link" href="mailto:england.london-covid19@nhs.net">england.london-covid19@nhs.net</a></li>
+      <li>Midlands Regional ICC: <a class="govuk-link" href="mailto:england.mids-incident@nhs.net">england.mids-incident@nhs.net</a></li>
+      <li>North East and Yorkshire Regional ICC: <a class="govuk-link" href="mailto:england.eprrney@nhs.net">england.eprrney@nhs.net</a></li>
+      <li>North West Regional ICC: <a class="govuk-link" href="mailto:england.eprrnw@nhs.net">england.eprrnw@nhs.net</a></li>
+      <li>South East Regional ICC: <a class="govuk-link" href="mailto:england.se-incident@nhs.net">england.se-incident@nhs.net</a></li>
+      <li>South West Regional ICC: <a class="govuk-link" href="mailto:england.sw-incident1@nhs.net">england.sw-incident1@nhs.net</a></li>
+    </ul>
+
+  </div>
+</div>
+
+{% endblock %}

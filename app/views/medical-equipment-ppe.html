@@ -23,7 +23,7 @@
     </h1>
 
     {{ govukInsetText({
-      html: 'Please note that <a class="govuk-link" href="https://www.gov.uk/government/publications/technical-specifications-for-personal-protective-equipment-ppe">any equipment offered needs to meet the required technical specifications</a>.'
+      html: 'The product must <a class="govuk-link" href="https://www.gov.uk/government/publications/technical-specifications-for-personal-protective-equipment-ppe">meet the technical specifications</a>, or your offer will not be accepted.'
     }) }}
 
     <form action="{{ actions.save }}" method="post" accept-charset="utf-8" novalidate>
@@ -184,7 +184,7 @@
 
       {{ govukDetails({
         summaryText: "If you cannot offer more than 1000 items of PPE",
-        html: '<p class="govuk-body">If you cannot offer more than 1,000 items of personal protective equipment (PPE) you should not use this form. <a class="govuk-link" href="#">Contact your NHS Regional Incident Coordination Centre</a> to offer your products.</p>'
+        html: '<p class="govuk-body">If you cannot offer more than 1,000 items of personal protective equipment (PPE) you should not use this form. <a class="govuk-link" href="/coordination-centres">Contact your NHS Regional Incident Coordination Centre</a> to offer your products.</p>'
       }) }}
 
       {{ appInput({
