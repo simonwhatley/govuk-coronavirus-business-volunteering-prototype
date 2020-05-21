@@ -23,7 +23,7 @@
 
       {%- set hintHtml %}
         {{ govukInsetText({
-          html: '<p class="govuk-body">If you cannot offer more than 1,000 items of a product you should not use this service. <a class="govuk-link" href="#">Contact your NHS regional incident coordination centre</a>.</p>'
+          html: '<p class="govuk-body">If you cannot offer more than 1,000 items of personal protective equipment (PPE) you should not use this form. <a class="govuk-link" href="#">Contact your NHS Regional Incident Coordination Centre</a> to offer your products.</p>'
         }) }}
         <p class="govuk-hint">Give details for one product at a time</p>
       {% endset -%}
@@ -63,21 +63,6 @@
           }
         ]
       }) }}
-
-      {# conditional: {
-              html: govukTextarea({
-                      id: "medical-equipment-type-other-description",
-                      name: "answers[medical-equipment-type-other-description]",
-                      label: {
-                        text: "Give a summary of the type of product. You can give more details later"
-                      },
-                      hint: {
-                        text: ""
-                      },
-                      errorMessage: errors | getErrorMessage('medical-equipment-type-other-description'),
-                      value: data['answers']['medical-equipment-type-other-description']
-                    })
-            }, #}
 
       {{ govukButton({
         text: "Continue",

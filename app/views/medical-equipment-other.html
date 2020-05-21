@@ -22,6 +22,10 @@
       Tell us about the product you're offering
     </h1>
 
+    {{ govukInsetText({
+      html: 'Please note that <a class="govuk-link" href="https://www.gov.uk/government/publications/technical-specifications-for-personal-protective-equipment-ppe">any equipment offered needs to meet the required technical specifications</a>.'
+    }) }}
+
     <form action="{{ actions.save }}" method="post" accept-charset="utf-8" novalidate>
 
       {{ govukInput({
@@ -44,7 +48,7 @@
 
       {{ govukTextarea({
         id: "product-description",
-        name: "product[description]",
+        name: "answers[product][description]",
         label: {
           text: "Description of product (optional)",
           classes: "govuk-label--s"
@@ -79,8 +83,8 @@
       }) }}
 
       {{ govukDetails({
-        summaryText: "If you can offer less than 1000 pieces of equipment",
-        html: '<p class="govuk-body">If you can offer less than 1000 pieces of equipment, you should not use this form. <a class="govuk-link" href="#">Contact your NHS Regional Incident Coordination Centre (ICC)</a>.</p>'
+        summaryText: "If you cannot offer more than 1000 items of a product",
+        html: '<p class="govuk-body">If you cannot offer more than 1,000 items of a product you should not use this form. <a class="govuk-link" href="#">Contact your NHS Regional Incident Coordination Centre</a> to offer your products.</p>'
       }) }}
 
       {{ appInput({
