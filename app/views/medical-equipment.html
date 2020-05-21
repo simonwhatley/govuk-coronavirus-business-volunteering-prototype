@@ -21,11 +21,11 @@
 
     <form action="{{ actions.save }}" method="post" accept-charset="utf-8" novalidate>
 
-      {%- set hintHtml %}
+      {#%- set hintHtml %}
         {{ govukInsetText({
           html: '<p class="govuk-body">If you cannot offer more than 1,000 items of a product you should not use this service. <a class="govuk-link" href="#">Contact your NHS regional incident coordination centre</a>.</p>'
         }) }}
-      {% endset -%}
+      {% endset -%#}
 
       {{ govukRadios({
         idPrefix: "medical-equipment",
@@ -38,7 +38,7 @@
           }
         },
         hint: {
-          html: hintHtml
+          text: ""
         },
         errorMessage: errors | getErrorMessage('medical-equipment'),
         items: [
