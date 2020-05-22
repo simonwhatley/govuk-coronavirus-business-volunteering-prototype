@@ -4,7 +4,7 @@
 
 module.exports = {
   // Service name used in header. Eg: 'Renew your passport'
-  serviceName: 'Offer coronavirus (COVID-19) support from your business',
+  serviceName: 'Offer coronavirus support from your business',
 
   // Default port that prototype runs on
   port: '3000',
@@ -30,7 +30,7 @@ module.exports = {
 
   // Enable or disable Browser Sync
   useBrowserSync: 'true',
-  
+
   // Enable logging, options: true, false, get or post
   useLogging: 'true'
 
