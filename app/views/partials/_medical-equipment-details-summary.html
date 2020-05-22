@@ -23,7 +23,7 @@
 
   {%- if product['quantity'] <= 1000 %}
   {{ govukInsetText({
-    html: '<p class="govuk-body">It looks like you cannot offer more than 1,000 items of this product. <a class="govuk-link" href="/coordination-centres">Contact an NHS Regional Incident Coordination Centre to offer the product</a>.</p>'
+    html: '<p class="govuk-body">You cannot offer more than 1,000 items of this product. Contact an <a class="govuk-link" href="/coordination-centres">NHS Regional Incident Coordination Centre</a> to offer the product instead of using this form.</p>'
   }) }}
   {% endif -%}
 
