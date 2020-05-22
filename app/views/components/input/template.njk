@@ -57,9 +57,9 @@
       {{- params.prefix.html | safe if params.prefix.html else params.prefix.text -}}
     </span>
   {% endif -%}
-{% endif %}
+{% endif -%}
 
-{{ inputTag | safe }}
+{{- inputTag | safe -}}
 
 {%- if params.suffix %}
   {%- if params.suffix.html | length or params.suffix.text | length %}
@@ -67,7 +67,7 @@
       {{- params.suffix.html | safe if params.suffix.html else params.suffix.text -}}
     </span>
   {% endif -%}
-{% endif %}
+{% endif -%}
 
 {%- if params.prefix or params.suffix %}</div>{% endif -%}
 
