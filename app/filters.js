@@ -97,6 +97,24 @@ module.exports = function (env) {
   }
 
   /* ------------------------------------------------------------------
+    utility function to find quantity below threshold
+    example: {{ products | isBelowThreshold(100000) }}
+    outputs: true
+  ------------------------------------------------------------------ */
+  filters.isBelowThreshold = function(array, threshold) {
+    if (!array || !threshold)
+      return null;
+
+    let found = array.find( ({ quantity }) => quantity < threshold );
+
+    if (found !== undefined) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  /* ------------------------------------------------------------------
     utility function to create HTML from markdown
     example: {{ "**Enter a title**" | markdownToHtml }}
     outputs: "Enter a title"

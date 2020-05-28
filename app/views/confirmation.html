@@ -22,6 +22,11 @@
 
     <p class="govuk-body">We have sent you a confirmation email.</p>
 
+    {% if data.answers['products'] | isBelowThreshold(100000) == true %}
+      <p class="govuk-body govuk-!-font-weight-bold">Offering less than 100,000 items of a product</p>
+      <p class="govuk-body">Your offer of less than 100,000 items of personal protective equipment cannot be processed. Contact an <a class="govuk-link" href="/coordination-centres">NHS Regional Incident Coordination Centre to offer the product.</a></p>
+    {% endif %}
+
     <h2 class="govuk-heading-m">What happens next</h2>
 
     <p class="govuk-body">If your help is needed you’ll be contacted as soon as possible.</p>
