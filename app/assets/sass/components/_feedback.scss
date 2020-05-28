@@ -1,0 +1,202 @@
+/* ==========================================================================
+   #FEEDBACK
+   Based on https://github.com/alphagov/govuk_publishing_components/blob/master/app/assets/stylesheets/govuk_publishing_components/components/_feedback.scss
+   ========================================================================== */
+
+.app-c-feedback {
+ max-width: $govuk-page-width;
+ margin: 0 auto;
+
+ .visually-hidden {
+   @include govuk-visually-hidden;
+ }
+}
+
+.app-c-feedback--top-margin {
+ margin-top: govuk-spacing(6);
+
+ @include govuk-media-query($from: tablet) {
+   margin-top: govuk-spacing(9);
+ }
+}
+
+// hide without js
+// show with js, unless also has the js-hidden class
+.app-c-feedback__js-show,
+.app-c-feedback__form,
+.app-c-feedback__prompt-success,
+.app-c-feedback__js-prompt-questions,
+.app-c-feedback__error-summary {
+ display: none;
+
+ .js-enabled & {
+   display: block;
+
+   &.js-hidden {
+     display: none;
+   }
+ }
+}
+
+.app-c-feedback__prompt {
+ @include govuk-clearfix;
+ background-color: govuk-colour("blue");
+ color: govuk-colour("white");
+ padding: govuk-spacing(2) govuk-spacing(3) 0;
+ outline: 0;
+}
+
+.app-c-feedback__prompt-question,
+.app-c-feedback__prompt-success {
+ @include govuk-font(19, $weight: bold);
+ display: inline-block;
+
+ // There's a global h3 rule in some layouts that interferes with this component
+ margin: 0;
+
+ &:focus {
+   outline: 0;
+ }
+
+ @include govuk-media-query($from: tablet) {
+   @include govuk-font(16, $weight: bold);
+   float: left;
+ }
+}
+
+.app-c-feedback__prompt-link {
+ @include govuk-link-common;
+ @include govuk-font(19);
+ margin-left: govuk-spacing(3);
+
+ @include govuk-media-query($from: tablet) {
+   @include govuk-font(16);
+   float: left; // needed to ensure vertical alignment consistent with prompt-link--wrong
+   margin-left: govuk-spacing(2);
+ }
+}
+
+.app-c-feedback__prompt-link:link,
+.app-c-feedback__prompt-link:visited {
+ color: govuk-colour("white");
+
+ &:focus {
+   color: $govuk-focus-text-colour;
+ }
+}
+
+.app-c-feedback__prompt-link--wrong {
+ display: block;
+ clear: both;
+ margin-top: govuk-spacing(3);
+ margin-left: 0;
+
+ @include govuk-media-query($from: tablet) {
+   float: right;
+   clear: none;
+   margin-top: 0;
+   margin-left: govuk-spacing(2);
+ }
+}
+
+.app-c-feedback__error-summary {
+ margin-bottom: govuk-spacing(3);
+ padding: govuk-spacing(3);
+ border: solid $govuk-border-width-narrow $govuk-error-colour;
+ clear: both;
+
+ &:focus {
+   outline: solid 3px $govuk-focus-colour;
+ }
+
+ @include govuk-media-query($from: tablet) {
+   border-width: $govuk-border-width;
+ }
+
+ // this comes from the backend so we can't put a class on it
+ h2,
+ .app-c-feedback__heading {
+   @include govuk-text-colour;
+   @include govuk-font(24, $weight: bold);
+   margin: 0;
+ }
+
+ p {
+   @include govuk-text-colour;
+   @include govuk-font(19);
+   margin: govuk-spacing(2) 0;
+ }
+
+ a {
+   @extend %govuk-link;
+ }
+}
+
+.app-c-feedback__error-message {
+ @include govuk-font(19, $weight: bold);
+ display: block;
+ padding: 4px 0 0;
+ color: $govuk-error-colour;
+}
+
+.app-c-feedback__form {
+ margin: govuk-spacing(3) govuk-spacing(2) 0 govuk-spacing(2);
+ padding: govuk-spacing(3) 0;
+ border-top: govuk-spacing(2) solid govuk-colour("blue");
+
+ @include govuk-media-query($from: tablet) {
+   padding: govuk-spacing(6) 0;
+ }
+}
+
+.app-c-feedback__form-heading {
+ @include govuk-text-colour;
+ @include govuk-font(24, $weight: bold);
+ margin: 0 0 govuk-spacing(3) 0;
+}
+
+.app-c-feedback__form-paragraph {
+ @include govuk-text-colour;
+ @include govuk-font(19);
+ margin: 0 0 govuk-spacing(6) 0;
+}
+
+.app-c-feedback__form-label {
+ @include govuk-font(16);
+ display: block;
+ padding-bottom: govuk-spacing(3);
+}
+
+.app-c-feedback__close {
+ @include govuk-link-common;
+ @include govuk-link-style-default;
+ @include govuk-font(19);
+ float: right;
+ margin: 0 govuk-spacing(1) govuk-spacing(2) 0;
+
+ @include govuk-media-query($from: tablet) {
+   padding-top: 0;
+ }
+}
+
+.app-c-feedback__email-link {
+ display: block;
+ margin-top: govuk-spacing(3);
+
+ @include govuk-media-query($from: tablet) {
+   display: inline-block;
+   margin-top: 0;
+   margin-left: govuk-spacing(3);
+ }
+}
+
+// static.css on GOV.UK overwrites the component styles using input[type="text"]
+// so we need to apply  govuk-input styles using a stronger selector
+.app-c-feedback input[type="text"] {
+ // scss-lint:disable PlaceholderInExtend
+ // sass-lint:disable placeholder-in-extend
+ @extend .govuk-input;
+ // sass-lint:enable placeholder-in-extend
+ // scss-lint:enable PlaceholderInExtend
+ margin: 0;
+}

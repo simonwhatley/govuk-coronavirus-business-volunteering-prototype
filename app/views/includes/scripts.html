@@ -10,3 +10,12 @@
 {% if useAutoStoreData %}
   <script src="/public/javascripts/auto-store-data.js"></script>
 {% endif %}
+
+<script src="/public/javascripts/modules/toggle.js"></script>
+<script src="/public/javascripts/modules/toggle-input-class-on-focus.js"></script>
+<script src="/public/javascripts/modules/feedback.js"></script>
+<script type="text/javascript">
+  var $element = $('#feedback');
+  var feedback = new GOVUK.Modules.Feedback();
+  feedback.start($element);
+</script>

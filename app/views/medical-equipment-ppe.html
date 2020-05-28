@@ -19,8 +19,12 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
     <h1 class="govuk-heading-xl">
-      Tell us about the product you're offering
+      Tell us about the product you’re offering
     </h1>
+
+    {{ govukInsetText({
+      html: 'The product must <a class="govuk-link" href="https://www.gov.uk/government/publications/technical-specifications-for-personal-protective-equipment-ppe">meet the technical specifications</a>, or your offer will not be accepted.'
+    }) }}
 
     <form action="{{ actions.save }}" method="post" accept-charset="utf-8" novalidate>
 
@@ -164,7 +168,7 @@
           classes: "govuk-label--s"
         },
         hint: {
-          text: "Approximate amount. For example, 10, 500, 10000"
+          text: "Approximate amount. For example, 1200, 5000, 10000"
         },
         suffix: {
           text: "items"
@@ -178,7 +182,12 @@
         classes: "govuk-input--width-10"
       }) }}
 
-      {{ govukInput({
+      {{ govukDetails({
+        summaryText: "If you cannot offer more than 1,000 items",
+        html: '<p class="govuk-body">If you cannot offer more than 1,000 items, you should not use this form. <a class="govuk-link" href="/coordination-centres">Contact an NHS Regional Incident Coordination Centre to offer the product</a>.</p>'
+      }) }}
+
+      {{ appInput({
         id: "product-cost",
         name: "answers[product][cost]",
         label: {
@@ -187,6 +196,9 @@
         },
         hint: {
           text: "For example, 23.99. Enter 0 if you will donate it"
+        },
+        prefix: {
+          text: "£"
         },
         errorMessage: errors | getErrorMessage('product-cost'),
         value: data['answers']['product']['cost'],
@@ -231,7 +243,7 @@
         items: [
           {
             value: "uk",
-            text: "United Kingdon",
+            text: "United Kingdom",
             conditional: {
               html: govukInput({
                       id: "product-postcode",
@@ -305,6 +317,8 @@
         },
         classes: "govuk-input--width-10"
       }) }}
+
+
 
       {{ govukButton({
         text: "Continue",

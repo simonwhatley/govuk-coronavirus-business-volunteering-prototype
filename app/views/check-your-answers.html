@@ -40,11 +40,11 @@
 
     {% include "./partials/check-your-answers/_expertise.html" %}
 
-    {%- if "construction" in data['answers']['expertise']['type'] %}
+    {%- if data['answers']['expertise']['type'] | length and "construction" in data['answers']['expertise']['type'] %}
       {% include "./partials/check-your-answers/_expertise-construction.html" %}
     {% endif -%}
 
-    {%- if "it_services" in data['answers']['expertise']['type'] %}
+    {%- if data['answers']['expertise']['type'] | length and "it_services" in data['answers']['expertise']['type'] %}
       {% include "./partials/check-your-answers/_expertise-it-services.html" %}
     {% endif -%}
 

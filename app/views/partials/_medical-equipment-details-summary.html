@@ -18,7 +18,16 @@
         visuallyHiddenText: "product details",
         classes: "app-c-summary-list__edit-section-link app-link--destructive"
       }
-    ],
+    ]
+  }) }}
+
+  {%- if product['quantity'] <= 1000 %}
+  {{ govukInsetText({
+    html: '<p class="govuk-body">You cannot offer more than 1,000 items of this product. Contact an <a class="govuk-link" href="/coordination-centres">NHS Regional Incident Coordination Centre</a> to offer the product instead of using this form.</p>'
+  }) }}
+  {% endif -%}
+
+  {{ appSummaryList({
     classes: "govuk-!-margin-bottom-5" if loop.last else "govuk-!-margin-bottom-7",
     rows: [
       {
@@ -29,6 +38,14 @@
           text: product['name']
         }
       },
+      {
+        key: {
+          text: "Description of product"
+        },
+        value: {
+          text: product['description']
+        }
+      } if product['description'],
       {
         key: {
           text: "What type of equipment is it?"

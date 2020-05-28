@@ -21,24 +21,31 @@
 
     <form action="{{ actions.save }}" method="post" accept-charset="utf-8" novalidate>
 
+      {%- set hintHtml %}
+        {{ govukInsetText({
+          html: '<p class="govuk-body">If you cannot offer more than 1,000 items of a personal protective equipment product, you should not use this form. <a class="govuk-link" href="/coordination-centres">Contact an NHS Regional Incident Coordination Centre to offer the product</a>.</p>'
+        }) }}
+        <p class="govuk-hint">Give details for one product at a time</p>
+      {% endset -%}
+
       {{ govukRadios({
         idPrefix: "medical-equipment-type",
         name: "answers[medical-equipment-type]",
         fieldset: {
           legend: {
-            text: "Tell us about the medical equipment you can offer",
+            text: "What type of medical equipment can you offer?",
             isPageHeading: true,
             classes: "govuk-fieldset__legend--xl"
           }
         },
         hint: {
-          text: "Give details for one product at a time"
+          html: hintHtml
         },
         errorMessage: errors | getErrorMessage('medical-equipment-type'),
         items: [
           {
             value: "ppe",
-            text: "Personal protective equipment",
+            text: "Personal protective equipment (PPE)",
             hint: {
               text: "For example, masks, detergent and waste bags"
             },
@@ -56,21 +63,6 @@
           }
         ]
       }) }}
-
-      {# conditional: {
-              html: govukTextarea({
-                      id: "medical-equipment-type-other-description",
-                      name: "answers[medical-equipment-type-other-description]",
-                      label: {
-                        text: "Give a summary of the type of product. You can give more details later"
-                      },
-                      hint: {
-                        text: ""
-                      },
-                      errorMessage: errors | getErrorMessage('medical-equipment-type-other-description'),
-                      value: data['answers']['medical-equipment-type-other-description']
-                    })
-            }, #}
 
       {{ govukButton({
         text: "Continue",

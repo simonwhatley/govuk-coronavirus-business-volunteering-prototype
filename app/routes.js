@@ -2079,11 +2079,24 @@ router.get('/check-your-answers', checkHasAnswers, (req, res) => {
 // --------------------------------------------------
 // Confirmation
 // --------------------------------------------------
-router.get('/confirmation', checkHasAnswers, (req, res) => {
+router.get('/confirmation', (req, res) => {
 
   res.render('confirmation', {
     actions: {
       start: req.baseUrl + '/'
+    }
+  });
+
+});
+
+// --------------------------------------------------
+// Coordination centres
+// --------------------------------------------------
+router.get('/coordination-centres', (req, res) => {
+
+  res.render('coordination-centres', {
+    actions: {
+      back: req.headers.referer
     }
   });
 
