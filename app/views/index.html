@@ -19,6 +19,10 @@
 
     <p class="govuk-body">Use this service to tell us how your business might be able to help with the response to coronavirus (COVID-19).</p>
 
+    {{ govukInsetText({
+      html: 'Your business must be registered and have a company number if it’s registered in the UK. If it’s not, you can <a class="govuk-link" href="https://www.gov.uk/volunteering/coronavirus-volunteering">volunteer as an individual</a> instead.'
+    }) }}
+
     <p class="govuk-body">You can offer different kinds of support. This includes:</p>
 
     <ul class="govuk-list govuk-list--bullet">
@@ -36,9 +40,9 @@
       <li>staff, such as cleaners, developers or translators</li>
     </ul>
 
-    <p class="govuk-body">You’ll be asked some questions about the type of support you can give. You’ll then be contacted as soon as possible if your support is needed.</p>
+    <p class="govuk-body">You’ll be asked some questions about the type of support you can give.</p>
 
-    <p class="govuk-body">You’ll need your company number if you have one.</p>
+    <p class="govuk-body">You’ll be contacted if your support is needed. This can take a few weeks. You might not hear back if your support is not needed.</p>
 
     {{ govukButton({
       text: "Start now",
