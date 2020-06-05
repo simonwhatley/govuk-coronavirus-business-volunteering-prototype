@@ -66,7 +66,7 @@ router.post('/medical-equipment', checkHasAnswers, (req, res) => {
     let error = {};
     error.fieldName = 'medical-equipment';
     error.href = '#medical-equipment';
-    error.text = 'Choose whether you can offer medical equipment';
+    error.text = 'Select whether you can offer medical equipment';
     errors.push(error);
   }
 
@@ -146,7 +146,7 @@ router.post('/accommodation', checkHasAnswers, (req, res) => {
     let error = {};
     error.fieldName = 'accommodation';
     error.href = '#accommodation';
-    error.text = 'Choose whether you can offer medical equipment';
+    error.text = 'Select whether you can offer medical equipment';
     errors.push(error);
   }
 
@@ -227,7 +227,7 @@ router.post('/accommodation-details', checkHasAnswers, (req, res) => {
     let error = {};
     error.fieldName = 'accommodation-cost';
     error.href = '#accommodation-cost';
-    error.text = 'Choose how much you would charge';
+    error.text = 'Select how much you would charge';
     errors.push(error);
   }
 
@@ -300,7 +300,7 @@ router.post('/transport', checkHasAnswers, (req, res) => {
     let error = {};
     error.fieldName = 'transport';
     error.href = '#transport';
-    error.text = 'Choose whether you can offer transport or logistics';
+    error.text = 'Select whether you can offer transport or logistics';
     errors.push(error);
   }
 
@@ -373,7 +373,7 @@ router.post('/transport-details', checkHasAnswers, (req, res) => {
     let error = {};
     error.fieldName = 'transport-type';
     error.href = '#transport-type';
-    error.text = 'Choose what kinds of transport or logisitics services you can offer';
+    error.text = 'Select what kinds of transport or logisitics services you can offer';
     errors.push(error);
   }
 
@@ -389,7 +389,7 @@ router.post('/transport-details', checkHasAnswers, (req, res) => {
     let error = {};
     error.fieldName = 'transport-cost';
     error.href = '#transport-cost';
-    error.text = 'Choose how much you would charge';
+    error.text = 'Select how much you would charge';
     errors.push(error);
   }
 
@@ -462,7 +462,7 @@ router.post('/space', checkHasAnswers, (req, res) => {
     let error = {};
     error.fieldName = 'space';
     error.href = '#space';
-    error.text = 'Choose whether you can offer space';
+    error.text = 'Select whether you can offer space';
     errors.push(error);
   }
 
@@ -535,7 +535,7 @@ router.post('/space-details', checkHasAnswers, (req, res) => {
     let error = {};
     error.fieldName = 'space-type';
     error.href = '#space-type';
-    error.text = 'Choose what kind of space you can offer';
+    error.text = 'Select what kind of space you can offer';
     errors.push(error);
   } else {
 
@@ -577,7 +577,7 @@ router.post('/space-details', checkHasAnswers, (req, res) => {
     let error = {};
     error.fieldName = 'space-cost';
     error.href = '#space-cost';
-    error.text = 'Choose how much you would charge';
+    error.text = 'Select how much you would charge';
     errors.push(error);
   }
 
@@ -650,7 +650,7 @@ router.post('/staff', checkHasAnswers, (req, res) => {
     let error = {};
     error.fieldName = 'staff';
     error.href = '#staff';
-    error.text = 'Choose whether you can offer staff';
+    error.text = 'Select whether you can offer staff';
     errors.push(error);
   }
 
@@ -723,7 +723,7 @@ router.post('/staff-details', checkHasAnswers, (req, res) => {
     let error = {};
     error.fieldName = 'staff-type';
     error.href = '#staff-type';
-    error.text = 'Choose what kind of staff you can offer';
+    error.text = 'Select what kind of staff you can offer';
     errors.push(error);
   } else {
 
@@ -745,7 +745,7 @@ router.post('/staff-details', checkHasAnswers, (req, res) => {
     let error = {};
     error.fieldName = 'staff-cost';
     error.href = '#staff-cost';
-    error.text = 'Choose how much you would charge';
+    error.text = 'Select how much you would charge';
     errors.push(error);
   }
 
@@ -818,7 +818,7 @@ router.post('/care', checkHasAnswers, (req, res) => {
     let error = {};
     error.fieldName = 'care';
     error.href = '#care';
-    error.text = 'Choose whether you can offer social care or childcare';
+    error.text = 'Select whether you can offer social care or childcare';
     errors.push(error);
   }
 
@@ -891,7 +891,7 @@ router.post('/care-details', checkHasAnswers, (req, res) => {
     let error = {};
     error.fieldName = 'care-type';
     error.href = '#care-type';
-    error.text = 'Choose what kind of care you can offer';
+    error.text = 'Select what kind of care you can offer';
     errors.push(error);
   }
 
@@ -899,7 +899,7 @@ router.post('/care-details', checkHasAnswers, (req, res) => {
     let error = {};
     error.fieldName = 'care-qualifications';
     error.href = '#care-qualifications';
-    error.text = 'Choose what qualifications your or people in your business have';
+    error.text = 'Select what qualifications your or people in your business have';
     errors.push(error);
   } else {
     if (req.session.data.answers['care']['qualifications'].indexOf('healthcare') !== -1 && !req.session.data.answers['care']['description']['healthcare'].length) {
@@ -915,7 +915,7 @@ router.post('/care-details', checkHasAnswers, (req, res) => {
     let error = {};
     error.fieldName = 'care-cost';
     error.href = '#care-cost';
-    error.text = 'Choose how much you would charge';
+    error.text = 'Select how much you would charge';
     errors.push(error);
   }
 
@@ -988,7 +988,7 @@ router.post('/expertise', checkHasAnswers, (req, res) => {
     // let error = {};
     // error.fieldName = 'expertise';
     // error.href = '#expertise';
-    // error.text = 'Choose what kinds of expertise you can offer';
+    // error.text = 'Select what kinds of expertise you can offer';
     // errors.push(error);
   } else {
 
@@ -1113,7 +1113,7 @@ router.post('/expertise-construction', checkHasAnswers, (req, res) => {
     let error = {};
     error.fieldName = 'expertise-construction-type';
     error.href = '#expertise-construction-type';
-    error.text = 'Choose what kinds of construction services you can offer';
+    error.text = 'Select what kinds of construction services you can offer';
     errors.push(error);
   }
 
@@ -1121,7 +1121,7 @@ router.post('/expertise-construction', checkHasAnswers, (req, res) => {
     let error = {};
     error.fieldName = 'expertise-construction-cost';
     error.href = '#expertise-construction-cost';
-    error.text = 'Choose how much you would charge';
+    error.text = 'Select how much you would charge';
     errors.push(error);
   }
 
@@ -1208,7 +1208,7 @@ router.post('/expertise-it-services', checkHasAnswers, (req, res) => {
     let error = {};
     error.fieldName = 'expertise-it-services-type';
     error.href = '#expertise-it-services-type';
-    error.text = 'Choose what kinds of IT services you can offer';
+    error.text = 'Select what kinds of IT services you can offer';
     errors.push(error);
   }
 
@@ -1216,7 +1216,7 @@ router.post('/expertise-it-services', checkHasAnswers, (req, res) => {
     let error = {};
     error.fieldName = 'expertise-it-services-cost';
     error.href = '#expertise-it-services-cost';
-    error.text = 'Choose how much you would charge';
+    error.text = 'Select how much you would charge';
     errors.push(error);
   }
 
@@ -1350,7 +1350,7 @@ router.post('/location', checkHasAnswers, (req, res) => {
     let error = {};
     error.fieldName = 'location';
     error.href = '#location';
-    error.text = 'Choose where you can offer your services';
+    error.text = 'Select where you can offer your services';
     errors.push(error);
   }
 
@@ -1413,19 +1413,27 @@ router.post('/business-details', checkHasAnswers, (req, res) => {
     errors.push(error);
   }
 
-  // if (!req.session.data.answers['company']['number'].length) {
-  //   let error = {};
-  //   error.fieldName = 'company-number';
-  //   error.href = '#company-number';
-  //   error.text = 'Enter a company number';
-  //   errors.push(error);
-  // }
+  if (req.session.data.answers['company']['registered'] === undefined) {
+    let error = {};
+    error.fieldName = 'company-registered';
+    error.href = '#company-registered';
+    error.text = 'Select if your company is registered in the UK';
+    errors.push(error);
+  } else {
+    if (req.session.data.answers['company']['registered'] == 'yes' && !req.session.data.answers['company']['number'].length) {
+      let error = {};
+      error.fieldName = 'company-number';
+      error.href = '#company-number';
+      error.text = 'Enter a company number';
+      errors.push(error);
+    }
+  }
 
   if (req.session.data.answers['company']['size'] === undefined) {
     let error = {};
     error.fieldName = 'company-size';
     error.href = '#company-size';
-    error.text = 'Choose a company size';
+    error.text = 'Select a company size';
     errors.push(error);
   }
 
@@ -1433,7 +1441,7 @@ router.post('/business-details', checkHasAnswers, (req, res) => {
     let error = {};
     error.fieldName = 'company-location';
     error.href = '#company-location';
-    error.text = 'Choose the location of the company’s main office';
+    error.text = 'Select the location of the company’s main office';
     errors.push(error);
   } else {
     if (req.session.data.answers['company']['location'] == 'uk' && !req.session.data.answers['company']['postcode'].length) {
@@ -1590,7 +1598,7 @@ router.post('/business-type', checkHasAnswers, (req, res) => {
     let error = {};
     error.fieldName = 'business-type';
     error.href = '#business-type';
-    error.text = 'Choose what kind of business you are';
+    error.text = 'Select what kind of business you are';
     errors.push(error);
   }
 
@@ -1651,7 +1659,7 @@ router.post('/medical-equipment-type', checkHasAnswers, (req, res) => {
     let error = {};
     error.fieldName = 'medical-equipment-type';
     error.href = '#medical-equipment-type';
-    error.text = 'Choose what type of medical equipment you can offer';
+    error.text = 'Select what type of medical equipment you can offer';
     errors.push(error);
   }
 
@@ -1738,7 +1746,7 @@ router.post('/medical-equipment-ppe', checkHasAnswers, (req, res) => {
     let error = {};
     error.fieldName = 'product-type';
     error.href = '#product-type';
-    error.text = 'Choose the type of equipment';
+    error.text = 'Select the type of equipment';
     errors.push(error);
   } else {
     if (req.session.data.answers['product']['type'] == 'other' && !req.session.data.answers['product']['type-other'].length) {
@@ -1778,7 +1786,7 @@ router.post('/medical-equipment-ppe', checkHasAnswers, (req, res) => {
     let error = {};
     error.fieldName = 'product-location';
     error.href = '#product-location';
-    error.text = 'Choose where the product is made or stored';
+    error.text = 'Select where the product is made or stored';
     errors.push(error);
   } else {
     if (req.session.data.answers['product']['location'] == 'uk' && !req.session.data.answers['product']['postcode'].length) {
@@ -1912,7 +1920,7 @@ router.post('/medical-equipment-other', checkHasAnswers, (req, res) => {
     let error = {};
     error.fieldName = 'product-location';
     error.href = '#product-location';
-    error.text = 'Choose where the product is made or stored';
+    error.text = 'Select where the product is made or stored';
     errors.push(error);
   } else {
     if (req.session.data.answers['product']['location'] == 'uk' && !req.session.data.answers['product']['postcode'].length) {
@@ -2011,7 +2019,7 @@ router.post('/another-product', checkHasAnswers, (req, res) => {
     let error = {};
     error.fieldName = 'another-product';
     error.href = '#another-product';
-    error.text = 'Choose whether you can offer another product';
+    error.text = 'Select whether you can offer another product';
     errors.push(error);
   }
 

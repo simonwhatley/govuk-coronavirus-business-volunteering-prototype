@@ -42,22 +42,48 @@
         }
       }) }}
 
-      {{ govukInput({
-        id: "company-number",
-        name: "answers[company][number]",
-        label: {
-          text: "Company number (optional)",
-          classes: "govuk-label--s"
+      {{ govukRadios({
+        idPrefix: "company-registered",
+        name: "answers[company][registered]",
+        fieldset: {
+          legend: {
+            text: "Is your company registered in the UK?",
+
+            classes: "govuk-fieldset__legend--s"
+          }
         },
-        hint: {
-          text: ""
-        },
-        errorMessage: errors | getErrorMessage('company-number'),
-        value: data['answers']['company']['number'],
-        attributes: {
-          "autocomplete": "off",
-          "autocapitalize": "off"
-        }
+        errorMessage: errors | getErrorMessage('company-registered'),
+        items: [
+          {
+            value: "yes",
+            text: "Yes",
+            conditional: {
+              html: govukInput({
+                      id: "company-number",
+                      name: "answers[company][number]",
+                      label: {
+                        text: "Company number"
+                      },
+                      hint: {
+                        text: "This is the Companies House registration number"
+                      },
+                      errorMessage: errors | getErrorMessage('company-number'),
+                      value: data['answers']['company']['number'],
+                      classes: "govuk-input--width-10",
+                      attributes: {
+                        "autocomplete": "off",
+                        "autocapitalize": "off"
+                      }
+                    })
+            },
+            checked: true if data['answers']['company']['registered'] == "yes"
+          },
+          {
+            value: "no",
+            text: "No",
+            checked: true if data['answers']['company']['registered'] == "no"
+          }
+        ]
       }) }}
 
       {{ govukRadios({

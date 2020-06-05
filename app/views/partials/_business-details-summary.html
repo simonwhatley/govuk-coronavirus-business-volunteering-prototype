@@ -23,12 +23,20 @@
     },
     {
       key: {
+        text: "Company registered in the UK"
+      },
+      value: {
+        text: data['answers']['company']['registered'] | capitalize
+      }
+    },
+    {
+      key: {
         text: "Company number"
       },
       value: {
         text: data['answers']['company']['number']
       }
-    },
+    } if data['answers']['company']['number'] | length,
     {
       key: {
         text: "Company size"
