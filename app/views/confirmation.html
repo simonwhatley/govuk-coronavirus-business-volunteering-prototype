@@ -22,20 +22,19 @@
 
     <p class="govuk-body">We have sent you a confirmation email.</p>
 
-    {% if data.answers['products'] | isBelowThreshold(100000) == true %}
+    {#% if data.answers['products'] | isBelowThreshold(100000) == true %}
       <p class="govuk-body govuk-!-font-weight-bold">Offering less than 100,000 items of a product</p>
       <p class="govuk-body">Your offer of less than 100,000 items of personal protective equipment cannot be processed. Contact an <a class="govuk-link" href="/coordination-centres">NHS Regional Incident Coordination Centre to offer the product.</a></p>
-    {% endif %}
+    {% endif %#}
 
     <h2 class="govuk-heading-m">What happens next</h2>
 
-    <p class="govuk-body">If your help is needed you’ll be contacted as soon as possible.</p>
+    <p class="govuk-body">If you’ve offered personal protective equipment (PPE) your offer has been sent to the Department of Health and Social Care. If you’ve offered other types of support your offer has been sent to the Crown Commercial Service.</p>
+    <p class="govuk-body">You’ll be contacted if your support is needed. This can take a few weeks.</p>
+    <p class="govuk-body">Because we’re receiving a lot of offers, you might not hear back if your support is not needed.</p>
+    <p class="govuk-body"><a class="govuk-link" href="https://www.gov.uk/coronavirus">Find all information on coronavirus (COVID-19)</a>.</p>
+    <p class="govuk-body"><a class="govuk-link" href="https://www.gov.uk/done/coronavirus-support-from-business">Give feedback on this service</a>.</p>
 
-
-
-    <p class="govuk-body">
-      <a href="#" class="govuk-link">What did you think of this service?</a> (takes 30 seconds)
-    </p>
   </div>
 </div>
 
