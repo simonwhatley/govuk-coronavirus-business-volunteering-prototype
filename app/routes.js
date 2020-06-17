@@ -1709,12 +1709,12 @@ router.post('/medical-equipment-type', checkHasAnswers, (req, res) => {
 // --------------------------------------------------
 router.get('/medical-equipment-ppe', checkHasAnswers, (req, res) => {
 
-  let next = req.baseUrl + '/medical-equipment-ppe';
-  if (req.headers.referer.includes('check-your-answers')) {
-    next = next + '?referer=check-your-answers';
-  }
+  // let next = req.baseUrl + '/medical-equipment-ppe';
+  // if (req.headers.referer.includes('check-your-answers')) {
+  //   next = next + '?referer=check-your-answers';
+  // }
 
-  let previous = req.baseUrl + '/medical-equipment-type';
+  // let previous = req.baseUrl + '/medical-equipment-type';
 
   // res.render('medical-equipment-ppe', {
   //   actions: {
@@ -1723,13 +1723,15 @@ router.get('/medical-equipment-ppe', checkHasAnswers, (req, res) => {
   //     start: req.baseUrl + '/'
   //   }
   // });
+
   res.render('coordination-centres', {
     actions: {
-      save: next,
-      back: previous,
+      save: req.baseUrl + '/accommodation',
+      back: req.baseUrl + '/medical-equipment-type',
       start: req.baseUrl + '/'
     }
   });
+
 });
 
 router.post('/medical-equipment-ppe', checkHasAnswers, (req, res) => {
@@ -1845,7 +1847,8 @@ router.post('/medical-equipment-ppe', checkHasAnswers, (req, res) => {
 // --------------------------------------------------
 router.get('/medical-equipment-testing', checkHasAnswers, (req, res) => {
 
-  let next = req.baseUrl + '/another-product';
+  // let next = req.baseUrl + '/another-product';
+  let next = req.baseUrl + '/accommodation';
   if (req.headers.referer.includes('check-your-answers')) {
     next = next + '?referer=check-your-answers';
   }
