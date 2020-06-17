@@ -88,7 +88,7 @@ router.post('/medical-equipment', checkHasAnswers, (req, res) => {
       if (req.query.referer == 'check-your-answers') {
         res.redirect(req.baseUrl + '/check-your-answers');
       } else {
-        res.redirect(req.baseUrl + '/business-type');
+        res.redirect(req.baseUrl + '/medical-equipment-type');
       }
 
     } else {
@@ -1635,7 +1635,7 @@ router.get('/medical-equipment-type', checkHasAnswers, (req, res) => {
     next = next + '?referer=check-your-answers';
   }
 
-  let previous = req.baseUrl + '/business-type';
+  let previous = req.baseUrl + '/medical-equipment';
 
   res.render('medical-equipment-type', {
     actions: {
@@ -1669,7 +1669,7 @@ router.post('/medical-equipment-type', checkHasAnswers, (req, res) => {
       errors: errors,
       actions: {
         save: req.baseUrl + '/medical-equipment-type',
-        back: req.baseUrl + '/business-type',
+        back: req.baseUrl + '/medical-equipment',
         start: req.baseUrl + '/'
       }
     });
@@ -1716,7 +1716,14 @@ router.get('/medical-equipment-ppe', checkHasAnswers, (req, res) => {
 
   let previous = req.baseUrl + '/medical-equipment-type';
 
-  res.render('medical-equipment-ppe', {
+  // res.render('medical-equipment-ppe', {
+  //   actions: {
+  //     save: next,
+  //     back: previous,
+  //     start: req.baseUrl + '/'
+  //   }
+  // });
+  res.render('coordination-centres', {
     actions: {
       save: next,
       back: previous,

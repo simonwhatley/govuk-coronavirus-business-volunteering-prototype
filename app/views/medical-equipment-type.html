@@ -21,25 +21,18 @@
 
     <form action="{{ actions.save }}" method="post" accept-charset="utf-8" novalidate>
 
-      {%- set hintHtml %}
-        {{ govukInsetText({
-          html: '<p class="govuk-body">If you cannot offer more than 100,000 items of a personal protective equipment product, you should not use this form. <a class="govuk-link" href="/coordination-centres">Contact an NHS Regional Incident Coordination Centre to offer the product</a>.</p>'
-        }) }}
-        <p class="govuk-hint">Give details for one product at a time</p>
-      {% endset -%}
-
       {{ govukRadios({
         idPrefix: "medical-equipment-type",
         name: "answers[medical-equipment-type]",
         fieldset: {
           legend: {
-            text: "What type of medical equipment can you offer?",
+            text: "What type of medical equipment or services can you offer?",
             isPageHeading: true,
             classes: "govuk-fieldset__legend--xl"
           }
         },
         hint: {
-          html: hintHtml
+          text: ""
         },
         errorMessage: errors | getErrorMessage('medical-equipment-type'),
         items: [
@@ -53,7 +46,10 @@
           },
           {
             value: "testing",
-            text: "Testing equipment",
+            text: "Testing facilities",
+            hint: {
+              text: "For example coronavirus tests, consumables and equipment, or laboratory capacity"
+            },
             checked: true if data['answers']['medical-equipment-type'] == "testing"
           }
         ]
