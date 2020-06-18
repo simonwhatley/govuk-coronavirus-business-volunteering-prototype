@@ -122,6 +122,10 @@ router.get('/accommodation', checkHasAnswers, (req, res) => {
   let previous = req.baseUrl + '/medical-equipment';
   if (req.headers.referer.includes('check-your-answers')) {
     previous = req.baseUrl + '/check-your-answers';
+  } else if (req.headers.referer.includes('medical-equipment-ppe')) {
+    previous = req.baseUrl + '/medical-equipment-ppe';
+  } else if (req.headers.referer.includes('medical-equipment-testing')) {
+    previous = req.baseUrl + '/medical-equipment-testing';
   }
 
   res.render('accommodation', {
