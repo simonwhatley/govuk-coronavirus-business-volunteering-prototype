@@ -20,11 +20,17 @@
       Offer your products to an NHS Regional Coordination Centre
     </h1>
 
-    <p class="govuk-body">If you’re offering less than 100,000 items of a personal protective equipment product, you should offer them to an NHS Regional Coordination Centre.</p>
+    <p class="govuk-body">Email the centre giving details of the products you’re offering. For each product you should include:</p>
 
-    <h2 class="govuk-heading-l">How to offer your products</h2>
+    <ul class="govuk-list govuk-list--bullet">
+      <li>the name and type of product</li>
+      <li>the amount you can offer</li>
+      <li>certification details and information about whether it <a class="govuk-link" href="https://www.gov.uk/government/publications/technical-specifications-for-personal-protective-equipment-ppe">meets the technical specifications</a></li>
+      <li>the cost per item</li>
+      <li>the lead time</li>
+    </ul>
 
-    <p class="govuk-body">Email the centre giving details of the products you’re offering, including whether they <a class="govuk-link" href="https://www.gov.uk/government/publications/technical-specifications-for-personal-protective-equipment-ppe">meet the technical specifications</a>.</p>
+    <p class="govuk-body">You should also include your company name and company number, if you have one.</p>
 
     <p class="govuk-body">You can email any centre, but you will have to transport the products yourself or arrange for them to be delivered.</p>
 
@@ -44,6 +50,12 @@
     <p class="govuk-body"><a class="govuk-link" href="mailto:england.se-incident@nhs.net">england.se-incident@nhs.net</a></p>
     <h3 class="govuk-heading-m">South West</h3>
     <p class="govuk-body"><a class="govuk-link" href="mailto:england.sw-incident1@nhs.net">england.sw-incident1@nhs.net</a></p>
+
+    {{ govukButton({
+      text: "Continue offering other services",
+      href: actions.save,
+      classes: "govuk-!-margin-top-5"
+    }) }}
 
   </div>
 </div>

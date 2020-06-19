@@ -19,24 +19,30 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
     <h1 class="govuk-heading-xl">
-      Testing equipment
+      Offer coronavirus tests or testing facilities
     </h1>
 
-    {# <form action="{{ actions.save }}" method="post" accept-charset="utf-8" novalidate> #}
+    <p class="govuk-body">
+      You can offer:
+    </p>
 
-      <p class="govuk-body">
-        <a href="https://www.gov.uk/guidance/help-the-government-increase-coronavirus-covid-19-testing-capacity" class="govuk-link" target="_blank">
-          Offer testing equipment (opens in a new window)
-        </a>
-      <p>
+    <ul class="govuk-list govuk-list--bullet">
+      <li>new or existing types of coronavirus test</li>
+      <li>consumables and equipment</li>
+      <li>laboratory capacity</li>
+    </ul>
 
-      {{ govukButton({
-        text: "Continue offering other services",
-        href: actions.save,
-        classes: "govuk-!-margin-top-5"
-      }) }}
+    <p class="govuk-body">
+      <a href="https://www.gov.uk/guidance/help-the-government-increase-coronavirus-covid-19-testing-capacity" class="govuk-link" target="_blank">
+        Offer tests or testing facilities (opens in a new window)
+      </a>
+    <p>
 
-    {# </form> #}
+    {{ govukButton({
+      text: "Continue offering other services",
+      href: actions.save,
+      classes: "govuk-!-margin-top-5"
+    }) }}
 
   </div>
 </div>
