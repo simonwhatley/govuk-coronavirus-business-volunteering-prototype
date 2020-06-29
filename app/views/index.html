@@ -20,15 +20,12 @@
     <p class="govuk-body">Use this service to tell us how your business might be able to help with the response to coronavirus (COVID-19).</p>
 
     {{ govukInsetText({
-      html: 'Your business must be registered and have a company number if it’s registered in the UK. If it’s not, you can <a class="govuk-link" href="https://www.gov.uk/volunteering/coronavirus-volunteering">volunteer as an individual</a> instead.'
+      text: "We do not need new offers of personal protective equipment (PPE) at the moment."
     }) }}
 
     <p class="govuk-body">You can offer different kinds of support. This includes:</p>
 
     <ul class="govuk-list govuk-list--bullet">
-      <li>medical testing equipment</li>
-      <li>medical equipment design</li>
-      <li>personal protective equipment (PPE) <a href="https://www.gov.uk/government/publications/technical-specifications-for-personal-protective-equipment-ppe">that meets the technical specifications</a>, such as masks, gowns and sanitiser</li>
       <li>accommodation and hotel rooms</li>
       <li>transport and logistics, for moving goods or people</li>
       <li>manufacturing equipment</li>
@@ -39,6 +36,10 @@
       <li>social care or childcare</li>
       <li>staff, such as cleaners, developers or translators</li>
     </ul>
+
+    {{ govukInsetText({
+      html: 'Your business must be registered and have a company number if it’s registered in the UK. If it’s not, you can <a class="govuk-link" href="https://www.gov.uk/volunteering/coronavirus-volunteering">volunteer as an individual</a> instead.'
+    }) }}
 
     <p class="govuk-body">You’ll be asked some questions about the type of support you can give.</p>
 
